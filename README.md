@@ -116,5 +116,5 @@ This tool uses:
 ## 📬 Contact
 
 For collaborations, bug reports, or questions:  
-**Your Name** – [your.email@unil.ch]  
+Michele Leone – [michele.leone@outlook.com]  
 Project website: [moulting.org](https://www.moulting.org)
