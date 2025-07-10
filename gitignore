@@ -1,0 +1,31 @@
+# ====================
+# MoultGPT .gitignore
+# ====================
+
+# Shell and SLURM scripts (root and subfolders)
+*.sh
+*.sbatch
+finetuning/*.sh
+finetuning/*.sbatch
+
+# Python bytecode and cache
+__pycache__/
+*.py[cod]
+
+# Log files
+*.log
+
+# macOS system files
+.DS_Store
+
+# Virtual environments
+mistral_env/
+.env/
+.venv/
+
+# Node modules (if any frontend includes npm)
+node_modules/
+
+# VSCode and editor configs
+.vscode/
+*.swp
