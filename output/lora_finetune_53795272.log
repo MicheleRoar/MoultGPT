@@ -1,0 +1,43 @@
+[INFO] Loading dataset...
+[INFO] Loading model from /reference/LLMs/Mistral_AI/mistral-7B-Instruct-v0.3-hf...
+[INFO] Applying LoRA configuration...
+[INFO] Starting fine-tuning...
+{'loss': 2.0813, 'grad_norm': 1.7220187187194824, 'learning_rate': 0.00019516129032258066, 'epoch': 0.08}
+{'loss': 1.7605, 'grad_norm': 2.9302937984466553, 'learning_rate': 0.00018978494623655916, 'epoch': 0.16}
+{'loss': 1.4629, 'grad_norm': 4.695734024047852, 'learning_rate': 0.00018440860215053763, 'epoch': 0.24}
+{'loss': 1.1689, 'grad_norm': 3.784644365310669, 'learning_rate': 0.00017903225806451613, 'epoch': 0.32}
+{'loss': 0.871, 'grad_norm': 4.734827041625977, 'learning_rate': 0.00017365591397849463, 'epoch': 0.4}
+{'loss': 0.6636, 'grad_norm': 6.1395487785339355, 'learning_rate': 0.00016827956989247313, 'epoch': 0.48}
+{'loss': 0.4666, 'grad_norm': 4.0046706199646, 'learning_rate': 0.00016290322580645163, 'epoch': 0.57}
+{'loss': 0.325, 'grad_norm': 4.250384330749512, 'learning_rate': 0.0001575268817204301, 'epoch': 0.65}
+{'loss': 0.1724, 'grad_norm': 6.161840915679932, 'learning_rate': 0.0001521505376344086, 'epoch': 0.73}
+{'loss': 0.1383, 'grad_norm': 2.758427858352661, 'learning_rate': 0.0001467741935483871, 'epoch': 0.81}
+{'loss': 0.1201, 'grad_norm': 2.758458375930786, 'learning_rate': 0.0001413978494623656, 'epoch': 0.89}
+{'loss': 0.0921, 'grad_norm': 3.0757811069488525, 'learning_rate': 0.00013602150537634408, 'epoch': 0.97}
+{'loss': 0.0856, 'grad_norm': 2.5633373260498047, 'learning_rate': 0.00013064516129032258, 'epoch': 1.05}
+{'loss': 0.0738, 'grad_norm': 3.358475923538208, 'learning_rate': 0.00012526881720430108, 'epoch': 1.13}
+{'loss': 0.0648, 'grad_norm': 1.8388675451278687, 'learning_rate': 0.00011989247311827958, 'epoch': 1.21}
+{'loss': 0.0611, 'grad_norm': 1.3098292350769043, 'learning_rate': 0.00011451612903225808, 'epoch': 1.29}
+{'loss': 0.0574, 'grad_norm': 1.248572826385498, 'learning_rate': 0.00010913978494623656, 'epoch': 1.37}
+{'loss': 0.0625, 'grad_norm': 1.332871913909912, 'learning_rate': 0.00010376344086021505, 'epoch': 1.45}
+{'loss': 0.0429, 'grad_norm': 1.6828534603118896, 'learning_rate': 9.838709677419355e-05, 'epoch': 1.53}
+{'loss': 0.0471, 'grad_norm': 1.2287184000015259, 'learning_rate': 9.301075268817204e-05, 'epoch': 1.61}
+{'loss': 0.0498, 'grad_norm': 0.9943934082984924, 'learning_rate': 8.763440860215054e-05, 'epoch': 1.69}
+{'loss': 0.0508, 'grad_norm': 1.1062928438186646, 'learning_rate': 8.225806451612904e-05, 'epoch': 1.78}
+{'loss': 0.0508, 'grad_norm': 0.914375364780426, 'learning_rate': 7.688172043010752e-05, 'epoch': 1.86}
+{'loss': 0.0473, 'grad_norm': 0.6778721213340759, 'learning_rate': 7.150537634408602e-05, 'epoch': 1.94}
+{'loss': 0.0441, 'grad_norm': 0.5135976672172546, 'learning_rate': 6.612903225806452e-05, 'epoch': 2.02}
+{'loss': 0.0317, 'grad_norm': 0.49015581607818604, 'learning_rate': 6.0752688172043016e-05, 'epoch': 2.1}
+{'loss': 0.036, 'grad_norm': 0.6196153163909912, 'learning_rate': 5.53763440860215e-05, 'epoch': 2.18}
+{'loss': 0.0428, 'grad_norm': 0.46605461835861206, 'learning_rate': 5e-05, 'epoch': 2.26}
+{'loss': 0.034, 'grad_norm': 0.42501768469810486, 'learning_rate': 4.4623655913978496e-05, 'epoch': 2.34}
+{'loss': 0.032, 'grad_norm': 0.7897105813026428, 'learning_rate': 3.924731182795699e-05, 'epoch': 2.42}
+{'loss': 0.034, 'grad_norm': 0.5469017028808594, 'learning_rate': 3.387096774193548e-05, 'epoch': 2.5}
+{'loss': 0.0394, 'grad_norm': 0.5139340162277222, 'learning_rate': 2.8494623655913982e-05, 'epoch': 2.58}
+{'loss': 0.0351, 'grad_norm': 0.8016729950904846, 'learning_rate': 2.3118279569892472e-05, 'epoch': 2.66}
+{'loss': 0.035, 'grad_norm': 0.5391980409622192, 'learning_rate': 1.774193548387097e-05, 'epoch': 2.74}
+{'loss': 0.0383, 'grad_norm': 0.37245652079582214, 'learning_rate': 1.2365591397849464e-05, 'epoch': 2.82}
+{'loss': 0.0384, 'grad_norm': 0.26219117641448975, 'learning_rate': 6.989247311827957e-06, 'epoch': 2.91}
+{'loss': 0.034, 'grad_norm': 0.6402014493942261, 'learning_rate': 1.6129032258064516e-06, 'epoch': 2.99}
+{'train_runtime': 1096.9716, 'train_samples_per_second': 2.707, 'train_steps_per_second': 0.339, 'train_loss': 0.2822529563620206, 'epoch': 3.0}
+[INFO] Training completed. Model saved.

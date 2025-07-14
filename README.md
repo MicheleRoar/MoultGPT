@@ -62,12 +62,12 @@ GROBID will be available on: http://localhost:8070
 
 ---
 
-## 🔁 Running Fine-tuning with LoRA (on SLURM)
+## 🔁 Running Fine-tuning with LoRA
 
 Make sure `finetune_full.jsonl` exists in the root.
 
 ```bash
-sbatch finetuning/run_finetuning.sh
+python main_generate_dataset.py
 ```
 
 You can monitor the job in `finetuning/finetune_output.log`.

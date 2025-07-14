@@ -6,11 +6,11 @@ import tempfile
 import numpy as np
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from transformers import AutoTokenizer, AutoModelForCausalLM
+from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
+from peft import PeftModel
 
-# Add paper_handler/ to import path
+# === Path a moduli locali ===
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "paper_handler")))
-
 from processor import input_to_text
 from preprocessing import extract_relevant_sentences
 
@@ -19,17 +19,42 @@ print("[BOOT] Initializing Flask backend...")
 app = Flask(__name__)
 CORS(app)
 
-# === Load model ===
+# === Percorsi dei modelli ===
 MODEL_PATH = "/reference/LLMs/Mistral_AI/mistral-7B-Instruct-v0.3-hf/"
-print(f"[BOOT] Loading Mistral model from {MODEL_PATH}")
-tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH)
-model = AutoModelForCausalLM.from_pretrained(
-    MODEL_PATH,
-    device_map="auto",
-    torch_dtype=torch.bfloat16
-)
-print("[BOOT] Model loaded successfully.")
+LORA_PATH = "/work/FAC/FBM/DEE/mrobinso/moult/michele/LLM/outputs/mistral-finetuned/"
 
+# === Load tokenizer ===
+tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH)
+
+# === Configurazione BitsAndBytes per quantizzazione 4bit ===
+bnb_config = BitsAndBytesConfig(
+    load_in_4bit=True,
+    bnb_4bit_compute_dtype=torch.float16,
+    bnb_4bit_use_double_quant=True
+)
+
+# === Carica modello base quantizzato ===
+base_model = AutoModelForCausalLM.from_pretrained(
+    MODEL_PATH,
+    quantization_config=bnb_config,
+    device_map="auto"
+)
+
+# === Loada adapter LoRA fine-tuned ===
+USE_LORA = False  # ⬅️ cambia in True per attivare l'adapter
+
+if USE_LORA:
+    model = PeftModel.from_pretrained(base_model, LORA_PATH)
+else:
+    model = base_model
+
+model.eval()
+
+print(f"[BOOT] Loaded base model: {MODEL_PATH}")
+print(f"[BOOT] Attached LoRA adapter from: {LORA_PATH}")
+print("[BOOT] Model with LoRA loaded successfully.")
+
+# === Routes ===
 @app.route("/", methods=["GET"])
 def root():
     return "LLM backend is running"
@@ -49,7 +74,7 @@ def handle_query():
         if not prompt:
             return jsonify({"response": "Missing query prompt."}), 400
 
-        # === Step 1: Get text from input ===
+        # === Step 1: Estrai testo da input ===
         if doi:
             full_text = input_to_text(doi=doi, email="your@email.com")
         elif uploaded_file:
@@ -65,11 +90,11 @@ def handle_query():
         if not full_text or len(full_text.strip()) < 100:
             return jsonify({"response": "Could not extract meaningful content."}), 500
 
-        # === Step 2: Extract relevant summary ===
+        # === Step 2: Sentence filtering ===
         summary = extract_relevant_sentences(full_text)
         print(f"[INFO] Extracted {summary.count(chr(10))} relevant lines")
 
-        # === Step 3: Format prompt
+        # === Step 3: Prompt formatting ===
         fixed = (
             "You are a scientific assistant specialized in arthropod moulting.\n"
             "Extract only the specific biological trait requested in the prompt.\n"
@@ -80,12 +105,13 @@ def handle_query():
 
         # === Step 4: Tokenize and infer ===
         print("[INFO] Tokenizing input...")
+        device = "cuda" if torch.cuda.is_available() else "cpu"
         inputs = tokenizer(
             formatted_prompt,
             return_tensors="pt",
             truncation=True,
             max_length=2048
-        ).to("cuda" if torch.cuda.is_available() else "cpu")
+        ).to(device)
 
         print("[INFO] Running LLM generation...")
         output_ids = model.generate(
@@ -106,6 +132,7 @@ def handle_query():
         traceback.print_exc()
         return jsonify({"response": f"Internal error: {str(e)}"}), 500
 
+# === Avvia server ===
 if __name__ == "__main__":
     print("[BOOT] Running backend on http://0.0.0.0:5001")
     app.run(host="0.0.0.0", port=5001)
