@@ -1,0 +1,17 @@
+# Backend core
+flask>=3.0.0
+flask-cors>=4.0.0
+numpy>=1.26.0
+pillow>=10.0.0
+
+# YOLO + Torch
+ultralytics==8.3.70
+torch==2.3.0
+
+# ML models
+xgboost>=2.0.0
+scikit-learn>=1.4.0
+joblib>=1.3.0
+
+# Only if you REALLY need it:
+# opencv-python-headless>=4.8.0

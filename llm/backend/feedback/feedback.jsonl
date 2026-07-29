@@ -1,0 +1,1 @@
+{"query": "Which moulting species is reported in this paper?", "response": "```yaml\nmoulting_species:\n  - Omegops sp.\n```", "model_id": "mistral-small-latest", "rating": 1, "comment": ""}

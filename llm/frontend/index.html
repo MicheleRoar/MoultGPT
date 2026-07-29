@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MoultGPT — LLM tester</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --bg: #0f1115;
+    --panel: #171a21;
+    --border: #2a2f3a;
+    --text: #e6e8ec;
+    --muted: #9aa3b2;
+    --accent: #6ea8fe;
+    --ok: #4caf7d;
+    --bad: #e5636b;
+    --warn: #d8a94b;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 24px;
+  }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  .subtitle { color: var(--muted); font-size: 13px; margin-bottom: 20px; }
+  .status-pill {
+    display: inline-block; padding: 2px 10px; border-radius: 999px;
+    font-size: 12px; font-weight: 600; margin-left: 8px;
+  }
+  .status-ok { background: rgba(76,175,125,0.15); color: var(--ok); }
+  .status-bad { background: rgba(229,99,107,0.15); color: var(--bad); }
+
+  .layout { display: grid; grid-template-columns: 380px 1fr; gap: 20px; align-items: start; }
+  @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
+
+  .panel {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 10px; padding: 16px;
+  }
+  .panel + .panel { margin-top: 16px; }
+  .panel h2 { font-size: 14px; margin: 0 0 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+
+  label { display: block; font-size: 13px; margin: 10px 0 4px; color: var(--muted); }
+  input[type=text], textarea, select {
+    width: 100%; background: #0c0e12; border: 1px solid var(--border);
+    color: var(--text); border-radius: 6px; padding: 8px 10px; font-size: 13px;
+    font-family: inherit; resize: vertical;
+  }
+  textarea { min-height: 70px; }
+  .tabs { display: flex; gap: 6px; margin-bottom: 8px; }
+  .tab-btn {
+    flex: 1; padding: 6px 8px; font-size: 12px; border-radius: 6px; border: 1px solid var(--border);
+    background: #0c0e12; color: var(--muted); cursor: pointer;
+  }
+  .tab-btn.active { background: var(--accent); color: #0c0e12; border-color: var(--accent); font-weight: 600; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  .model-list { display: flex; flex-direction: column; gap: 6px; max-height: 260px; overflow-y: auto; }
+  .model-item {
+    display: flex; align-items: flex-start; gap: 8px; padding: 6px 8px;
+    border: 1px solid var(--border); border-radius: 6px; font-size: 12px; cursor: pointer;
+  }
+  .model-item:hover { border-color: var(--accent); }
+  .model-item input { margin-top: 2px; }
+  .model-meta { color: var(--muted); font-size: 11px; }
+
+  button.primary, button.secondary {
+    border: none; border-radius: 6px; padding: 9px 14px; font-size: 13px;
+    font-weight: 600; cursor: pointer; margin-top: 12px; margin-right: 8px;
+  }
+  button.primary { background: var(--accent); color: #0c0e12; }
+  button.secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+  button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .result-card {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px; margin-bottom: 14px;
+  }
+  .result-head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; }
+  .result-title { font-weight: 700; font-size: 14px; }
+  .badge { font-size: 11px; padding: 2px 8px; border-radius: 999px; font-weight: 600; }
+  .badge-ok { background: rgba(76,175,125,0.15); color: var(--ok); }
+  .badge-bad { background: rgba(229,99,107,0.15); color: var(--bad); }
+  .badge-warn { background: rgba(216,169,75,0.15); color: var(--warn); }
+  pre {
+    background: #0c0e12; border: 1px solid var(--border); border-radius: 6px;
+    padding: 10px; font-size: 12px; overflow-x: auto; white-space: pre-wrap; word-break: break-word;
+  }
+  .meta-row { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12px; color: var(--muted); margin-top: 6px; }
+  .empty-hint { color: var(--muted); font-size: 13px; }
+  .gate-detail summary { cursor: pointer; font-size: 12px; color: var(--muted); margin-top: 6px; }
+  mark {
+    background: rgba(110, 168, 254, 0.28); color: var(--text);
+    border-radius: 2px; padding: 0 1px;
+  }
+  .evidence-item { margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  .evidence-item:last-child { border-bottom: none; }
+  .evidence-meta { font-size: 11px; color: var(--muted); margin-bottom: 2px; }
+  .evidence-sentence { font-size: 13px; }
+</style>
+</head>
+<body>
+
+<h1>🐛 MoultGPT — LLM tester
+  <span id="health-pill" class="status-pill status-bad">checking…</span>
+</h1>
+<div class="subtitle">Test the ontology-driven gating + remote LLM pipeline on a DOI, a PDF, or raw text — across one or several models at once.</div>
+
+<div class="panel" style="margin-bottom:16px;">
+  <h2>Examples <span class="model-meta">one click fills the form below</span></h2>
+  <div id="example-list" style="display:flex; flex-wrap:wrap; gap:8px;"></div>
+</div>
+
+<div class="layout">
+
+  <!-- LEFT: input panel -->
+  <div>
+    <div class="panel">
+      <h2>Paper source</h2>
+      <div class="tabs source-tabs">
+        <button class="tab-btn active" data-tab="doi">DOI</button>
+        <button class="tab-btn" data-tab="pdf">PDF</button>
+        <button class="tab-btn" data-tab="text">Raw text</button>
+      </div>
+      <div class="tab-panel active" data-tab-panel="doi">
+        <label for="doi-input">DOI</label>
+        <input id="doi-input" type="text" placeholder="10.1038/s41598-022-18146-3">
+      </div>
+      <div class="tab-panel" data-tab-panel="pdf">
+        <label for="pdf-input">PDF file</label>
+        <input id="pdf-input" type="file" accept="application/pdf">
+      </div>
+      <div class="tab-panel" data-tab-panel="text">
+        <label for="text-input">Raw text</label>
+        <textarea id="text-input" placeholder="Paste paper text or an excerpt here…" style="min-height: 140px;"></textarea>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Extraction mode</h2>
+      <div class="tabs mode-tabs">
+        <button class="tab-btn active" data-mode="full_traits">All MoultDB traits</button>
+        <button class="tab-btn" data-mode="single_trait">Single question</button>
+      </div>
+      <p class="empty-hint" id="mode-hint" style="margin: 4px 0 0;">
+        Asks for every one of the 55 MoultDB fields the text supports (mirrors the original fine-tuned model). The query below is just an optional focus hint.
+      </p>
+    </div>
+
+    <div class="panel">
+      <h2>Sentence selection</h2>
+      <label for="num-sentences-input">Max sentences kept as evidence (cap)</label>
+      <input id="num-sentences-input" type="text" placeholder="server default (usually 20)">
+      <p class="empty-hint" style="margin: 6px 0 0;">
+        Leave blank to use the server default. Raise this to test whether the current cap is
+        dropping useful evidence — the result below shows how many sentences passed the ontology
+        filter vs. how many this cap actually kept.
+      </p>
+    </div>
+
+    <div class="panel">
+      <h2>Query</h2>
+      <label for="prompt-input" id="prompt-label">Optional focus (still required — also used to check the paper/query are in scope)</label>
+      <textarea id="prompt-input" placeholder="e.g. Focus on reproductive state and moult stage / or leave a generic note like 'Extract all moulting traits'"></textarea>
+    </div>
+
+    <div class="panel">
+      <h2>Models <span class="model-meta" id="models-count"></span></h2>
+      <div id="model-list" class="model-list">
+        <div class="empty-hint">Loading model registry…</div>
+      </div>
+      <button class="secondary" id="select-all-btn" type="button" style="margin-top:8px;">Select all</button>
+      <button class="secondary" id="select-none-btn" type="button">Select none</button>
+    </div>
+
+    <div class="panel">
+      <button class="secondary" id="preview-btn" type="button">Preview gate only</button>
+      <button class="primary" id="run-btn" type="button">Run query</button>
+      <div class="empty-hint" id="run-status" style="margin-top:8px;"></div>
+    </div>
+  </div>
+
+  <!-- RIGHT: results -->
+  <div>
+    <div id="results">
+      <div class="panel"><div class="empty-hint">Results will appear here.</div></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const els = {
+  healthPill: document.getElementById('health-pill'),
+  modelList: document.getElementById('model-list'),
+  modelsCount: document.getElementById('models-count'),
+  results: document.getElementById('results'),
+  runStatus: document.getElementById('run-status'),
+};
+
+let MODELS = [];
+
+// ---- tabs (scoped per group so the source tabs and the mode tabs don't fight) ----
+document.querySelectorAll('.tabs').forEach(group => {
+  group.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      group.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      if (btn.dataset.tab) {
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        const panel = document.querySelector(`.tab-panel[data-tab-panel="${btn.dataset.tab}"]`);
+        if (panel) panel.classList.add('active');
+      }
+      if (btn.dataset.mode) {
+        updateModeHint(btn.dataset.mode);
+      }
+    });
+  });
+});
+
+const MODE_HINTS = {
+  full_traits: "Asks for every one of the 55 MoultDB fields the text supports (mirrors the original fine-tuned model). The query below is just an optional focus hint.",
+  single_trait: "Answers only the exact question below, ignores everything else — good for a quick targeted follow-up.",
+};
+
+function updateModeHint(mode) {
+  document.getElementById('mode-hint').textContent = MODE_HINTS[mode] || '';
+  document.getElementById('prompt-label').textContent =
+    mode === 'single_trait'
+      ? 'What do you want to extract? (required)'
+      : 'Optional focus (still required — also used to check the paper/query are in scope)';
+}
+
+function activeSourceTab() {
+  return document.querySelector('.source-tabs .tab-btn.active').dataset.tab;
+}
+
+function switchSourceTab(tab) {
+  document.querySelector(`.source-tabs .tab-btn[data-tab="${tab}"]`).click();
+}
+
+function activeMode() {
+  return document.querySelector('.mode-tabs .tab-btn.active').dataset.mode;
+}
+
+// ---- one-click examples ----
+const EXAMPLES = [
+  {
+    label: 'DOI · Devonian trilobite moulting',
+    tab: 'doi',
+    doi: '10.1038/s41598-022-18146-3',
+    prompt: 'What moulting stage is described for the trilobite specimens in this paper, and what evidence supports it?',
+    note: 'Needs GROBID running (DOI → PDF → text).',
+  },
+  {
+    label: 'Raw text · quick test (no GROBID needed)',
+    tab: 'text',
+    text: 'The exuviae was found fully detached from the trilobite specimen, indicating a completed ecdysis event. This is the third instar observed in the population sample. The old cuticle showed clear signs of pre-moult thinning along the dorsal suture. During ecdysis, the animal emerged anteriorly through the cephalic region of the exuviae. Post-moult individuals displayed a soft, pale new cuticle that hardened within 48 hours. Intermoult duration between successive instars averaged six days under laboratory conditions.',
+    prompt: 'What moulting stage is described here?',
+    note: 'Works immediately, no DOI/PDF/GROBID required — good first test.',
+  },
+];
+
+function renderExamples() {
+  const wrap = document.getElementById('example-list');
+  wrap.innerHTML = '';
+  EXAMPLES.forEach((ex, i) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'secondary';
+    btn.style.marginTop = '0';
+    btn.title = ex.note || '';
+    btn.textContent = '▶ ' + ex.label;
+    btn.addEventListener('click', () => applyExample(ex));
+    wrap.appendChild(btn);
+  });
+}
+
+function applyExample(ex) {
+  switchSourceTab(ex.tab);
+  if (ex.doi) document.getElementById('doi-input').value = ex.doi;
+  if (ex.text) document.getElementById('text-input').value = ex.text;
+  document.getElementById('prompt-input').value = ex.prompt || '';
+  els.runStatus.textContent = ex.note ? `Example loaded — ${ex.note}` : 'Example loaded.';
+}
+
+renderExamples();
+
+// ---- health check ----
+async function checkHealth() {
+  try {
+    const res = await fetch('/');
+    const data = await res.json();
+    if (data.ready) {
+      els.healthPill.textContent = 'backend ready';
+      els.healthPill.className = 'status-pill status-ok';
+    } else {
+      els.healthPill.textContent = 'backend degraded: ' + (data.boot_error || 'unknown error');
+      els.healthPill.className = 'status-pill status-bad';
+    }
+  } catch (e) {
+    els.healthPill.textContent = 'backend unreachable';
+    els.healthPill.className = 'status-pill status-bad';
+  }
+}
+
+// ---- models ----
+async function loadModels() {
+  try {
+    const res = await fetch('/models');
+    const data = await res.json();
+    MODELS = data.models || [];
+    els.modelsCount.textContent = `(${MODELS.length})`;
+    els.modelList.innerHTML = '';
+    MODELS.forEach(m => {
+      const id = 'model-' + m.id.replace(/[^a-zA-Z0-9]/g, '_');
+      const wrap = document.createElement('label');
+      wrap.className = 'model-item';
+      wrap.innerHTML = `
+        <input type="checkbox" value="${m.id}" id="${id}" ${m.id === data.default_model ? 'checked' : ''}>
+        <span>
+          <div><strong>${m.label}</strong> <span class="model-meta">${m.family}${m.free ? ' · free' : ''}</span></div>
+          <div class="model-meta">${m.id}</div>
+        </span>`;
+      els.modelList.appendChild(wrap);
+    });
+  } catch (e) {
+    els.modelList.innerHTML = '<div class="empty-hint">Could not load /models — is the backend running?</div>';
+  }
+}
+
+document.getElementById('select-all-btn').addEventListener('click', () => {
+  els.modelList.querySelectorAll('input[type=checkbox]').forEach(cb => cb.checked = true);
+});
+document.getElementById('select-none-btn').addEventListener('click', () => {
+  els.modelList.querySelectorAll('input[type=checkbox]').forEach(cb => cb.checked = false);
+});
+
+function selectedModelIds() {
+  return Array.from(els.modelList.querySelectorAll('input[type=checkbox]:checked')).map(cb => cb.value);
+}
+
+// ---- build FormData for the current source tab ----
+function buildBaseFormData() {
+  const fd = new FormData();
+  const tab = activeSourceTab();
+  if (tab === 'doi') {
+    const doi = document.getElementById('doi-input').value.trim();
+    if (!doi) throw new Error('Enter a DOI first.');
+    fd.append('doi', doi);
+  } else if (tab === 'pdf') {
+    const file = document.getElementById('pdf-input').files[0];
+    if (!file) throw new Error('Choose a PDF file first.');
+    fd.append('file', file);
+  } else {
+    const text = document.getElementById('text-input').value.trim();
+    if (!text) throw new Error('Paste some text first.');
+    fd.append('text', text);
+  }
+  return fd;
+}
+
+function escapeHtml(s) {
+  return (s ?? '').toString()
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function numSentencesOverride() {
+  return document.getElementById('num-sentences-input').value.trim();
+}
+
+// ---- evidence view: which sentences were kept, and where they sit in the
+// paper -- lets a reviewer judge whether raising the num_sentences cap
+// (see the "Sentence selection" panel) would actually recover more evidence
+// for a given paper, instead of guessing. ----
+function buildHighlightedHtml(text, selected) {
+  if (!text) return '';
+  let html = '';
+  let cursor = 0;
+  const sorted = [...selected].sort((a, b) => a.char_start - b.char_start);
+  sorted.forEach(s => {
+    if (s.char_start > cursor) html += escapeHtml(text.slice(cursor, s.char_start));
+    if (s.char_end > cursor) {
+      html += `<mark>${escapeHtml(text.slice(Math.max(cursor, s.char_start), s.char_end))}</mark>`;
+      cursor = s.char_end;
+    }
+  });
+  html += escapeHtml(text.slice(cursor));
+  return html;
+}
+
+function renderEvidenceHtml(evidence) {
+  if (!evidence) return '';
+
+  const capBadge = evidence.capped
+    ? `<span class="badge badge-warn">capped — ${evidence.n_filtered} sentences passed the ontology filter, only ${evidence.n_selected} kept (cap=${evidence.cap})</span>`
+    : `<span class="badge badge-ok">not capped — all ${evidence.n_filtered} filtered sentences kept (cap=${evidence.cap})</span>`;
+
+  const list = (evidence.selected || []).map((s, i) => `
+    <div class="evidence-item">
+      <div class="evidence-meta">#${i + 1} · score ${Number(s.score).toFixed(2)} · sentence ${s.original_index} of ${evidence.total_sentences}${(s.top_concepts && s.top_concepts.length) ? ' · ' + s.top_concepts.map(escapeHtml).join(', ') : ''}</div>
+      <div class="evidence-sentence">${escapeHtml(s.sentence)}</div>
+    </div>`).join('');
+
+  const highlighted = buildHighlightedHtml(evidence.normalized_full_text, evidence.selected || []);
+
+  return `
+    <details class="gate-detail" style="margin-top:10px;">
+      <summary>Evidence used (${evidence.n_selected} sentence${evidence.n_selected === 1 ? '' : 's'}) &nbsp; ${capBadge}</summary>
+      <div style="margin-top:10px;">
+        <p style="font-size:12px; color:var(--muted); margin:4px 0;">Selected sentences, in reading order (this is exactly what was sent to the LLM as context):</p>
+        ${list || '<div class="empty-hint">none</div>'}
+        <p style="font-size:12px; color:var(--muted); margin:14px 0 4px;">Full paper text (whitespace-normalized) with selected evidence highlighted:</p>
+        <pre style="max-height:420px; overflow-y:auto;">${highlighted || '<span class="empty-hint">(no text)</span>'}</pre>
+      </div>
+    </details>`;
+}
+
+// ---- preview (gate only, no LLM) ----
+document.getElementById('preview-btn').addEventListener('click', async () => {
+  els.results.innerHTML = '';
+  els.runStatus.textContent = 'Running preprocess…';
+  try {
+    const fd = buildBaseFormData();
+    const prompt = document.getElementById('prompt-input').value.trim();
+    if (prompt) fd.append('prompt', prompt);
+    const numSentences = numSentencesOverride();
+    if (numSentences) fd.append('num_sentences', numSentences);
+
+    const res = await fetch('/preprocess', { method: 'POST', body: fd });
+    const data = await res.json();
+    els.runStatus.textContent = '';
+
+    if (!res.ok) {
+      const body = data.hint || data.message || data.details || JSON.stringify(data, null, 2);
+      els.results.innerHTML = `<div class="result-card"><span class="badge badge-bad">error</span>
+        <pre>${escapeHtml(body)}</pre></div>`;
+      return;
+    }
+
+    const relevant = data.paper_is_relevant;
+    els.results.innerHTML = `
+      <div class="result-card">
+        <div class="result-head">
+          <span class="result-title">Preprocess result</span>
+          <span class="badge ${relevant ? 'badge-ok' : 'badge-warn'}">${relevant ? 'paper looks relevant' : 'paper NOT relevant enough'}</span>
+        </div>
+        <div class="meta-row">
+          <span>source: ${data.source}</span>
+          <span>full text: ${data.full_text_chars} chars</span>
+          <span>summary sentences: ${data.n_summary}</span>
+        </div>
+        <p style="font-size:13px; color:var(--muted); margin-top:10px;">Summary sent to the LLM as context:</p>
+        <pre>${escapeHtml(data.summary || '(empty)')}</pre>
+        ${renderEvidenceHtml(data.evidence)}
+        <details class="gate-detail"><summary>Taxonomy + summary gate details</summary>
+          <pre>${escapeHtml(JSON.stringify({paper_taxonomy_gate: data.paper_taxonomy_gate, paper_summary_gate: data.paper_summary_gate}, null, 2))}</pre>
+        </details>
+      </div>`;
+  } catch (e) {
+    els.runStatus.textContent = '';
+    els.results.innerHTML = `<div class="result-card"><span class="badge badge-bad">error</span><pre>${escapeHtml(e.message)}</pre></div>`;
+  }
+});
+
+// ---- run query across selected models ----
+document.getElementById('run-btn').addEventListener('click', async () => {
+  const prompt = document.getElementById('prompt-input').value.trim();
+  if (!prompt) { alert('Enter a query first.'); return; }
+
+  const modelIds = selectedModelIds();
+  if (modelIds.length === 0) { alert('Select at least one model.'); return; }
+
+  let baseFd;
+  try {
+    baseFd = buildBaseFormData();
+  } catch (e) {
+    alert(e.message);
+    return;
+  }
+
+  const runBtn = document.getElementById('run-btn');
+  runBtn.disabled = true;
+  els.results.innerHTML = '';
+  els.runStatus.textContent = `Running ${modelIds.length} model(s)…`;
+
+  // Render one placeholder card per model, fill in as each responds.
+  const cardEls = {};
+  modelIds.forEach(id => {
+    const card = document.createElement('div');
+    card.className = 'result-card';
+    card.innerHTML = `
+      <div class="result-head">
+        <span class="result-title">${escapeHtml(id)}</span>
+        <span class="badge badge-warn">running…</span>
+      </div>`;
+    els.results.appendChild(card);
+    cardEls[id] = card;
+  });
+
+  // Re-read the file input once (FormData with a File can only be consumed
+  // once per request), so build a fresh FormData per model call.
+  const tab = activeSourceTab();
+  const doi = tab === 'doi' ? document.getElementById('doi-input').value.trim() : null;
+  const file = tab === 'pdf' ? document.getElementById('pdf-input').files[0] : null;
+  const text = tab === 'text' ? document.getElementById('text-input').value.trim() : null;
+
+  const mode = activeMode();
+  const numSentences = numSentencesOverride();
+
+  await Promise.all(modelIds.map(async (modelId) => {
+    const fd = new FormData();
+    if (doi) fd.append('doi', doi);
+    if (file) fd.append('file', file);
+    if (text) fd.append('text', text);
+    fd.append('prompt', prompt);
+    fd.append('model', modelId);
+    fd.append('mode', mode);
+    if (numSentences) fd.append('num_sentences', numSentences);
+
+    const card = cardEls[modelId];
+    try {
+      const t0 = performance.now();
+      const res = await fetch('/query', { method: 'POST', body: fd });
+      const data = await res.json();
+      const clientMs = Math.round(performance.now() - t0);
+
+      if (!res.ok) {
+        const badge = data.error === 'out_of_scope' ? 'badge-warn' : 'badge-bad';
+        const label = data.error === 'out_of_scope' ? (data.reason || 'out of scope') : (data.error || 'error');
+        const body = data.hint || data.message || data.details || JSON.stringify(data, null, 2);
+        card.innerHTML = `
+          <div class="result-head">
+            <span class="result-title">${escapeHtml(modelId)}</span>
+            <span class="badge ${badge}">${escapeHtml(label)}</span>
+          </div>
+          <pre>${escapeHtml(body)}</pre>
+          ${data.grobid_reachable === false ? '<div class="meta-row"><span>GROBID: unreachable — start it with `cd llm/tools/grobid && ./gradlew run`</span></div>' : ''}
+          ${renderEvidenceHtml(data.evidence)}`;
+        return;
+      }
+
+      card.innerHTML = `
+        <div class="result-head">
+          <span class="result-title">${escapeHtml(data.model_label || modelId)}</span>
+          <span class="badge badge-ok">${escapeHtml(data.provider)}</span>
+        </div>
+        <pre>${escapeHtml(data.response)}</pre>
+        <div class="meta-row">
+          <span>model_id: ${escapeHtml(data.model_id)}${data.resolved_model_id && data.resolved_model_id !== data.model_id ? ` (resolved: ${escapeHtml(data.resolved_model_id)})` : ''}</span>
+          <span>mode: ${escapeHtml(data.mode)}</span>
+          <span>model latency: ${data.model_latency_sec?.toFixed?.(2)}s</span>
+          <span>total: ${data.total_latency_sec?.toFixed?.(2)}s</span>
+          <span>round-trip: ${(clientMs/1000).toFixed(2)}s</span>
+          <span>routing: ${escapeHtml(data.routing_label)}</span>
+        </div>
+        ${renderEvidenceHtml(data.evidence)}`;
+    } catch (e) {
+      card.innerHTML = `
+        <div class="result-head">
+          <span class="result-title">${escapeHtml(modelId)}</span>
+          <span class="badge badge-bad">network error</span>
+        </div>
+        <pre>${escapeHtml(e.message)}</pre>`;
+    }
+  }));
+
+  els.runStatus.textContent = '';
+  runBtn.disabled = false;
+});
+
+checkHealth();
+loadModels();
+</script>
+</body>
+</html>

@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MoultGPT — text + vision intelligence for arthropod moulting</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="MoultGPT: one interface to scan scientific papers and arthropod images for moulting traits, powered by an ontology-gated LLM pipeline and a fine-tuned YOLO + XGBoost vision pipeline.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #05070a;
+    --bg2: #070a12;
+    --panel: rgba(20, 24, 38, 0.55);
+    --panel-solid: #10131f;
+    --border: rgba(110, 168, 254, 0.18);
+    --border-strong: rgba(110, 168, 254, 0.4);
+    --text: #e8eaf2;
+    --muted: #9aa3b2;
+    --accent: #6ea8fe;
+    --accent2: #c084fc;
+    --ok: #4caf7d;
+    --bad: #e5636b;
+    --warn: #d8a94b;
+    --glow: 0 0 40px rgba(110, 168, 254, 0.25);
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .wordmark { font-family: "Space Grotesk", "Inter", sans-serif; }
+
+  a { color: var(--accent); }
+
+  code, .mono { font-family: "JetBrains Mono", ui-monospace, monospace; }
+
+  /* ───────────────────────── Starfield backdrop ───────────────────────── */
+
+  #stars {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    display: block;
+    pointer-events: none;
+  }
+
+  .nebula {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 60% 40% at 20% 15%, rgba(110, 168, 254, 0.14), transparent 60%),
+      radial-gradient(ellipse 50% 35% at 85% 25%, rgba(192, 132, 252, 0.12), transparent 60%),
+      radial-gradient(ellipse 70% 50% at 50% 100%, rgba(76, 175, 125, 0.06), transparent 60%);
+  }
+
+  /* ───────────────────────── Layout shell ───────────────────────── */
+
+  header, main, footer { position: relative; z-index: 1; }
+
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px clamp(20px, 5vw, 64px);
+  }
+  .wordmark {
+    font-weight: 700; font-size: 18px; letter-spacing: 0.02em;
+    display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text);
+  }
+  .wordmark .bug { font-size: 20px; filter: drop-shadow(0 0 6px rgba(110,168,254,0.6)); }
+  .topbar nav { display: flex; gap: 24px; font-size: 14px; color: var(--muted); }
+  .topbar nav a { color: var(--muted); text-decoration: none; }
+  .topbar nav a:hover { color: var(--text); }
+
+  /* ───────────────────────── Hero ───────────────────────── */
+
+  .hero {
+    position: relative; overflow: hidden;
+    min-height: min(88vh, 820px);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 40px clamp(20px, 6vw, 64px) 80px;
+  }
+  /* A trilobite (the archetypal Cambrian arthropod, and one of the
+     best-documented fossil moulters) traced as a star constellation —
+     keeps the "deep time / space" idea from the copy above without
+     losing the fact that this is a project about arthropod moulting. */
+  .hero-constellation {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -48%);
+    width: min(960px, 94vw); height: auto; z-index: 0; opacity: 0.65; pointer-events: none;
+  }
+  .hero-constellation .shell { fill: rgba(110,168,254,0.03); stroke: rgba(192,132,252,0.22); stroke-width: 1.5; }
+  .hero-constellation .link { stroke: rgba(110,168,254,0.32); stroke-width: 1; fill: none; }
+  .hero-constellation .node { fill: #fff; }
+  .hero-constellation .node.accent { fill: var(--accent2); }
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-constellation .node { animation: twinkle-node 3.4s ease-in-out infinite; }
+    .hero-constellation .node:nth-of-type(3n) { animation-delay: 0.7s; }
+    .hero-constellation .node:nth-of-type(4n) { animation-delay: 1.4s; }
+    .hero-constellation .node:nth-of-type(5n) { animation-delay: 2.1s; }
+  }
+  @keyframes twinkle-node { 0%, 100% { opacity: 0.45; } 50% { opacity: 1; } }
+  .hero-inner { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; }
+
+  .moult-cycle {
+    display: flex; align-items: center; gap: 12px; margin: 4px 0 32px; flex-wrap: wrap; justify-content: center;
+  }
+  .moult-cycle .stage { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--muted); }
+  .moult-cycle .stage svg { width: 24px; height: 24px; display: block; }
+  .moult-cycle .arrow { color: var(--border-strong); font-size: 15px; }
+  .eyebrow {
+    font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent2); margin-bottom: 18px; font-weight: 600;
+  }
+  .hero h1 {
+    font-size: clamp(40px, 7vw, 84px); line-height: 1.02; margin: 0 0 22px;
+    background: linear-gradient(120deg, #ffffff 0%, var(--accent) 55%, var(--accent2) 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    letter-spacing: -0.01em;
+  }
+  .hero p.lead {
+    max-width: 640px; color: var(--muted); font-size: clamp(15px, 2vw, 18px);
+    margin: 0 0 34px;
+  }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-bottom: 46px; }
+
+  .btn {
+    font: inherit; font-weight: 600; font-size: 14px; border-radius: 10px;
+    padding: 13px 26px; cursor: pointer; border: 1px solid transparent;
+    transition: transform 150ms ease, box-shadow 150ms ease, background 150ms ease;
+    text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .btn-primary {
+    background: linear-gradient(120deg, var(--accent), var(--accent2));
+    color: #05070a; box-shadow: 0 0 0 1px rgba(255,255,255,0.06), var(--glow);
+  }
+  .btn-primary:hover { box-shadow: 0 0 0 1px rgba(255,255,255,0.1), 0 0 55px rgba(110,168,254,0.4); }
+  .btn-ghost {
+    background: rgba(255,255,255,0.03); color: var(--text); border-color: var(--border-strong);
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,0.06); }
+
+  .badge-row { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+  .badge {
+    font-size: 12px; color: var(--muted); border: 1px solid var(--border);
+    padding: 7px 14px; border-radius: 999px; background: var(--panel);
+    backdrop-filter: blur(6px);
+  }
+  .badge b { color: var(--text); font-weight: 600; }
+
+  /* ───────────────────────── Section shell ───────────────────────── */
+
+  section { padding: 70px clamp(20px, 6vw, 64px); }
+  .section-head { max-width: 720px; margin: 0 auto 40px; text-align: center; }
+  .section-head h2 { font-size: clamp(26px, 4vw, 36px); margin: 0 0 12px; }
+  .section-head p { color: var(--muted); margin: 0; }
+
+  .panel {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 16px;
+    backdrop-filter: blur(10px); box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+  }
+
+  /* ───────────────────────── Demo section ───────────────────────── */
+
+  .demo-shell { max-width: 1040px; margin: 0 auto; padding: 28px; }
+
+  .mode-switch {
+    display: inline-flex; padding: 4px; gap: 4px; border-radius: 12px;
+    background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+    margin-bottom: 26px;
+  }
+  .mode-btn {
+    font: inherit; font-weight: 600; font-size: 13px; color: var(--muted);
+    background: transparent; border: none; border-radius: 9px; padding: 10px 20px;
+    cursor: pointer; transition: all 150ms ease;
+  }
+  .mode-btn.active {
+    background: linear-gradient(120deg, var(--accent), var(--accent2)); color: #05070a;
+  }
+  .mode-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .mode-panel { display: none; }
+  .mode-panel.active { display: block; }
+
+  .field-row { display: grid; grid-template-columns: 1fr; gap: 16px; }
+  @media (min-width: 760px) { .field-row.two-col { grid-template-columns: 1fr 1fr; } }
+
+  label { display: block; font-size: 12px; font-weight: 600; letter-spacing: 0.02em; color: var(--muted); text-transform: uppercase; margin: 0 0 8px; }
+
+  input[type=text], input[type=file], textarea, select {
+    width: 100%; background: rgba(5,7,10,0.6); border: 1px solid var(--border);
+    color: var(--text); border-radius: 8px; padding: 11px 12px; font-size: 14px;
+    font-family: inherit; resize: vertical;
+  }
+  input[type=text]:focus, textarea:focus, select:focus {
+    outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(110,168,254,0.15);
+  }
+  textarea { min-height: 90px; }
+
+  .source-tabs { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+  .source-tab {
+    font: inherit; font-size: 12px; font-weight: 600; padding: 7px 12px; border-radius: 7px;
+    border: 1px solid var(--border); background: rgba(255,255,255,0.02); color: var(--muted); cursor: pointer;
+  }
+  .source-tab.active { border-color: var(--accent); color: var(--text); background: rgba(110,168,254,0.1); }
+  .source-input { display: none; }
+  .source-input.active { display: block; }
+
+  .actions-row { display: flex; align-items: center; gap: 12px; margin-top: 22px; flex-wrap: wrap; }
+  .hint { font-size: 12px; color: var(--muted); }
+
+  .drop-zone {
+    border: 1.5px dashed var(--border-strong); border-radius: 12px; padding: 30px 16px;
+    text-align: center; cursor: pointer; transition: border-color 150ms ease, background 150ms ease;
+  }
+  .drop-zone:hover, .drop-zone.drag-over { border-color: var(--accent); background: rgba(110,168,254,0.06); }
+  .drop-zone p { margin: 6px 0 0; color: var(--muted); font-size: 13px; }
+  .drop-zone .icon { font-size: 28px; }
+  .drop-zone input { display: none; }
+
+  .preview-wrap { position: relative; margin-top: 18px; display: none; }
+  .preview-wrap.active { display: block; }
+  .preview-wrap canvas { max-width: 100%; border-radius: 12px; border: 1px solid var(--border); display: block; }
+
+  /* ───────────────────────── Results ───────────────────────── */
+
+  .result-box { margin-top: 24px; display: none; }
+  .result-box.active { display: block; }
+
+  .status-pill {
+    display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 999px;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.02em;
+  }
+  .status-ok { background: rgba(76,175,125,0.15); color: var(--ok); }
+  .status-bad { background: rgba(229,99,107,0.15); color: var(--bad); }
+  .status-warn { background: rgba(216,169,75,0.15); color: var(--warn); }
+
+  .meta-line { font-size: 12px; color: var(--muted); margin-top: 10px; display: flex; gap: 16px; flex-wrap: wrap; }
+
+  pre.output {
+    background: #05070a; border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px; font-size: 13px; line-height: 1.55; white-space: pre-wrap; word-break: break-word;
+    margin-top: 14px; max-height: 420px; overflow: auto;
+  }
+
+  .legend { display: flex; gap: 18px; font-size: 12px; color: var(--muted); margin-top: 12px; flex-wrap: wrap; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .swatch { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+
+  .checkbox-row {
+    display: flex; align-items: center; gap: 9px; font-size: 13px; color: var(--text);
+    cursor: pointer; text-transform: none; letter-spacing: normal; font-weight: 400;
+  }
+  .checkbox-row input { width: auto; accent-color: var(--accent); }
+
+  .feedback-row {
+    display: none; align-items: center; gap: 10px; margin-top: 16px; flex-wrap: wrap;
+    padding-top: 14px; border-top: 1px dashed var(--border);
+  }
+  .feedback-row.active { display: flex; }
+  .fb-btn {
+    background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 8px;
+    font-size: 15px; padding: 6px 11px; cursor: pointer; transition: all 150ms ease; line-height: 1;
+  }
+  .fb-btn:hover { border-color: var(--accent); }
+  .fb-btn[aria-pressed="true"] { border-color: var(--accent); background: rgba(110,168,254,0.15); }
+  .feedback-row input[type=text] { flex: 1; min-width: 160px; padding: 8px 10px; font-size: 12px; }
+
+  .spinner {
+    width: 16px; height: 16px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.2);
+    border-top-color: var(--accent); animation: spin 0.7s linear infinite; display: inline-block;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ───────────────────────── Settings ───────────────────────── */
+
+  .settings-toggle {
+    font-size: 12px; color: var(--muted); background: none; border: none; cursor: pointer;
+    text-decoration: underline; text-underline-offset: 3px; padding: 0;
+  }
+  .settings-box { display: none; margin-top: 16px; padding-top: 16px; border-top: 1px dashed var(--border); }
+  .settings-box.active { display: block; }
+
+  /* ───────────────────────── How it works ───────────────────────── */
+
+  .how-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); max-width: 1040px; margin: 0 auto; }
+  .how-card { padding: 24px; }
+  .how-card .num {
+    width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center;
+    background: rgba(110,168,254,0.12); color: var(--accent); font-weight: 700; font-size: 13px; margin-bottom: 14px;
+  }
+  .how-card h3 { font-size: 15px; margin: 0 0 8px; }
+  .how-card p { font-size: 13px; color: var(--muted); margin: 0; }
+
+  /* ───────────────────────── Footer ───────────────────────── */
+
+  footer { padding: 40px clamp(20px, 6vw, 64px) 60px; text-align: center; color: var(--muted); font-size: 13px; }
+  footer a { color: var(--muted); }
+  footer .adv-links { margin-top: 8px; }
+  footer .adv-links a { margin: 0 8px; }
+
+  /* ───────────────────────── Accessibility ───────────────────────── */
+
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+    outline: 2px solid var(--accent); outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="stars" aria-hidden="true"></canvas>
+<div class="nebula" aria-hidden="true"></div>
+
+<header>
+  <div class="topbar">
+    <a href="#top" class="wordmark"><span class="bug">🐛</span> MoultGPT</a>
+    <nav>
+      <a href="#demo">Try the demo</a>
+      <a href="#how">How it works</a>
+      <!-- TODO: point this at the repo once it's pushed, e.g. https://github.com/<you>/MoultGPT -->
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <!-- A trilobite — the archetypal Cambrian arthropod, and one of the
+         best fossil-documented moulters — traced as a star constellation.
+         Keeps the "deep time" idea from the copy visible, not just implied. -->
+    <svg class="hero-constellation" viewBox="0 0 900 400" aria-hidden="true">
+      <path class="shell" d="M80,200 C100,120 260,80 450,80 C640,80 800,120 820,200 C800,280 640,320 450,320 C260,320 100,280 80,200 Z" />
+      <path class="link" d="M100,180 Q140,158 178,165" />
+      <path class="link" d="M100,220 Q140,242 178,235" />
+      <line class="link" x1="150" y1="200" x2="750" y2="200" />
+      <path class="link" d="M180,150 C350,120 550,120 720,155" />
+      <path class="link" d="M180,250 C350,280 550,280 720,245" />
+      <path class="link" d="M722,155 Q760,175 790,200" />
+      <path class="link" d="M722,245 Q760,225 790,200" />
+      <g class="link">
+        <line x1="220" y1="145" x2="220" y2="255" />
+        <line x1="280" y1="130" x2="280" y2="268" />
+        <line x1="340" y1="122" x2="340" y2="276" />
+        <line x1="400" y1="120" x2="400" y2="278" />
+        <line x1="460" y1="120" x2="460" y2="278" />
+        <line x1="520" y1="122" x2="520" y2="276" />
+        <line x1="580" y1="128" x2="580" y2="270" />
+        <line x1="640" y1="138" x2="640" y2="260" />
+        <line x1="700" y1="150" x2="700" y2="248" />
+      </g>
+      <g class="node accent">
+        <circle cx="100" cy="200" r="3.4" />
+        <circle cx="150" cy="200" r="2.6" />
+        <circle cx="750" cy="200" r="2.6" />
+        <circle cx="790" cy="200" r="3.4" />
+        <circle cx="220" cy="200" r="2.6" /><circle cx="280" cy="200" r="2.6" /><circle cx="340" cy="200" r="2.6" />
+        <circle cx="400" cy="200" r="2.6" /><circle cx="460" cy="200" r="2.6" /><circle cx="520" cy="200" r="2.6" />
+        <circle cx="580" cy="200" r="2.6" /><circle cx="640" cy="200" r="2.6" /><circle cx="700" cy="200" r="2.6" />
+      </g>
+      <g class="node">
+        <circle cx="178" cy="165" r="2.2" /><circle cx="178" cy="235" r="2.2" /><circle cx="820" cy="200" r="2.6" />
+        <circle cx="220" cy="145" r="2.2" /><circle cx="220" cy="255" r="2.2" />
+        <circle cx="280" cy="130" r="2.2" /><circle cx="280" cy="268" r="2.2" />
+        <circle cx="340" cy="122" r="2.2" /><circle cx="340" cy="276" r="2.2" />
+        <circle cx="400" cy="120" r="2.2" /><circle cx="400" cy="278" r="2.2" />
+        <circle cx="460" cy="120" r="2.2" /><circle cx="460" cy="278" r="2.2" />
+        <circle cx="520" cy="122" r="2.2" /><circle cx="520" cy="276" r="2.2" />
+        <circle cx="580" cy="128" r="2.2" /><circle cx="580" cy="270" r="2.2" />
+        <circle cx="640" cy="138" r="2.2" /><circle cx="640" cy="260" r="2.2" />
+        <circle cx="700" cy="150" r="2.2" /><circle cx="700" cy="248" r="2.2" />
+      </g>
+    </svg>
+
+    <div class="hero-inner">
+      <div class="eyebrow">Text intelligence + computer vision, for arthropod moulting</div>
+      <h1>MoultGPT reads 550&nbsp;million years<br>of moulting.</h1>
+      <p class="lead">
+        Scan a scientific paper or a photo of an arthropod and get back
+        structured moulting traits — an ontology-gated LLM pipeline for text,
+        a fine-tuned YOLO + XGBoost pipeline for images, unified in one demo.
+      </p>
+
+      <div class="moult-cycle" aria-label="The arthropod moulting cycle: organism, moulting, exuviae">
+        <div class="stage">
+          <svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="9" ry="5" fill="#ff4d4d"/><line x1="8" y1="9" x2="8" y2="15" stroke="#05070a" stroke-width="0.7"/><line x1="12" y1="8" x2="12" y2="16" stroke="#05070a" stroke-width="0.7"/><line x1="16" y1="9" x2="16" y2="15" stroke="#05070a" stroke-width="0.7"/></svg>
+          organism
+        </div>
+        <span class="arrow">→</span>
+        <div class="stage">
+          <svg viewBox="0 0 24 24">
+            <defs><clipPath id="moult-half"><rect x="12" y="0" width="12" height="24" /></clipPath></defs>
+            <ellipse cx="12" cy="12" rx="9" ry="5" fill="none" stroke="#d8a94b" stroke-width="1.2"/>
+            <ellipse cx="12" cy="12" rx="9" ry="5" fill="#d8a94b" clip-path="url(#moult-half)"/>
+          </svg>
+          moulting
+        </div>
+        <span class="arrow">→</span>
+        <div class="stage">
+          <svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="9" ry="5" fill="none" stroke="#0099ff" stroke-width="1.4"/><line x1="8" y1="9" x2="8" y2="15" stroke="#0099ff" stroke-width="0.8"/><line x1="12" y1="8" x2="12" y2="16" stroke="#0099ff" stroke-width="0.8"/><line x1="16" y1="9" x2="16" y2="15" stroke="#0099ff" stroke-width="0.8"/></svg>
+          exuviae
+        </div>
+      </div>
+
+      <div class="hero-actions">
+        <a href="#demo" class="btn btn-primary">Launch the demo →</a>
+        <a href="#how" class="btn btn-ghost">How it works</a>
+      </div>
+      <div class="badge-row">
+        <span class="badge"><b>Text scan</b> · DOI / PDF / raw text → YAML traits</span>
+        <span class="badge"><b>Image scan</b> · organism + exuviae detection → moulting stage</span>
+        <span class="badge"><b>Domain-gated</b> · arthropods only, ontology-scored</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="demo">
+    <div class="section-head">
+      <h2>Run a scan</h2>
+      <p>Pick a mode below. Both call your locally running MoultGPT backends directly from this page.</p>
+    </div>
+
+    <div class="panel demo-shell">
+      <div class="mode-switch" role="tablist" aria-label="Scan mode">
+        <button class="mode-btn active" id="tab-text" role="tab" aria-selected="true" aria-controls="panel-text">📄 Scan a paper</button>
+        <button class="mode-btn" id="tab-image" role="tab" aria-selected="false" aria-controls="panel-image">🖼️ Scan an image</button>
+      </div>
+
+      <!-- ─────────────── TEXT MODE ─────────────── -->
+      <div class="mode-panel active" id="panel-text" role="tabpanel" aria-labelledby="tab-text">
+        <div class="source-tabs" role="tablist" aria-label="Text source">
+          <button class="source-tab active" data-source="text">Paste text</button>
+          <button class="source-tab" data-source="doi">DOI</button>
+          <button class="source-tab" data-source="file">Upload PDF</button>
+        </div>
+
+        <div class="source-input active" data-source="text">
+          <label for="text-input">Paper text</label>
+          <textarea id="text-input" placeholder="Paste the relevant section of the paper here..."></textarea>
+        </div>
+        <div class="source-input" data-source="doi">
+          <label for="doi-input">DOI</label>
+          <button type="button" class="settings-toggle" id="doi-example-btn" style="margin-left: 8px;">Use example DOI</button>
+          <input type="text" id="doi-input" placeholder="10.1038/s41598-022-18146-3">
+          <p class="hint">Resolved via Unpaywall + GROBID — needs GROBID running locally (see repo README).</p>
+        </div>
+        <div class="source-input" data-source="file">
+          <label for="file-input">PDF file</label>
+          <input type="file" id="file-input" accept="application/pdf">
+          <p class="hint">Parsed via GROBID — needs GROBID running locally (see repo README).</p>
+        </div>
+
+        <div class="field-row two-col" style="margin-top: 18px;">
+          <div>
+            <label for="prompt-input">Question</label>
+            <button type="button" class="settings-toggle" id="question-example-btn" style="margin-left: 8px;">Use example</button>
+            <textarea id="prompt-input" style="min-height: 60px;" placeholder="e.g. What moulting traits are reported for the specimens in this paper?"></textarea>
+          </div>
+          <div>
+            <label for="model-select">Model</label>
+            <select id="model-select"><option>Loading models…</option></select>
+            <label for="mode-select" style="margin-top: 14px;">Extraction mode</label>
+            <select id="mode-select">
+              <option value="full_traits" selected>Full traits (~55 MoultDB fields)</option>
+              <option value="single_trait">Single trait (answer only the question)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="actions-row">
+          <button class="btn btn-primary" id="text-submit">Scan paper</button>
+          <span class="hint" id="text-status"></span>
+        </div>
+
+        <div class="result-box" id="text-result">
+          <div id="text-result-status"></div>
+          <div class="meta-line" id="text-result-meta"></div>
+          <pre class="output" id="text-result-output"></pre>
+
+          <div class="feedback-row" id="feedback-row">
+            <span class="hint">Useful response? Saved as fine-tuning signal (see <code>llm/finetuning/</code>).</span>
+            <button class="fb-btn" id="fb-up" type="button" aria-label="Good response" aria-pressed="false">👍</button>
+            <button class="fb-btn" id="fb-down" type="button" aria-label="Not useful" aria-pressed="false">👎</button>
+            <input type="text" id="fb-comment" placeholder="Optional comment…">
+            <button class="btn btn-ghost" id="fb-send" type="button" style="display:none; padding: 8px 16px;">Send feedback</button>
+            <span class="hint" id="fb-status"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─────────────── IMAGE MODE ─────────────── -->
+      <div class="mode-panel" id="panel-image" role="tabpanel" aria-labelledby="tab-image">
+        <div class="drop-zone" id="drop-zone" tabindex="0" role="button" aria-label="Upload an image">
+          <div class="icon">📤</div>
+          <p><strong>Click to upload</strong> or drag an image here</p>
+          <p>An arthropod, ideally showing the organism and/or its shed exuviae.</p>
+          <input type="file" id="image-input" accept="image/*">
+        </div>
+
+        <div class="preview-wrap" id="preview-wrap">
+          <canvas id="preview-canvas"></canvas>
+        </div>
+
+        <div class="field-row two-col" style="margin-top: 18px;">
+          <div>
+            <label for="taxon-select">Clade <span style="text-transform:none; font-weight:400;">(optional — improves stage accuracy)</span></label>
+            <select id="taxon-select">
+              <option value="">Unknown / not specified</option>
+              <option value="0">Crustacea</option>
+              <option value="1">Hexapoda</option>
+              <option value="2">Chelicerata</option>
+              <option value="3">Myriapoda</option>
+            </select>
+          </div>
+          <div>
+            <label>Segmentation</label>
+            <label class="checkbox-row" for="seg-checkbox">
+              <input type="checkbox" id="seg-checkbox">
+              <span>Enable instance segmentation (FastSAM overlay masks)</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="actions-row">
+          <button class="btn btn-primary" id="image-submit" disabled>Scan image</button>
+          <span class="hint" id="image-status"></span>
+        </div>
+
+        <div class="legend">
+          <span><span class="swatch" style="background:#ff4d4d;"></span> organism (box / mask)</span>
+          <span><span class="swatch" style="background:#0099ff;"></span> exuviae (box / mask)</span>
+        </div>
+
+        <div class="result-box" id="image-result">
+          <div id="image-result-status"></div>
+          <div class="meta-line" id="image-result-meta"></div>
+        </div>
+      </div>
+
+      <div style="margin-top: 26px;">
+        <button class="settings-toggle" id="settings-toggle">⚙ Backend settings</button>
+        <div class="settings-box" id="settings-box">
+          <div class="field-row two-col">
+            <div>
+              <label for="llm-api-base">LLM backend base path/URL</label>
+              <input type="text" id="llm-api-base" placeholder="/api/llm">
+            </div>
+            <div>
+              <label for="vision-api-base">Vision backend base path/URL</label>
+              <input type="text" id="vision-api-base" placeholder="/api/vision">
+            </div>
+          </div>
+          <p class="hint" style="margin-top: 10px;">
+            Saved in this browser. Defaults assume this page is served by the
+            <code>frontend/app.py</code> gateway, which proxies <code>/api/llm/*</code> and
+            <code>/api/vision/*</code> to the two real backends — that's what
+            <code>docker compose up</code> and <code>python frontend/app.py</code> both give you.
+            Bypassing the gateway (opening this file directly) also works: just replace these
+            with the backends' full URLs, e.g. <code>http://localhost:5002</code> — both already
+            send CORS headers for that case.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="section-head">
+      <h2>How it works</h2>
+      <p>Two independent pipelines, one domain: arthropod moulting.</p>
+    </div>
+    <div class="how-grid">
+      <div class="panel how-card">
+        <div class="num">1</div>
+        <h3>Domain-gated text pipeline</h3>
+        <p>A taxonomy lookup and an OWL-ontology concept scorer check that the paper is
+        about arthropods and that your question is actually about moulting, before any
+        remote LLM call is made.</p>
+      </div>
+      <div class="panel how-card">
+        <div class="num">2</div>
+        <h3>Ontology-focused summary</h3>
+        <p>Sentences are scored against the moulting ontology and reduced to a compact,
+        on-topic summary via TF‑IDF + K‑Means, so the model sees signal, not noise.</p>
+      </div>
+      <div class="panel how-card">
+        <div class="num">3</div>
+        <h3>Fine-tuned vision pipeline</h3>
+        <p>A YOLO model detects the organism and its exuviae; geometric and colour
+        features feed an XGBoost classifier that calls the moulting stage.</p>
+      </div>
+      <div class="panel how-card">
+        <div class="num">4</div>
+        <h3>Multi-model, reproducible</h3>
+        <p>The text pipeline can run against several remote models side by side
+        (<code>eval/compare_models.py</code>), and a local PEFT/LoRA fine-tune is
+        available as an open-weight alternative.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div>MoultGPT — a text + vision system for arthropod moulting research.</div>
+  <div class="adv-links">
+    Advanced testers:
+    <a id="llm-ui-link" href="#" target="_blank" rel="noopener">LLM tester UI</a>
+    ·
+    Vision React app — run <code>cd vision/frontend && npm start</code>, opens on port 3000
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ───────────────────────── Starfield ───────────────────────── */
+
+  const canvas = document.getElementById("stars");
+  const ctx = canvas.getContext("2d");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let stars = [];
+  let w, h;
+
+  function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = Math.max(window.innerHeight, document.body.scrollHeight);
+    const count = Math.min(220, Math.floor((w * h) / 9000));
+    stars = Array.from({ length: count }, () => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      r: Math.random() * 1.4 + 0.3,
+      phase: Math.random() * Math.PI * 2,
+      speed: 0.4 + Math.random() * 0.8,
+    }));
+  }
+
+  function drawStars(t) {
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = "#fff";
+    for (const s of stars) {
+      const twinkle = reduceMotion ? 0.7 : 0.4 + 0.6 * Math.abs(Math.sin(s.phase + t * 0.001 * s.speed));
+      ctx.globalAlpha = twinkle * 0.85;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    if (!reduceMotion) requestAnimationFrame(drawStars);
+  }
+
+  window.addEventListener("resize", resize);
+  resize();
+  requestAnimationFrame(drawStars);
+
+  /* ───────────────────────── Settings / API base URLs ───────────────────────── */
+
+  const llmBaseInput = document.getElementById("llm-api-base");
+  const visionBaseInput = document.getElementById("vision-api-base");
+  const settingsToggle = document.getElementById("settings-toggle");
+  const settingsBox = document.getElementById("settings-box");
+
+  // Relative paths: work when this page is served by frontend/app.py (the
+  // gateway), which proxies these prefixes to the real backends — no CORS
+  // needed since everything is then same-origin. Override in ⚙ Backend
+  // settings with a full URL (e.g. http://localhost:5002) to bypass the
+  // gateway and hit a backend directly.
+  const DEFAULT_LLM_BASE = "/api/llm";
+  const DEFAULT_VISION_BASE = "/api/vision";
+
+  function getLlmBase() { return (llmBaseInput.value || DEFAULT_LLM_BASE).replace(/\/$/, ""); }
+  function getVisionBase() { return (visionBaseInput.value || DEFAULT_VISION_BASE).replace(/\/$/, ""); }
+
+  // The llm-backend's own port, as exposed by docker-compose (llm-backend:
+  // "5002:5002"). The "LLM tester UI" footer link must point here directly,
+  // NOT through the gateway's /api/llm/ui proxy path: llm/frontend/index.html
+  // (the tester page itself) makes its own relative fetches (fetch('/models'),
+  // fetch('/query'), ...) assuming it is served from the backend's own root.
+  // Serving it through the gateway proxy keeps the browser's origin at
+  // localhost:8080, so those relative fetches resolve to e.g.
+  // http://localhost:8080/models instead of the backend and 404 (this was
+  // visible in the gateway's own access log as "GET /models 404").
+  const DIRECT_LLM_UI_PORT = "5002";
+
+  function computeLlmUiHref() {
+    const base = llmBaseInput.value.trim();
+    if (base && /^https?:\/\//i.test(base)) {
+      // User explicitly pointed "Backend settings" at a full backend URL,
+      // which already bypasses the gateway -- honor it as-is.
+      return base.replace(/\/$/, "") + "/ui";
+    }
+    // Default / gateway-relative base ("/api/llm"): always link directly at
+    // the backend's own exposed port instead, using the current page's
+    // hostname so this also works when accessed from another machine.
+    return `${window.location.protocol}//${window.location.hostname}:${DIRECT_LLM_UI_PORT}/ui`;
+  }
+
+  llmBaseInput.value = localStorage.getItem("moultgpt_llm_base") || DEFAULT_LLM_BASE;
+  visionBaseInput.value = localStorage.getItem("moultgpt_vision_base") || DEFAULT_VISION_BASE;
+
+  llmBaseInput.addEventListener("change", () => {
+    localStorage.setItem("moultgpt_llm_base", llmBaseInput.value);
+    document.getElementById("llm-ui-link").href = computeLlmUiHref();
+    loadModels();
+  });
+  visionBaseInput.addEventListener("change", () => {
+    localStorage.setItem("moultgpt_vision_base", visionBaseInput.value);
+  });
+  document.getElementById("llm-ui-link").href = computeLlmUiHref();
+
+  settingsToggle.addEventListener("click", () => {
+    settingsBox.classList.toggle("active");
+  });
+
+  /* ───────────────────────── Example fill-ins ─────────────────────────
+     Real DOI from the corpus used throughout this project's evaluation --
+     confirmed present as a pre-parsed TEI file in llm/data/papers_txt/,
+     i.e. actually resolvable via Unpaywall/GROBID in this pipeline, not
+     just recalled from memory (the previous value here, 10.1186/s12862-
+     018-1262-7, was wrong -- it does not exist -- and was never checked
+     against the repo's own data before being added). */
+  const EXAMPLE_DOI = "10.1038/s41598-022-18146-3";
+  const EXAMPLE_QUESTION = "What moulting traits are reported for the specimens in this paper?";
+
+  document.getElementById("doi-example-btn").addEventListener("click", () => {
+    document.getElementById("doi-input").value = EXAMPLE_DOI;
+  });
+  document.getElementById("question-example-btn").addEventListener("click", () => {
+    document.getElementById("prompt-input").value = EXAMPLE_QUESTION;
+  });
+
+  /* ───────────────────────── Mode switch (text / image) ───────────────────────── */
+
+  const tabText = document.getElementById("tab-text");
+  const tabImage = document.getElementById("tab-image");
+  const panelText = document.getElementById("panel-text");
+  const panelImage = document.getElementById("panel-image");
+
+  function setMode(mode) {
+    const isText = mode === "text";
+    tabText.classList.toggle("active", isText);
+    tabImage.classList.toggle("active", !isText);
+    tabText.setAttribute("aria-selected", String(isText));
+    tabImage.setAttribute("aria-selected", String(!isText));
+    panelText.classList.toggle("active", isText);
+    panelImage.classList.toggle("active", !isText);
+  }
+  tabText.addEventListener("click", () => setMode("text"));
+  tabImage.addEventListener("click", () => setMode("image"));
+
+  /* ───────────────────────── Text source tabs ───────────────────────── */
+
+  const sourceTabs = document.querySelectorAll(".source-tab");
+  const sourceInputs = document.querySelectorAll(".source-input");
+  sourceTabs.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      sourceTabs.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      const src = btn.dataset.source;
+      sourceInputs.forEach((el) => el.classList.toggle("active", el.dataset.source === src));
+    });
+  });
+  function activeSource() {
+    return document.querySelector(".source-tab.active").dataset.source;
+  }
+
+  /* ───────────────────────── Populate model dropdown ───────────────────────── */
+
+  const modelSelect = document.getElementById("model-select");
+  const FALLBACK_MODELS = [
+    { id: "mistral-small-latest", label: "Mistral Small" },
+    { id: "nvidia/nemotron-3-ultra-550b-a55b:free", label: "Nemotron 3 Ultra 550B" },
+    { id: "openrouter/free", label: "OpenRouter (auto-selected free model)" },
+    { id: "cohere/north-mini-code:free", label: "Cohere North Mini Code" },
+    { id: "gemini-2.5-flash", label: "Gemini 2.5 Flash" },
+  ];
+
+  function fillModelSelect(models) {
+    modelSelect.innerHTML = "";
+    models.forEach((m) => {
+      const opt = document.createElement("option");
+      opt.value = m.id;
+      opt.textContent = m.label || m.id;
+      modelSelect.appendChild(opt);
+    });
+  }
+
+  async function loadModels() {
+    try {
+      const res = await fetch(getLlmBase() + "/models");
+      if (!res.ok) throw new Error("bad status " + res.status);
+      const data = await res.json();
+      fillModelSelect(data.models || FALLBACK_MODELS);
+    } catch (e) {
+      fillModelSelect(FALLBACK_MODELS);
+    }
+  }
+  loadModels();
+
+  /* ───────────────────────── Text scan ───────────────────────── */
+
+  const textSubmit = document.getElementById("text-submit");
+  const textStatus = document.getElementById("text-status");
+  const textResult = document.getElementById("text-result");
+  const textResultStatus = document.getElementById("text-result-status");
+  const textResultMeta = document.getElementById("text-result-meta");
+  const textResultOutput = document.getElementById("text-result-output");
+  const feedbackRow = document.getElementById("feedback-row");
+  const fbUp = document.getElementById("fb-up");
+  const fbDown = document.getElementById("fb-down");
+  const fbComment = document.getElementById("fb-comment");
+  const fbSend = document.getElementById("fb-send");
+  const fbStatus = document.getElementById("fb-status");
+
+  function pill(kind, label) {
+    const cls = kind === "ok" ? "status-ok" : kind === "warn" ? "status-warn" : "status-bad";
+    return `<span class="status-pill ${cls}">${label}</span>`;
+  }
+
+  /* ── Feedback (POST /feedback — the same data llm/finetuning/ trains on) ── */
+
+  let feedbackPayload = null; // { query, response, model_id }
+  let feedbackRating = null;
+
+  function showFeedback(query, response, modelId) {
+    feedbackPayload = { query, response, model_id: modelId };
+    feedbackRating = null;
+    fbComment.value = "";
+    fbStatus.textContent = "";
+    fbSend.style.display = "none";
+    fbUp.setAttribute("aria-pressed", "false");
+    fbDown.setAttribute("aria-pressed", "false");
+    feedbackRow.classList.add("active");
+  }
+  function hideFeedback() {
+    feedbackRow.classList.remove("active");
+    feedbackPayload = null;
+  }
+
+  function selectRating(rating) {
+    feedbackRating = rating;
+    fbUp.setAttribute("aria-pressed", String(rating === 1));
+    fbDown.setAttribute("aria-pressed", String(rating === -1));
+    fbSend.style.display = "inline-flex";
+    fbStatus.textContent = "";
+  }
+  fbUp.addEventListener("click", () => selectRating(1));
+  fbDown.addEventListener("click", () => selectRating(-1));
+
+  fbSend.addEventListener("click", async () => {
+    if (!feedbackPayload || feedbackRating === null) return;
+    fbSend.disabled = true;
+    fbStatus.textContent = "Sending…";
+    try {
+      const res = await fetch(getLlmBase() + "/feedback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...feedbackPayload, rating: feedbackRating, comment: fbComment.value.trim() }),
+      });
+      fbStatus.textContent = res.ok ? "Thanks — saved." : "Could not save feedback.";
+    } catch (e) {
+      fbStatus.textContent = "Could not reach the backend to save feedback.";
+    } finally {
+      fbSend.disabled = false;
+    }
+  });
+
+  textSubmit.addEventListener("click", async () => {
+    const source = activeSource();
+    const prompt = document.getElementById("prompt-input").value.trim();
+    if (!prompt) {
+      textStatus.textContent = "Please enter a question.";
+      return;
+    }
+
+    const fd = new FormData();
+    fd.append("prompt", prompt);
+    fd.append("model", modelSelect.value);
+    fd.append("mode", document.getElementById("mode-select").value);
+
+    if (source === "text") {
+      const text = document.getElementById("text-input").value.trim();
+      if (!text) { textStatus.textContent = "Please paste some text."; return; }
+      fd.append("text", text);
+    } else if (source === "doi") {
+      const doi = document.getElementById("doi-input").value.trim();
+      if (!doi) { textStatus.textContent = "Please enter a DOI."; return; }
+      fd.append("doi", doi);
+    } else if (source === "file") {
+      const file = document.getElementById("file-input").files[0];
+      if (!file) { textStatus.textContent = "Please choose a PDF."; return; }
+      fd.append("file", file);
+    }
+
+    textSubmit.disabled = true;
+    textStatus.innerHTML = '<span class="spinner"></span> Scanning…';
+    textResult.classList.remove("active");
+
+    try {
+      const res = await fetch(getLlmBase() + "/query", { method: "POST", body: fd });
+      const data = await res.json();
+
+      if (!res.ok) {
+        textResultStatus.innerHTML = pill("bad", data.reason || data.error || "error");
+        textResultMeta.textContent = data.message || data.details || "Request failed.";
+        textResultOutput.textContent = JSON.stringify(data, null, 2);
+        hideFeedback();
+      } else {
+        textResultStatus.innerHTML = pill("ok", data.routing_label || "in_scope");
+        textResultMeta.textContent =
+          `model: ${data.model_label || data.model_id} · latency: ${(data.total_latency_sec || 0).toFixed(2)}s · relevant sentences: ${data.n_relevant_sentences ?? "–"}`;
+        textResultOutput.textContent = data.response || "(empty response)";
+        showFeedback(prompt, data.response || "", data.model_id || modelSelect.value);
+      }
+      textResult.classList.add("active");
+    } catch (e) {
+      textResultStatus.innerHTML = pill("bad", "network_error");
+      textResultMeta.textContent = String(e);
+      textResultOutput.textContent =
+        `Could not reach ${getLlmBase()}. Check that llm/backend/app.py is running and the backend URL in ⚙ Backend settings is correct.`;
+      textResult.classList.add("active");
+      hideFeedback();
+    } finally {
+      textSubmit.disabled = false;
+      textStatus.textContent = "";
+    }
+  });
+
+  /* ───────────────────────── Image scan ───────────────────────── */
+
+  const dropZone = document.getElementById("drop-zone");
+  const imageInput = document.getElementById("image-input");
+  const previewWrap = document.getElementById("preview-wrap");
+  const previewCanvas = document.getElementById("preview-canvas");
+  const imageSubmit = document.getElementById("image-submit");
+  const imageStatus = document.getElementById("image-status");
+  const imageResult = document.getElementById("image-result");
+  const imageResultStatus = document.getElementById("image-result-status");
+  const imageResultMeta = document.getElementById("image-result-meta");
+  const taxonSelect = document.getElementById("taxon-select");
+  const segCheckbox = document.getElementById("seg-checkbox");
+
+  let currentImage = null; // HTMLImageElement
+  let currentFile = null;
+  let lastDetections = []; // re-used on window resize so the overlay survives a reflow
+
+  dropZone.addEventListener("click", () => imageInput.click());
+  dropZone.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); imageInput.click(); }
+  });
+  ["dragover", "dragenter"].forEach((evt) =>
+    dropZone.addEventListener(evt, (e) => { e.preventDefault(); dropZone.classList.add("drag-over"); })
+  );
+  ["dragleave", "drop"].forEach((evt) =>
+    dropZone.addEventListener(evt, (e) => { e.preventDefault(); dropZone.classList.remove("drag-over"); })
+  );
+  dropZone.addEventListener("drop", (e) => {
+    const file = e.dataTransfer.files[0];
+    if (file) handleImageFile(file);
+  });
+  imageInput.addEventListener("change", () => {
+    if (imageInput.files[0]) handleImageFile(imageInput.files[0]);
+  });
+
+  function handleImageFile(file) {
+    currentFile = file;
+    const img = new Image();
+    img.onload = () => {
+      currentImage = img;
+      lastDetections = [];
+      drawPreview([]);
+      previewWrap.classList.add("active");
+      imageSubmit.disabled = false;
+      imageResult.classList.remove("active");
+    };
+    img.src = URL.createObjectURL(file);
+  }
+
+  function loadImage(src) {
+    return new Promise((resolve, reject) => {
+      const im = new Image();
+      im.onload = () => resolve(im);
+      im.onerror = reject;
+      im.src = src;
+    });
+  }
+
+  async function drawPreview(detections) {
+    if (!currentImage) return;
+    const maxW = previewWrap.clientWidth || 640;
+    const scale = Math.min(1, maxW / currentImage.naturalWidth);
+    const dw = currentImage.naturalWidth * scale;
+    const dh = currentImage.naturalHeight * scale;
+    previewCanvas.width = dw;
+    previewCanvas.height = dh;
+    const pctx = previewCanvas.getContext("2d");
+    pctx.drawImage(currentImage, 0, 0, dw, dh);
+
+    // Segmentation masks first (full-image-sized RGBA PNGs from FastSAM,
+    // already colour-coded server-side), so the box outlines/labels drawn
+    // afterwards stay legible on top of them.
+    const maskDets = detections.filter((d) => d.mask_png);
+    if (maskDets.length) {
+      const maskImages = await Promise.all(
+        maskDets.map((d) => loadImage("data:image/png;base64," + d.mask_png))
+      );
+      maskImages.forEach((im) => pctx.drawImage(im, 0, 0, dw, dh));
+    }
+
+    detections.forEach((det) => {
+      const [x1, y1, x2, y2] = det.box;
+      const color = det.cls === "organism" ? "#ff4d4d" : "#0099ff";
+      pctx.strokeStyle = color;
+      pctx.lineWidth = 2;
+      pctx.strokeRect(x1 * scale, y1 * scale, (x2 - x1) * scale, (y2 - y1) * scale);
+      const label = `${det.cls} ${(det.conf * 100).toFixed(0)}%`;
+      pctx.font = "600 12px Inter, sans-serif";
+      const tw = pctx.measureText(label).width + 10;
+      pctx.fillStyle = color;
+      pctx.fillRect(x1 * scale, Math.max(0, y1 * scale - 18), tw, 18);
+      pctx.fillStyle = "#05070a";
+      pctx.fillText(label, x1 * scale + 5, Math.max(12, y1 * scale - 5));
+    });
+  }
+
+  imageSubmit.addEventListener("click", async () => {
+    if (!currentFile) return;
+    const fd = new FormData();
+    fd.append("image", currentFile);
+    if (taxonSelect.value !== "") fd.append("taxon_id", taxonSelect.value);
+    fd.append("use_seg", segCheckbox.checked ? "1" : "0");
+
+    imageSubmit.disabled = true;
+    imageStatus.innerHTML = '<span class="spinner"></span> Scanning…';
+    imageResult.classList.remove("active");
+
+    try {
+      const res = await fetch(getVisionBase() + "/predict_image", { method: "POST", body: fd });
+      const data = await res.json();
+
+      if (!res.ok || !data.ok) {
+        imageResultStatus.innerHTML = pill("bad", "error");
+        imageResultMeta.textContent = data.error || "Request failed.";
+      } else {
+        const stageKind = data.stage ? "ok" : "warn";
+        imageResultStatus.innerHTML =
+          pill(stageKind, data.stage ? `stage: ${data.stage}` : "no stage detected") +
+          (data.stage_confidence != null ? ` <span class="hint">confidence ${(data.stage_confidence * 100).toFixed(0)}%</span>` : "");
+
+        let metaLine = `device: ${data.device} · inference: ${data.inference_ms}ms · detections: ${data.detections.length}`;
+        if (segCheckbox.checked) {
+          metaLine += data.segmentation_loaded
+            ? ` · segmentation: on`
+            : ` · segmentation: unavailable on this backend (FastSAM weights not loaded)`;
+        }
+        imageResultMeta.textContent = metaLine;
+
+        lastDetections = data.detections || [];
+        await drawPreview(lastDetections);
+      }
+      imageResult.classList.add("active");
+    } catch (e) {
+      imageResultStatus.innerHTML = pill("bad", "network_error");
+      imageResultMeta.textContent =
+        `Could not reach ${getVisionBase()}. Check that vision/backend/app.py is running and the backend URL in ⚙ Backend settings is correct.`;
+      imageResult.classList.add("active");
+    } finally {
+      imageSubmit.disabled = false;
+      imageStatus.textContent = "";
+    }
+  });
+
+  window.addEventListener("resize", () => { if (currentImage) drawPreview(lastDetections); });
+})();
+</script>
+
+</body>
+</html>

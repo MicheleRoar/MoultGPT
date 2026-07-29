@@ -1,0 +1,31 @@
+# MoultGPT — llm/ requirements
+#
+# This backend now calls remote model APIs instead of loading a local LLM,
+# so there is intentionally NO torch / transformers / peft / bitsandbytes
+# here — no GPU and no multi-GB model download are needed to run it.
+
+# Backend
+flask>=3.0.0
+flask-cors>=4.0.0
+python-dotenv>=1.0.0
+
+# Remote LLM calls
+requests>=2.31.0
+
+# Domain / ontology gating
+rdflib>=7.0.0
+pandas>=2.2.0
+scikit-learn>=1.4.0
+numpy>=1.26.0
+
+# PDF -> text pipeline (Unpaywall + GROBID)
+beautifulsoup4>=4.12.0
+lxml>=5.0.0
+
+# Parsing single_trait-mode model output (asked to return YAML) in
+# llm/eval/trait_extraction/scoring.py
+pyyaml>=6.0
+
+# Reading llm/finetuning/MoultDB character annotations.xlsx in
+# llm/eval/trait_extraction/gold_questions.py
+openpyxl>=3.1.0

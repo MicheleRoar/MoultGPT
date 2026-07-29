@@ -1,0 +1,261 @@
+{
+  "trait_columns": [
+    "Determined by",
+    "Contributor",
+    "Museum collection",
+    "Museum accession",
+    "Location: GPS coordinates",
+    "Geological formation",
+    "Biozone",
+    "Geological age",
+    "Geological age.1",
+    "Environment",
+    "Number of specimens in the sample",
+    "Number of specimens for this annotation",
+    "Sex",
+    "Previous reproductive state",
+    "Previous ontogenetic stage",
+    "Reproductive state",
+    "Observed ontogenetic stage",
+    "Type of specimens of interest",
+    "Life history style",
+    "Life mode",
+    "Number of juvenile moults",
+    "Number of major morphological transitions",
+    "Adult stage moulting",
+    "Observed # total moult stages",
+    "Estimated # moult stages",
+    "Segment addition mode",
+    "# body segments in adult individuals",
+    "# body segments per moult stage",
+    "Average body length (in mm)",
+    "Average body width (in mm)",
+    "Average body length increase from previous moult (in mm)",
+    "Average body width increase from previous moult (in mm)",
+    "Average body mass increase from previous moult (in g)",
+    "Ontogenetic stage period (in days)",
+    "Intermoult period (in days)",
+    "Pre-moult period (in days)",
+    "Post-moult period (in days)",
+    "Variation in moulting time within cohorts (in days)",
+    "Location of moulting suture",
+    "Cephalic suture location",
+    "Post-cephalic suture location",
+    "Resulting named moulting configurations",
+    "Direction of egress during moulting",
+    "Position exuviae found in",
+    "Moulting phase",
+    "Intraspecific variability in moulting mode",
+    "Post-moult cuticle calcification event",
+    "Post-moult heavy metal reinforcement of the cuticle",
+    "Other behaviours associated with moulting",
+    "Consumption of exuviae",
+    "Reabsorption during moulting",
+    "Quality of fossil exuviae",
+    "Evidence code",
+    "Confidence",
+    "General Comments"
+  ],
+  "enums": {
+    "Environment": [
+      "terrestrial",
+      "marine",
+      "estuarine",
+      "lacustrine",
+      "desert",
+      "rainforest",
+      "woodland",
+      "polar",
+      "riverine",
+      "coral reef",
+      "tidal",
+      "freshwater"
+    ],
+    "Sex": [
+      "unknown",
+      "hermaphrodite",
+      "female",
+      "male"
+    ],
+    "Type of specimens of interest": [
+      "fossil(s)",
+      "observations of living individual(s)",
+      "mid-moult",
+      "ontogenetic sequence",
+      "wild living specimen(s)",
+      "aquarium-reared specimen(s)",
+      "larva(e)",
+      "exuvia(e)",
+      "carcasse(s)",
+      "carapace(s)"
+    ],
+    "Life history style": [
+      "direct development",
+      "heterometabolism",
+      "holometabolism",
+      "hemimetabolism"
+    ],
+    "Life mode": [
+      "pelagic",
+      "sessile",
+      "epifaunal",
+      "infaunal",
+      "benthic",
+      "epibenthic",
+      "erect",
+      "surficial",
+      "semi-infaunal",
+      "shallow infaunal",
+      "deep infaunal",
+      "mesopelagic",
+      "parasitic",
+      "swimming"
+    ],
+    "Adult stage moulting": [
+      "yes",
+      "no"
+    ],
+    "Segment addition mode": [
+      "anamorphosis",
+      "euanamorphosis",
+      "teloanamorphosis",
+      "hemianamorphosis",
+      "epimorphosis",
+      "desegmentation",
+      "abdominal segments released into thorax",
+      "pygidial segments released into thorax",
+      "anterior growth zone",
+      "posterior growth zone",
+      "biphasic"
+    ],
+    "Location of moulting suture": [
+      "dorsal",
+      "ventral",
+      "lateral margin",
+      "anterior margin",
+      "anterior cephalic margin",
+      "cephalon",
+      "cephalothoracic joint",
+      "post-cephalic",
+      "abdomen",
+      "thorax",
+      "cephalothorax",
+      "pleural suture",
+      "cephalothoracic-abdominal joint"
+    ],
+    "Cephalic suture location": [
+      "facial suture",
+      "rostral suture",
+      "ventral suture",
+      "marginal cephalic suture",
+      "hypostomal suture",
+      "prosomal suture",
+      "median suture",
+      "cephalothorax margin suture"
+    ],
+    "Post-cephalic suture location": [
+      "between body segments",
+      "thorax-tail shield joint",
+      "thoracopygidium",
+      "midline of carapace",
+      "anterior of carapace",
+      "posterior of carapace",
+      "marginal carapace suture",
+      "dorsal median suture",
+      "dorsal carapace suture",
+      "median cephalothorax suture",
+      "between thoracic segments",
+      "posterior to first body segment"
+    ],
+    "Resulting named moulting configurations": [
+      "Lobster Open Moult Position",
+      "Crab Open Moult Position",
+      "Henningsmoen's Configuration",
+      "Harrington's Configuration",
+      "axial shield",
+      "McNamara's Configuration",
+      "Somersault Configuration",
+      "Salter's Configuration",
+      "Zombie Configuration",
+      "Nutcracker Configuration",
+      "Marginal Gape",
+      "Overturned-Carapace Moult Configuration",
+      "Open Moult Position",
+      "Maksimova’s Configuration"
+    ],
+    "Direction of egress during moulting": [
+      "anterior",
+      "posterior",
+      "ventral",
+      "dorsal"
+    ],
+    "Position exuviae found in": [
+      "prone",
+      "supine",
+      "side"
+    ],
+    "Moulting phase": [
+      "monophasic",
+      "biphasic",
+      "multiphasic"
+    ],
+    "Intraspecific variability in moulting mode": [
+      "yes",
+      "no"
+    ],
+    "Post-moult cuticle calcification event": [
+      "none",
+      "strong",
+      "weak"
+    ],
+    "Post-moult heavy metal reinforcement of the cuticle": [
+      "none",
+      "Zn",
+      "Mn",
+      "Fe",
+      "Ni"
+    ],
+    "Other behaviours associated with moulting": [
+      "mass moulting",
+      "mating",
+      "moulting nest",
+      "burrowing",
+      "hiding outside a burrow",
+      "enrollment",
+      "partial enrollment",
+      "association with other species",
+      "moult retention",
+      "wandering",
+      "diapause"
+    ],
+    "Consumption of exuviae": [
+      "yes",
+      "no",
+      "partial"
+    ],
+    "Reabsorption during moulting": [
+      "reabsorption of exoskeleton material",
+      "no reabsorption of exoskeleton material",
+      "partial reabsorption of exoskeleton material",
+      "calcium reabsorption",
+      "reabsorption of endocuticle"
+    ],
+    "Quality of fossil exuviae": [
+      "fragmented/fractured",
+      "incomplete configuration",
+      "complete configuration",
+      "cephalon missing",
+      "post-cephalon missing",
+      "tectonically/metamorphically deformed"
+    ]
+  },
+  "excluded_metadata_columns": [
+    "Paper ID",
+    "Taxon",
+    "Order",
+    "Location: name",
+    "Published reference: citation (APA style)",
+    "Published reference: accession"
+  ],
+  "source": "llm/finetuning/MoultDB character annotations.xlsx (sheet: data / enums)"
+}

@@ -1,0 +1,8 @@
+# Auto-generated
+path: /Users/mleone1/Desktop/Revenge/data/yolo
+train: images/train
+val: images/val
+
+names:
+  0: organism
+  1: exuviae

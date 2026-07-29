@@ -1,0 +1,17 @@
+# Not needed inside the image / mounted as volumes instead
+data/
+backend/data/
+backend/feedback/
+finetuning/
+test/
+tools/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.env
+*.log
+.DS_Store
+.git/
+Untitled.ipynb

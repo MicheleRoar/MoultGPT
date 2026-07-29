@@ -1,0 +1,183 @@
+#######################################
+# Python / Virtual Environments
+#######################################
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.log
+
+.env
+.venv/
+venv/
+vision_env/
+
+#######################################
+# OS / Editor / Misc
+#######################################
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*.tmp
+*.bak
+
+# Local AI-assistant tooling config, not part of the project
+.claude/
+testfile_delete_me.txt
+
+#######################################
+# Manuscript (kept in a separate Overleaf project,
+# not part of the public code repository)
+#######################################
+paper/
+
+
+############################################################
+# 🔬 LLM MODULE
+############################################################
+
+#######################################
+# LLM — Heavy models (keep folder, ignore contents)
+#######################################
+llm/backend/models/*
+!llm/backend/models/.gitkeep
+
+#######################################
+# LLM — PDF, TEI, extracted text
+# We IGNORE large raw files but KEEP structure
+#######################################
+llm/data/papers_pdf/*
+!llm/data/papers_pdf/.gitkeep
+
+llm/data/papers_txt/*
+!llm/data/papers_txt/.gitkeep
+
+llm/data/summaries/*
+!llm/data/summaries/.gitkeep
+
+#######################################
+# LLM — Large compiled/derived taxonomy artifacts (regenerate via
+# TaxonMatch rather than vendoring; also exceed GitHub's 100 MB limit)
+#######################################
+llm/data/taxonomy_lookup.pkl
+llm/data/arthropod_taxonomy.csv
+
+#######################################
+# LLM — Finetuning: heavy data
+#######################################
+llm/finetuning/papers/*
+!llm/finetuning/papers/.gitkeep
+
+llm/finetuning/output/*
+!llm/finetuning/output/.gitkeep
+
+# Keep scripts and modules (code only)
+!llm/finetuning/*.py
+!llm/finetuning/modules/**
+
+
+############################################################
+# VISION MODULE
+############################################################
+
+#######################################
+# Vision — Backend Models (keep folder)
+#######################################
+vision/backend/models/*
+!vision/backend/models/.gitkeep
+
+#######################################
+# Vision — Model checkpoints: keep only the deployed/canonical ones.
+# FastSAM-x.pt (~139 MB, exceeds GitHub's 100 MB limit) and every
+# exploratory .pkl produced during benchmarking are excluded on purpose.
+#######################################
+vision/models/*
+!vision/models/.gitkeep
+!vision/models/yolo_detect.pt
+!vision/models/xgboost_stage.pkl
+!vision/models/label_encoder.pkl
+!vision/models/xgboost_stage_OFFICIAL_SPLIT_13feat.pkl
+!vision/models/label_encoder_OFFICIAL_SPLIT_13feat.pkl
+
+#######################################
+# Vision — Raw iNat data
+#######################################
+vision/data/inat_raw/*
+!vision/data/inat_raw/.gitkeep
+
+#######################################
+# Vision — YOLO dataset
+#######################################
+vision/data/yolo/images/*
+vision/data/yolo/labels/*
+vision/data/yolo/*.cache
+
+# But keep the YOLO config
+!vision/data/yolo/data.yaml
+
+#######################################
+# Vision — Auto-generated CSVs & arrays
+#######################################
+vision/data/*.csv
+vision/data/*.npy
+vision/data/*.npz
+vision/data/*.txt
+
+#######################################
+# Vision — Training outputs. All exploratory benchmark runs/plots are
+# ignored except the two files backing the final reported numbers.
+#######################################
+vision/scripts/training/runs/
+vision/scripts/results/*
+!vision/scripts/results/classifier_benchmark_summary_OFFICIAL_SPLIT.csv
+!vision/scripts/results/xgboost_OFFICIAL_SPLIT_13feat_params.json
+
+#######################################
+# Vision — Frontend (React)
+#######################################
+vision/frontend/node_modules/
+vision/frontend/build/
+
+vision/frontend/.env
+vision/frontend/.env.local
+vision/frontend/.env.development.local
+vision/frontend/.env.production.local
+vision/frontend/.env.test.local
+
+
+############################################################
+# 🔎 NON-IGNORED ITEMS (important)
+############################################################
+
+# Keep documentation
+!**/*.md
+
+# Keep config and YAML
+!**/*.yaml
+!**/*.yml
+
+# Keep example test images
+!vision/test/*
+
+# Keep scripts
+!vision/scripts/**/*.py
+!vision/utility/**/*.py
+
+# llm/test/ contains real copyrighted journal PDFs used for local GROBID
+# testing -- not redistributed, per the paper's Data Availability section
+llm/test/*.pdf
+
+# Same for llm/backend/data/papers_pdf/ (another copy of a corpus PDF)
+llm/backend/data/papers_pdf/
+
+#######################################
+# GROBID — third-party tool (official Docker image is pulled at
+# `docker compose up`, see docker-compose.yml); do NOT vendor its build
+# artifacts (~3.5 GB of jars/expanded archives) in this repo.
+#######################################
+llm/tools/grobid/
+

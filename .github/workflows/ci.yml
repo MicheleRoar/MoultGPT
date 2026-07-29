@@ -1,0 +1,78 @@
+name: CI
+
+# Runs on every push/PR touching the backends or the unified demo gateway
+# (frontend/). Two things on purpose kept separate from a full end-to-end
+# test: llm/data (taxonomy CSV + ontology, ~600MB) and vision/models
+# (~150MB weights) are gitignored and not present in CI, so we validate
+# what CI *can* validate honestly — syntax and that all three images
+# build — rather than faking a green end-to-end run.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "llm/**"
+      - "vision/**"
+      - "frontend/**"
+      - ".github/workflows/ci.yml"
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        module: [llm, vision, frontend]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Byte-compile check (catches syntax errors fast)
+        run: python -m py_compile $(find ${{ matrix.module }} -name "*.py" \
+          -not -path "*/.venv/*" -not -path "*/finetuning/*" -not -path "*/tools/*")
+
+      - name: Install ruff
+        run: pip install ruff
+
+      - name: Ruff (non-blocking for now — see step summary)
+        run: ruff check ${{ matrix.module }} --exclude .venv --exclude finetuning --exclude tools || true
+
+  test:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install pytest
+        run: pip install pytest
+
+      - name: Run llm/tests (pure-Python domain gate, prompting, model registry — no GPU/network/data files needed)
+        run: cd llm && python -m pytest tests -q
+
+  docker-build:
+    runs-on: ubuntu-latest
+    needs: lint
+    strategy:
+      matrix:
+        module: [llm, vision, frontend]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: docker/setup-buildx-action@v3
+
+      - name: Build ${{ matrix.module }} image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./${{ matrix.module }}
+          push: false
+          tags: moultgpt-${{ matrix.module }}:ci
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

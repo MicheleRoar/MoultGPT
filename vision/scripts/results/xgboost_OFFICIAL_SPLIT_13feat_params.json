@@ -1,0 +1,30 @@
+{
+  "best_params": {
+    "clf__colsample_bytree": 1.0,
+    "clf__learning_rate": 0.05,
+    "clf__max_depth": 3,
+    "clf__n_estimators": 150,
+    "clf__subsample": 0.8
+  },
+  "cv_macro_f1": 0.7334551392171402,
+  "val_accuracy": 0.8818897637795275,
+  "val_balanced_accuracy": 0.8601002109704641,
+  "val_macro_f1": 0.8702757916241062,
+  "features": [
+    "box_overlap",
+    "dist_centroids",
+    "x_organism",
+    "y_organism",
+    "x_exuviae",
+    "y_exuviae",
+    "h_exuviae",
+    "org_mean_g",
+    "org_mean_gray",
+    "taxon_group_Crustacea",
+    "taxon_group_Hexapoda",
+    "taxon_group_Chelicerata",
+    "taxon_group_Myriapoda"
+  ],
+  "train_n": 497,
+  "val_n": 127
+}

@@ -1,0 +1,70 @@
+#######################################
+# Python / Virtual Environments
+#######################################
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.log
+
+.env
+.venv/
+venv/
+vision_env/
+
+#######################################
+# VISION — Backend Models (keep folder, ignore contents)
+#######################################
+vision/backend/models/*
+!vision/backend/models/.gitkeep
+
+#######################################
+# VISION — Data (datasets, annotations, raw images, YOLO sets)
+#######################################
+vision/data/inat_raw/
+vision/data/yolo/images/
+vision/data/yolo/labels/
+vision/data/*.csv
+vision/data/*.npy
+vision/data/*.npz
+vision/data/*.txt
+
+# Keep YOLO config (data.yaml)
+!vision/data/yolo/data.yaml
+
+# Keep readme
+!vision/data/README*
+!vision/data/*.md
+
+#######################################
+# VISION — Training outputs (YOLO, XGBoost, plots)
+#######################################
+vision/scripts/training/runs/
+vision/scripts/results/
+vision/scripts/results/*
+
+#######################################
+# VISION — Frontend (React)
+#######################################
+vision/frontend/node_modules/
+vision/frontend/build/
+
+vision/frontend/.env
+vision/frontend/.env.local
+vision/frontend/.env.development.local
+vision/frontend/.env.production.local
+vision/frontend/.env.test.local
+
+#######################################
+# OS / Editor / Misc
+#######################################
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+*.swp
+*.swo
+*.tmp
+*.bak

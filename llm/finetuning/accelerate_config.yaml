@@ -1,0 +1,29 @@
+# MoultGPT — example Accelerate/FSDP config for multi-GPU LoRA fine-tuning.
+#
+# This is a starting point, not a tuned production config — the single-GPU
+# SLURM job in train_lora.sh doesn't need it. Use it when scaling
+# train_lora.py across multiple GPUs on one node:
+#
+#   accelerate launch --config_file accelerate_config.yaml train_lora.py \
+#       --dataset output/finetune_full.jsonl --output_dir ../output/lora_mistral
+#
+# Regenerate/adjust interactively with `accelerate config` for your actual
+# hardware (num_processes must match the GPU count on the node).
+
+compute_environment: LOCAL_MACHINE
+distributed_type: FSDP
+fsdp_config:
+  fsdp_auto_wrap_policy: TRANSFORMER_BASED_WRAP
+  fsdp_backward_prefetch: BACKWARD_PRE
+  fsdp_forward_prefetch: false
+  fsdp_offload_params: false
+  fsdp_sharding_strategy: FULL_SHARD
+  fsdp_state_dict_type: SHARDED_STATE_DICT
+  fsdp_sync_module_states: true
+  fsdp_use_orig_params: true
+mixed_precision: bf16
+num_machines: 1
+num_processes: 2 # set to the number of GPUs on the node
+main_training_function: main
+same_network: true
+use_cpu: false

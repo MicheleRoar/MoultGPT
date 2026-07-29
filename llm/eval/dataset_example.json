@@ -1,0 +1,17 @@
+[
+  {
+    "paper_id": "local_test_paper_1",
+    "pdf": "test/paper.pdf",
+    "queries": [
+      "What moulting stage is described for the specimens in this paper?",
+      "How many instars are reported for this species?"
+    ]
+  },
+  {
+    "paper_id": "local_test_paper_2",
+    "pdf": "test/paper2.pdf",
+    "queries": [
+      "Describe the moulting process in this species."
+    ]
+  }
+]

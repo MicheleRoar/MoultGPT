@@ -1,0 +1,6108 @@
+{
+  "n_items": 500,
+  "n_single": 255,
+  "n_combo": 45,
+  "n_negative": 200,
+  "seed": 42,
+  "available_paper_ids": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    39,
+    44,
+    45,
+    46
+  ],
+  "excluded_non_trait_fields": [
+    "Confidence",
+    "Contributor",
+    "Determined by",
+    "Evidence code",
+    "General Comments",
+    "Location: GPS coordinates",
+    "Museum accession",
+    "Museum collection"
+  ],
+  "question_templates": [
+    "According to this paper, what is the value for \"{field}\"?",
+    "Based on the evidence above, what does the paper report for {field}?",
+    "Determine the {field} described in this paper.",
+    "From the given evidence, what is the {field}?",
+    "Extract the value of \"{field}\" from the text above."
+  ],
+  "combo_question_templates": [
+    "According to this paper, what are the values for \"{field_a}\" and \"{field_b}\"?",
+    "Based on the evidence above, what does the paper report for {field_a}, and separately for {field_b}?"
+  ],
+  "items": [
+    {
+      "item_id": 0,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 19,
+      "field": "Observed ontogenetic stage",
+      "gold_values": [
+        "Adult",
+        "Larva 2",
+        "Larva 3",
+        "Larva 4",
+        "Larva 5"
+      ],
+      "question": "According to this paper, what is the value for \"Observed ontogenetic stage\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 1,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 2,
+      "field": "Observed ontogenetic stage",
+      "gold_values": [
+        "sexually mature adult stage"
+      ],
+      "question": "According to this paper, what is the value for \"Observed ontogenetic stage\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 2,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 46,
+      "field": "Observed # total moult stages",
+      "gold_values": [
+        "17"
+      ],
+      "question": "According to this paper, what is the value for \"Observed number of total moult stages\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 3,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 45,
+      "field": "Observed # total moult stages",
+      "gold_values": [
+        "11"
+      ],
+      "question": "According to this paper, what is the value for \"Observed number of total moult stages\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 4,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 21,
+      "field": "Observed ontogenetic stage",
+      "gold_values": [
+        "Adult",
+        "Larva 5",
+        "Larva 6",
+        "Larva 7"
+      ],
+      "question": "According to this paper, what is the value for \"Observed ontogenetic stage\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 5,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 4,
+      "field": "Observed # total moult stages",
+      "gold_values": [
+        "4"
+      ],
+      "question": "According to this paper, what is the value for \"Observed number of total moult stages\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 6,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 18,
+      "field": "Life mode",
+      "gold_values": [
+        "surficial"
+      ],
+      "question": "According to this paper, what is the value for \"Life mode\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 7,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 5,
+      "field": "Moulting phase",
+      "gold_values": [
+        "Monophasic"
+      ],
+      "question": "According to this paper, what is the value for \"Moulting phase\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 8,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 20,
+      "field": "Life history style",
+      "gold_values": [
+        "direct development"
+      ],
+      "question": "According to this paper, what is the value for \"Life history style\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 9,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 22,
+      "field": "Moulting phase",
+      "gold_values": [
+        "Monophasic"
+      ],
+      "question": "According to this paper, what is the value for \"Moulting phase\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 10,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 24,
+      "field": "Moulting phase",
+      "gold_values": [
+        "Monophasic"
+      ],
+      "question": "According to this paper, what is the value for \"Moulting phase\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 11,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 3,
+      "field": "Life history style",
+      "gold_values": [
+        "direct development"
+      ],
+      "question": "According to this paper, what is the value for \"Life history style\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 12,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 1,
+      "field": "Estimated # moult stages",
+      "gold_values": [
+        "30"
+      ],
+      "question": "According to this paper, what is the value for \"Estimated number of moult stages\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 13,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 26,
+      "field": "Life history style",
+      "gold_values": [
+        "holometabolism"
+      ],
+      "question": "According to this paper, what is the value for \"Life history style\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 14,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 44,
+      "field": "Life mode",
+      "gold_values": [
+        "benthic; swimming"
+      ],
+      "question": "According to this paper, what is the value for \"Life mode\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 15,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 7,
+      "field": "# body segments in adult individuals",
+      "gold_values": [
+        "8"
+      ],
+      "question": "According to this paper, what is the value for \"number of body segments in adult individuals\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 16,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 39,
+      "field": "Estimated # moult stages",
+      "gold_values": [
+        "4"
+      ],
+      "question": "According to this paper, what is the value for \"Estimated number of moult stages\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 17,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 25,
+      "field": "Estimated # moult stages",
+      "gold_values": [
+        "6"
+      ],
+      "question": "According to this paper, what is the value for \"Estimated number of moult stages\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 18,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 23,
+      "field": "Life mode",
+      "gold_values": [
+        "parasitic"
+      ],
+      "question": "According to this paper, what is the value for \"Life mode\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 19,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 6,
+      "field": "# body segments in adult individuals",
+      "gold_values": [
+        "13"
+      ],
+      "question": "According to this paper, what is the value for \"number of body segments in adult individuals\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 20,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 8,
+      "field": "Segment addition mode",
+      "gold_values": [
+        "Hemianamorphosis"
+      ],
+      "question": "According to this paper, what is the value for \"Segment addition mode\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 21,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 19,
+      "field": "# body segments in adult individuals",
+      "gold_values": [
+        "17",
+        "17/19",
+        "19"
+      ],
+      "question": "According to this paper, what is the value for \"number of body segments in adult individuals\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 22,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 2,
+      "field": "Intraspecific variability in moulting mode",
+      "gold_values": [
+        "0"
+      ],
+      "question": "According to this paper, what is the value for \"Intraspecific variability in moulting mode\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 23,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 46,
+      "field": "Segment addition mode",
+      "gold_values": [
+        "hemianamorphosis"
+      ],
+      "question": "According to this paper, what is the value for \"Segment addition mode\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 24,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 45,
+      "field": "Segment addition mode",
+      "gold_values": [
+        "hemianamorphosis"
+      ],
+      "question": "According to this paper, what is the value for \"Segment addition mode\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 25,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 21,
+      "field": "# body segments per moult stage",
+      "gold_values": [
+        "1",
+        "2"
+      ],
+      "question": "According to this paper, what is the value for \"number of body segments per moult stage\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 26,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 4,
+      "field": "Adult stage moulting",
+      "gold_values": [
+        "Yes"
+      ],
+      "question": "According to this paper, what is the value for \"Adult stage moulting\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 27,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 18,
+      "field": "Adult stage moulting",
+      "gold_values": [
+        "no"
+      ],
+      "question": "According to this paper, what is the value for \"Adult stage moulting\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 28,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 5,
+      "field": "Intraspecific variability in moulting mode",
+      "gold_values": [
+        "yes"
+      ],
+      "question": "According to this paper, what is the value for \"Intraspecific variability in moulting mode\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 29,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 20,
+      "field": "Adult stage moulting",
+      "gold_values": [
+        "yes"
+      ],
+      "question": "According to this paper, what is the value for \"Adult stage moulting\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 30,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 22,
+      "field": "Number of major morphological transitions",
+      "gold_values": [
+        "3"
+      ],
+      "question": "According to this paper, what is the value for \"Number of major morphological transitions\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 31,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 24,
+      "field": "Number of major morphological transitions",
+      "gold_values": [
+        "2"
+      ],
+      "question": "According to this paper, what is the value for \"Number of major morphological transitions\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 32,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 3,
+      "field": "Intraspecific variability in moulting mode",
+      "gold_values": [
+        "0"
+      ],
+      "question": "According to this paper, what is the value for \"Intraspecific variability in moulting mode\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 33,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 1,
+      "field": "# body segments per moult stage",
+      "gold_values": [
+        "1/0"
+      ],
+      "question": "According to this paper, what is the value for \"number of body segments per moult stage\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 34,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 26,
+      "field": "Number of major morphological transitions",
+      "gold_values": [
+        "1"
+      ],
+      "question": "According to this paper, what is the value for \"Number of major morphological transitions\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 35,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 44,
+      "field": "Other behaviours associated with moulting",
+      "gold_values": [
+        "mass moulting"
+      ],
+      "question": "According to this paper, what is the value for \"Other behaviours associated with moulting\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 36,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 7,
+      "field": "Other behaviours associated with moulting",
+      "gold_values": [
+        "enrollment"
+      ],
+      "question": "According to this paper, what is the value for \"Other behaviours associated with moulting\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 37,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 39,
+      "field": "Ontogenetic stage period (in days)",
+      "gold_values": [
+        "40"
+      ],
+      "question": "According to this paper, what is the value for \"Ontogenetic stage period (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 38,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 25,
+      "field": "Other behaviours associated with moulting",
+      "gold_values": [
+        "After the ﬁrst molt individuals leave their mother's back, and are fully capable of foraging in the terrestrial habitat."
+      ],
+      "question": "According to this paper, what is the value for \"Other behaviours associated with moulting\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 39,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 23,
+      "field": "Reproductive state",
+      "gold_values": [
+        "immature"
+      ],
+      "question": "According to this paper, what is the value for \"Reproductive state\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 40,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 6,
+      "field": "Cephalic suture location",
+      "gold_values": [
+        "cephalothorax margin suture"
+      ],
+      "question": "According to this paper, what is the value for \"Cephalic suture location\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 41,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 8,
+      "field": "Location of moulting suture",
+      "gold_values": [
+        "Cephalothoracic joint; cephalon; post-cephalon"
+      ],
+      "question": "According to this paper, what is the value for \"Location of moulting suture\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 42,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 19,
+      "field": "# body segments per moult stage",
+      "gold_values": [
+        "0",
+        "2",
+        "3",
+        "4"
+      ],
+      "question": "According to this paper, what is the value for \"number of body segments per moult stage\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 43,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 2,
+      "field": "Consumption of exuviae",
+      "gold_values": [
+        "T"
+      ],
+      "question": "According to this paper, what is the value for \"Consumption of exuviae\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 44,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 45,
+      "field": "Cephalic suture location",
+      "gold_values": [
+        "cephalothorax margin suture",
+        "facial suture",
+        "facial suture; rostral suture",
+        "facial suture; rostral suture; hypostomal suture",
+        "marginal cephalic suture"
+      ],
+      "question": "According to this paper, what is the value for \"Cephalic suture location\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 45,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 4,
+      "field": "Consumption of exuviae",
+      "gold_values": [
+        "T"
+      ],
+      "question": "According to this paper, what is the value for \"Consumption of exuviae\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 46,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 18,
+      "field": "Reproductive state",
+      "gold_values": [
+        "Pre-reproductive",
+        "Reproductive, partenogenesis"
+      ],
+      "question": "According to this paper, what is the value for \"Reproductive state\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 47,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 5,
+      "field": "Direction of egress during moulting",
+      "gold_values": [
+        "Anterior"
+      ],
+      "question": "According to this paper, what is the value for \"Direction of egress during moulting\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 48,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 20,
+      "field": "Consumption of exuviae",
+      "gold_values": [
+        "yes"
+      ],
+      "question": "According to this paper, what is the value for \"Consumption of exuviae\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 49,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 22,
+      "field": "Reproductive state",
+      "gold_values": [
+        "immature"
+      ],
+      "question": "According to this paper, what is the value for \"Reproductive state\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 50,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 24,
+      "field": "Ontogenetic stage period (in days)",
+      "gold_values": [
+        "18",
+        "188",
+        "29"
+      ],
+      "question": "According to this paper, what is the value for \"Ontogenetic stage period (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 51,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 3,
+      "field": "Post-moult cuticle calcification event",
+      "gold_values": [
+        "T"
+      ],
+      "question": "According to this paper, what is the value for \"Post-moult cuticle calcification event\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 52,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 26,
+      "field": "Ontogenetic stage period (in days)",
+      "gold_values": [
+        "2",
+        "2.2",
+        "2.3",
+        "3.1"
+      ],
+      "question": "According to this paper, what is the value for \"Ontogenetic stage period (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 53,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 44,
+      "field": "Location of moulting suture",
+      "gold_values": [
+        "anterior cephalic margin"
+      ],
+      "question": "According to this paper, what is the value for \"Location of moulting suture\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 54,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 7,
+      "field": "Location of moulting suture",
+      "gold_values": [
+        "cephalon; dorsal; ventral",
+        "cephalothoracic joint; cephalon",
+        "cephalothoracic joint; dorsal; ventral"
+      ],
+      "question": "According to this paper, what is the value for \"Location of moulting suture\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 55,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 39,
+      "field": "Average body length (in mm)",
+      "gold_values": [
+        "4",
+        "6"
+      ],
+      "question": "According to this paper, what is the value for \"Average body length (in mm)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 56,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 25,
+      "field": "Post-moult cuticle calcification event",
+      "gold_values": [
+        "strong",
+        "weak"
+      ],
+      "question": "According to this paper, what is the value for \"Post-moult cuticle calcification event\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 57,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 23,
+      "field": "Sex",
+      "gold_values": [
+        "Female",
+        "Male"
+      ],
+      "question": "According to this paper, what is the value for \"Sex\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 58,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 6,
+      "field": "Direction of egress during moulting",
+      "gold_values": [
+        "Anterior"
+      ],
+      "question": "According to this paper, what is the value for \"Direction of egress during moulting\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 59,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 8,
+      "field": "Cephalic suture location",
+      "gold_values": [
+        "cephalothorax margin suture; facial suture; rostral suture"
+      ],
+      "question": "According to this paper, what is the value for \"Cephalic suture location\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 60,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 19,
+      "field": "Number of juvenile moults",
+      "gold_values": [
+        "5"
+      ],
+      "question": "According to this paper, what is the value for \"Number of juvenile moults\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 61,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 2,
+      "field": "Post-moult cuticle calcification event",
+      "gold_values": [
+        "T"
+      ],
+      "question": "According to this paper, what is the value for \"Post-moult cuticle calcification event\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 62,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 45,
+      "field": "Direction of egress during moulting",
+      "gold_values": [
+        "anterior"
+      ],
+      "question": "According to this paper, what is the value for \"Direction of egress during moulting\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 63,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 4,
+      "field": "Pre-moult period (in days)",
+      "gold_values": [
+        "5-13"
+      ],
+      "question": "According to this paper, what is the value for \"Pre-moult period (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 64,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 18,
+      "field": "Number of juvenile moults",
+      "gold_values": [
+        "6"
+      ],
+      "question": "According to this paper, what is the value for \"Number of juvenile moults\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 65,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 5,
+      "field": "Resulting named moulting configurations",
+      "gold_values": [
+        "Salter's configuration",
+        "Zombie configuration"
+      ],
+      "question": "According to this paper, what is the value for \"Resulting named moulting configurations\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 66,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 20,
+      "field": "Pre-moult period (in days)",
+      "gold_values": [
+        "14-90"
+      ],
+      "question": "According to this paper, what is the value for \"Pre-moult period (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 67,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 22,
+      "field": "Pre-moult period (in days)",
+      "gold_values": [
+        "0.43",
+        "0.47"
+      ],
+      "question": "According to this paper, what is the value for \"Pre-moult period (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 68,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 24,
+      "field": "Sex",
+      "gold_values": [
+        "Female"
+      ],
+      "question": "According to this paper, what is the value for \"Sex\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 69,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 26,
+      "field": "Number of juvenile moults",
+      "gold_values": [
+        "4"
+      ],
+      "question": "According to this paper, what is the value for \"Number of juvenile moults\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 70,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 7,
+      "field": "Resulting named moulting configurations",
+      "gold_values": [
+        "Henningsmoen's Configuration",
+        "Somersault Configuration"
+      ],
+      "question": "According to this paper, what is the value for \"Resulting named moulting configurations\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 71,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 23,
+      "field": "Average body length (in mm)",
+      "gold_values": [
+        "1.94",
+        "2.14",
+        "4.94",
+        "5.31"
+      ],
+      "question": "According to this paper, what is the value for \"Average body length (in mm)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 72,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 6,
+      "field": "Resulting named moulting configurations",
+      "gold_values": [
+        "Open Moult Position"
+      ],
+      "question": "According to this paper, what is the value for \"Resulting named moulting configurations\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 73,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 8,
+      "field": "Position exuviae found in",
+      "gold_values": [
+        "Prone"
+      ],
+      "question": "According to this paper, what is the value for \"Position exuviae found in\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 74,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 19,
+      "field": "Sex",
+      "gold_values": [
+        "female",
+        "male"
+      ],
+      "question": "According to this paper, what is the value for \"Sex\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 75,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 18,
+      "field": "Average body length (in mm)",
+      "gold_values": [
+        "3.5"
+      ],
+      "question": "According to this paper, what is the value for \"Average body length (in mm)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 76,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 5,
+      "field": "Position exuviae found in",
+      "gold_values": [
+        "Prone"
+      ],
+      "question": "According to this paper, what is the value for \"Position exuviae found in\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 77,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 7,
+      "field": "Position exuviae found in",
+      "gold_values": [
+        "Prone"
+      ],
+      "question": "According to this paper, what is the value for \"Position exuviae found in\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 78,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 19,
+      "field": "Observed ontogenetic stage",
+      "gold_values": [
+        "Adult",
+        "Larva 2",
+        "Larva 3",
+        "Larva 4",
+        "Larva 5"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Observed ontogenetic stage?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 79,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 2,
+      "field": "Observed ontogenetic stage",
+      "gold_values": [
+        "sexually mature adult stage"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Observed ontogenetic stage?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 80,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 46,
+      "field": "Observed # total moult stages",
+      "gold_values": [
+        "17"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Observed number of total moult stages?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 81,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 45,
+      "field": "Observed # total moult stages",
+      "gold_values": [
+        "11"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Observed number of total moult stages?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 82,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 21,
+      "field": "Observed ontogenetic stage",
+      "gold_values": [
+        "Adult",
+        "Larva 5",
+        "Larva 6",
+        "Larva 7"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Observed ontogenetic stage?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 83,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 4,
+      "field": "Observed # total moult stages",
+      "gold_values": [
+        "4"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Observed number of total moult stages?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 84,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 18,
+      "field": "Life mode",
+      "gold_values": [
+        "surficial"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Life mode?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 85,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 5,
+      "field": "Moulting phase",
+      "gold_values": [
+        "Monophasic"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Moulting phase?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 86,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 20,
+      "field": "Life history style",
+      "gold_values": [
+        "direct development"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Life history style?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 87,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 22,
+      "field": "Moulting phase",
+      "gold_values": [
+        "Monophasic"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Moulting phase?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 88,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 24,
+      "field": "Moulting phase",
+      "gold_values": [
+        "Monophasic"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Moulting phase?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 89,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 3,
+      "field": "Life history style",
+      "gold_values": [
+        "direct development"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Life history style?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 90,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 1,
+      "field": "Estimated # moult stages",
+      "gold_values": [
+        "30"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Estimated number of moult stages?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 91,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 26,
+      "field": "Life history style",
+      "gold_values": [
+        "holometabolism"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Life history style?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 92,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 44,
+      "field": "Life mode",
+      "gold_values": [
+        "benthic; swimming"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Life mode?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 93,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 7,
+      "field": "# body segments in adult individuals",
+      "gold_values": [
+        "8"
+      ],
+      "question": "Based on the evidence above, what does the paper report for number of body segments in adult individuals?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 94,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 39,
+      "field": "Estimated # moult stages",
+      "gold_values": [
+        "4"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Estimated number of moult stages?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 95,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 25,
+      "field": "Estimated # moult stages",
+      "gold_values": [
+        "6"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Estimated number of moult stages?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 96,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 23,
+      "field": "Life mode",
+      "gold_values": [
+        "parasitic"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Life mode?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 97,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 6,
+      "field": "# body segments in adult individuals",
+      "gold_values": [
+        "13"
+      ],
+      "question": "Based on the evidence above, what does the paper report for number of body segments in adult individuals?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 98,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 8,
+      "field": "Segment addition mode",
+      "gold_values": [
+        "Hemianamorphosis"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Segment addition mode?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 99,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 19,
+      "field": "# body segments in adult individuals",
+      "gold_values": [
+        "17",
+        "17/19",
+        "19"
+      ],
+      "question": "Based on the evidence above, what does the paper report for number of body segments in adult individuals?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 100,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 2,
+      "field": "Intraspecific variability in moulting mode",
+      "gold_values": [
+        "0"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Intraspecific variability in moulting mode?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 101,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 46,
+      "field": "Segment addition mode",
+      "gold_values": [
+        "hemianamorphosis"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Segment addition mode?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 102,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 45,
+      "field": "Segment addition mode",
+      "gold_values": [
+        "hemianamorphosis"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Segment addition mode?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 103,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 21,
+      "field": "# body segments per moult stage",
+      "gold_values": [
+        "1",
+        "2"
+      ],
+      "question": "Based on the evidence above, what does the paper report for number of body segments per moult stage?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 104,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 4,
+      "field": "Adult stage moulting",
+      "gold_values": [
+        "Yes"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Adult stage moulting?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 105,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 18,
+      "field": "Adult stage moulting",
+      "gold_values": [
+        "no"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Adult stage moulting?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 106,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 5,
+      "field": "Intraspecific variability in moulting mode",
+      "gold_values": [
+        "yes"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Intraspecific variability in moulting mode?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 107,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 20,
+      "field": "Adult stage moulting",
+      "gold_values": [
+        "yes"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Adult stage moulting?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 108,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 22,
+      "field": "Number of major morphological transitions",
+      "gold_values": [
+        "3"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Number of major morphological transitions?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 109,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 24,
+      "field": "Number of major morphological transitions",
+      "gold_values": [
+        "2"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Number of major morphological transitions?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 110,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 3,
+      "field": "Intraspecific variability in moulting mode",
+      "gold_values": [
+        "0"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Intraspecific variability in moulting mode?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 111,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 1,
+      "field": "# body segments per moult stage",
+      "gold_values": [
+        "1/0"
+      ],
+      "question": "Based on the evidence above, what does the paper report for number of body segments per moult stage?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 112,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 26,
+      "field": "Number of major morphological transitions",
+      "gold_values": [
+        "1"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Number of major morphological transitions?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 113,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 44,
+      "field": "Other behaviours associated with moulting",
+      "gold_values": [
+        "mass moulting"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Other behaviours associated with moulting?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 114,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 7,
+      "field": "Other behaviours associated with moulting",
+      "gold_values": [
+        "enrollment"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Other behaviours associated with moulting?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 115,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 39,
+      "field": "Ontogenetic stage period (in days)",
+      "gold_values": [
+        "40"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Ontogenetic stage period (in days)?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 116,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 25,
+      "field": "Other behaviours associated with moulting",
+      "gold_values": [
+        "After the ﬁrst molt individuals leave their mother's back, and are fully capable of foraging in the terrestrial habitat."
+      ],
+      "question": "Based on the evidence above, what does the paper report for Other behaviours associated with moulting?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 117,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 23,
+      "field": "Reproductive state",
+      "gold_values": [
+        "immature"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Reproductive state?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 118,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 6,
+      "field": "Cephalic suture location",
+      "gold_values": [
+        "cephalothorax margin suture"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Cephalic suture location?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 119,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 8,
+      "field": "Location of moulting suture",
+      "gold_values": [
+        "Cephalothoracic joint; cephalon; post-cephalon"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Location of moulting suture?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 120,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 19,
+      "field": "# body segments per moult stage",
+      "gold_values": [
+        "0",
+        "2",
+        "3",
+        "4"
+      ],
+      "question": "Based on the evidence above, what does the paper report for number of body segments per moult stage?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 121,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 2,
+      "field": "Consumption of exuviae",
+      "gold_values": [
+        "T"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Consumption of exuviae?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 122,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 45,
+      "field": "Cephalic suture location",
+      "gold_values": [
+        "cephalothorax margin suture",
+        "facial suture",
+        "facial suture; rostral suture",
+        "facial suture; rostral suture; hypostomal suture",
+        "marginal cephalic suture"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Cephalic suture location?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 123,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 4,
+      "field": "Consumption of exuviae",
+      "gold_values": [
+        "T"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Consumption of exuviae?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 124,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 18,
+      "field": "Reproductive state",
+      "gold_values": [
+        "Pre-reproductive",
+        "Reproductive, partenogenesis"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Reproductive state?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 125,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 5,
+      "field": "Direction of egress during moulting",
+      "gold_values": [
+        "Anterior"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Direction of egress during moulting?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 126,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 20,
+      "field": "Consumption of exuviae",
+      "gold_values": [
+        "yes"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Consumption of exuviae?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 127,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 22,
+      "field": "Reproductive state",
+      "gold_values": [
+        "immature"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Reproductive state?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 128,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 24,
+      "field": "Ontogenetic stage period (in days)",
+      "gold_values": [
+        "18",
+        "188",
+        "29"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Ontogenetic stage period (in days)?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 129,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 3,
+      "field": "Post-moult cuticle calcification event",
+      "gold_values": [
+        "T"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Post-moult cuticle calcification event?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 130,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 26,
+      "field": "Ontogenetic stage period (in days)",
+      "gold_values": [
+        "2",
+        "2.2",
+        "2.3",
+        "3.1"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Ontogenetic stage period (in days)?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 131,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 44,
+      "field": "Location of moulting suture",
+      "gold_values": [
+        "anterior cephalic margin"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Location of moulting suture?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 132,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 7,
+      "field": "Location of moulting suture",
+      "gold_values": [
+        "cephalon; dorsal; ventral",
+        "cephalothoracic joint; cephalon",
+        "cephalothoracic joint; dorsal; ventral"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Location of moulting suture?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 133,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 39,
+      "field": "Average body length (in mm)",
+      "gold_values": [
+        "4",
+        "6"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Average body length (in mm)?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 134,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 25,
+      "field": "Post-moult cuticle calcification event",
+      "gold_values": [
+        "strong",
+        "weak"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Post-moult cuticle calcification event?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 135,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 23,
+      "field": "Sex",
+      "gold_values": [
+        "Female",
+        "Male"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Sex?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 136,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 6,
+      "field": "Direction of egress during moulting",
+      "gold_values": [
+        "Anterior"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Direction of egress during moulting?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 137,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 8,
+      "field": "Cephalic suture location",
+      "gold_values": [
+        "cephalothorax margin suture; facial suture; rostral suture"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Cephalic suture location?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 138,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 19,
+      "field": "Number of juvenile moults",
+      "gold_values": [
+        "5"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Number of juvenile moults?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 139,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 2,
+      "field": "Post-moult cuticle calcification event",
+      "gold_values": [
+        "T"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Post-moult cuticle calcification event?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 140,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 45,
+      "field": "Direction of egress during moulting",
+      "gold_values": [
+        "anterior"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Direction of egress during moulting?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 141,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 4,
+      "field": "Pre-moult period (in days)",
+      "gold_values": [
+        "5-13"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Pre-moult period (in days)?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 142,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 18,
+      "field": "Number of juvenile moults",
+      "gold_values": [
+        "6"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Number of juvenile moults?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 143,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 5,
+      "field": "Resulting named moulting configurations",
+      "gold_values": [
+        "Salter's configuration",
+        "Zombie configuration"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Resulting named moulting configurations?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 144,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 20,
+      "field": "Pre-moult period (in days)",
+      "gold_values": [
+        "14-90"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Pre-moult period (in days)?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 145,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 22,
+      "field": "Pre-moult period (in days)",
+      "gold_values": [
+        "0.43",
+        "0.47"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Pre-moult period (in days)?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 146,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 24,
+      "field": "Sex",
+      "gold_values": [
+        "Female"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Sex?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 147,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 26,
+      "field": "Number of juvenile moults",
+      "gold_values": [
+        "4"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Number of juvenile moults?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 148,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 7,
+      "field": "Resulting named moulting configurations",
+      "gold_values": [
+        "Henningsmoen's Configuration",
+        "Somersault Configuration"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Resulting named moulting configurations?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 149,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 23,
+      "field": "Average body length (in mm)",
+      "gold_values": [
+        "1.94",
+        "2.14",
+        "4.94",
+        "5.31"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Average body length (in mm)?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 150,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 6,
+      "field": "Resulting named moulting configurations",
+      "gold_values": [
+        "Open Moult Position"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Resulting named moulting configurations?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 151,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 8,
+      "field": "Position exuviae found in",
+      "gold_values": [
+        "Prone"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Position exuviae found in?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 152,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 19,
+      "field": "Sex",
+      "gold_values": [
+        "female",
+        "male"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Sex?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 153,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 18,
+      "field": "Average body length (in mm)",
+      "gold_values": [
+        "3.5"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Average body length (in mm)?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 154,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 5,
+      "field": "Position exuviae found in",
+      "gold_values": [
+        "Prone"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Position exuviae found in?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 155,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 7,
+      "field": "Position exuviae found in",
+      "gold_values": [
+        "Prone"
+      ],
+      "question": "Based on the evidence above, what does the paper report for Position exuviae found in?",
+      "phrasing_round": 1
+    },
+    {
+      "item_id": 156,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 19,
+      "field": "Observed ontogenetic stage",
+      "gold_values": [
+        "Adult",
+        "Larva 2",
+        "Larva 3",
+        "Larva 4",
+        "Larva 5"
+      ],
+      "question": "Determine the Observed ontogenetic stage described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 157,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 2,
+      "field": "Observed ontogenetic stage",
+      "gold_values": [
+        "sexually mature adult stage"
+      ],
+      "question": "Determine the Observed ontogenetic stage described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 158,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 46,
+      "field": "Observed # total moult stages",
+      "gold_values": [
+        "17"
+      ],
+      "question": "Determine the Observed number of total moult stages described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 159,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 45,
+      "field": "Observed # total moult stages",
+      "gold_values": [
+        "11"
+      ],
+      "question": "Determine the Observed number of total moult stages described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 160,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 21,
+      "field": "Observed ontogenetic stage",
+      "gold_values": [
+        "Adult",
+        "Larva 5",
+        "Larva 6",
+        "Larva 7"
+      ],
+      "question": "Determine the Observed ontogenetic stage described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 161,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 4,
+      "field": "Observed # total moult stages",
+      "gold_values": [
+        "4"
+      ],
+      "question": "Determine the Observed number of total moult stages described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 162,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 18,
+      "field": "Life mode",
+      "gold_values": [
+        "surficial"
+      ],
+      "question": "Determine the Life mode described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 163,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 5,
+      "field": "Moulting phase",
+      "gold_values": [
+        "Monophasic"
+      ],
+      "question": "Determine the Moulting phase described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 164,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 20,
+      "field": "Life history style",
+      "gold_values": [
+        "direct development"
+      ],
+      "question": "Determine the Life history style described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 165,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 22,
+      "field": "Moulting phase",
+      "gold_values": [
+        "Monophasic"
+      ],
+      "question": "Determine the Moulting phase described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 166,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 24,
+      "field": "Moulting phase",
+      "gold_values": [
+        "Monophasic"
+      ],
+      "question": "Determine the Moulting phase described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 167,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 3,
+      "field": "Life history style",
+      "gold_values": [
+        "direct development"
+      ],
+      "question": "Determine the Life history style described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 168,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 1,
+      "field": "Estimated # moult stages",
+      "gold_values": [
+        "30"
+      ],
+      "question": "Determine the Estimated number of moult stages described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 169,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 26,
+      "field": "Life history style",
+      "gold_values": [
+        "holometabolism"
+      ],
+      "question": "Determine the Life history style described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 170,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 44,
+      "field": "Life mode",
+      "gold_values": [
+        "benthic; swimming"
+      ],
+      "question": "Determine the Life mode described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 171,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 7,
+      "field": "# body segments in adult individuals",
+      "gold_values": [
+        "8"
+      ],
+      "question": "Determine the number of body segments in adult individuals described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 172,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 39,
+      "field": "Estimated # moult stages",
+      "gold_values": [
+        "4"
+      ],
+      "question": "Determine the Estimated number of moult stages described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 173,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 25,
+      "field": "Estimated # moult stages",
+      "gold_values": [
+        "6"
+      ],
+      "question": "Determine the Estimated number of moult stages described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 174,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 23,
+      "field": "Life mode",
+      "gold_values": [
+        "parasitic"
+      ],
+      "question": "Determine the Life mode described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 175,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 6,
+      "field": "# body segments in adult individuals",
+      "gold_values": [
+        "13"
+      ],
+      "question": "Determine the number of body segments in adult individuals described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 176,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 8,
+      "field": "Segment addition mode",
+      "gold_values": [
+        "Hemianamorphosis"
+      ],
+      "question": "Determine the Segment addition mode described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 177,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 19,
+      "field": "# body segments in adult individuals",
+      "gold_values": [
+        "17",
+        "17/19",
+        "19"
+      ],
+      "question": "Determine the number of body segments in adult individuals described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 178,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 2,
+      "field": "Intraspecific variability in moulting mode",
+      "gold_values": [
+        "0"
+      ],
+      "question": "Determine the Intraspecific variability in moulting mode described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 179,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 46,
+      "field": "Segment addition mode",
+      "gold_values": [
+        "hemianamorphosis"
+      ],
+      "question": "Determine the Segment addition mode described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 180,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 45,
+      "field": "Segment addition mode",
+      "gold_values": [
+        "hemianamorphosis"
+      ],
+      "question": "Determine the Segment addition mode described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 181,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 21,
+      "field": "# body segments per moult stage",
+      "gold_values": [
+        "1",
+        "2"
+      ],
+      "question": "Determine the number of body segments per moult stage described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 182,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 4,
+      "field": "Adult stage moulting",
+      "gold_values": [
+        "Yes"
+      ],
+      "question": "Determine the Adult stage moulting described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 183,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 18,
+      "field": "Adult stage moulting",
+      "gold_values": [
+        "no"
+      ],
+      "question": "Determine the Adult stage moulting described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 184,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 5,
+      "field": "Intraspecific variability in moulting mode",
+      "gold_values": [
+        "yes"
+      ],
+      "question": "Determine the Intraspecific variability in moulting mode described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 185,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 20,
+      "field": "Adult stage moulting",
+      "gold_values": [
+        "yes"
+      ],
+      "question": "Determine the Adult stage moulting described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 186,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 22,
+      "field": "Number of major morphological transitions",
+      "gold_values": [
+        "3"
+      ],
+      "question": "Determine the Number of major morphological transitions described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 187,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 24,
+      "field": "Number of major morphological transitions",
+      "gold_values": [
+        "2"
+      ],
+      "question": "Determine the Number of major morphological transitions described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 188,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 3,
+      "field": "Intraspecific variability in moulting mode",
+      "gold_values": [
+        "0"
+      ],
+      "question": "Determine the Intraspecific variability in moulting mode described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 189,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 1,
+      "field": "# body segments per moult stage",
+      "gold_values": [
+        "1/0"
+      ],
+      "question": "Determine the number of body segments per moult stage described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 190,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 26,
+      "field": "Number of major morphological transitions",
+      "gold_values": [
+        "1"
+      ],
+      "question": "Determine the Number of major morphological transitions described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 191,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 44,
+      "field": "Other behaviours associated with moulting",
+      "gold_values": [
+        "mass moulting"
+      ],
+      "question": "Determine the Other behaviours associated with moulting described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 192,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 7,
+      "field": "Other behaviours associated with moulting",
+      "gold_values": [
+        "enrollment"
+      ],
+      "question": "Determine the Other behaviours associated with moulting described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 193,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 39,
+      "field": "Ontogenetic stage period (in days)",
+      "gold_values": [
+        "40"
+      ],
+      "question": "Determine the Ontogenetic stage period (in days) described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 194,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 25,
+      "field": "Other behaviours associated with moulting",
+      "gold_values": [
+        "After the ﬁrst molt individuals leave their mother's back, and are fully capable of foraging in the terrestrial habitat."
+      ],
+      "question": "Determine the Other behaviours associated with moulting described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 195,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 23,
+      "field": "Reproductive state",
+      "gold_values": [
+        "immature"
+      ],
+      "question": "Determine the Reproductive state described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 196,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 6,
+      "field": "Cephalic suture location",
+      "gold_values": [
+        "cephalothorax margin suture"
+      ],
+      "question": "Determine the Cephalic suture location described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 197,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 8,
+      "field": "Location of moulting suture",
+      "gold_values": [
+        "Cephalothoracic joint; cephalon; post-cephalon"
+      ],
+      "question": "Determine the Location of moulting suture described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 198,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 19,
+      "field": "# body segments per moult stage",
+      "gold_values": [
+        "0",
+        "2",
+        "3",
+        "4"
+      ],
+      "question": "Determine the number of body segments per moult stage described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 199,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 2,
+      "field": "Consumption of exuviae",
+      "gold_values": [
+        "T"
+      ],
+      "question": "Determine the Consumption of exuviae described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 200,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 45,
+      "field": "Cephalic suture location",
+      "gold_values": [
+        "cephalothorax margin suture",
+        "facial suture",
+        "facial suture; rostral suture",
+        "facial suture; rostral suture; hypostomal suture",
+        "marginal cephalic suture"
+      ],
+      "question": "Determine the Cephalic suture location described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 201,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 4,
+      "field": "Consumption of exuviae",
+      "gold_values": [
+        "T"
+      ],
+      "question": "Determine the Consumption of exuviae described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 202,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 18,
+      "field": "Reproductive state",
+      "gold_values": [
+        "Pre-reproductive",
+        "Reproductive, partenogenesis"
+      ],
+      "question": "Determine the Reproductive state described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 203,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 5,
+      "field": "Direction of egress during moulting",
+      "gold_values": [
+        "Anterior"
+      ],
+      "question": "Determine the Direction of egress during moulting described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 204,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 20,
+      "field": "Consumption of exuviae",
+      "gold_values": [
+        "yes"
+      ],
+      "question": "Determine the Consumption of exuviae described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 205,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 22,
+      "field": "Reproductive state",
+      "gold_values": [
+        "immature"
+      ],
+      "question": "Determine the Reproductive state described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 206,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 24,
+      "field": "Ontogenetic stage period (in days)",
+      "gold_values": [
+        "18",
+        "188",
+        "29"
+      ],
+      "question": "Determine the Ontogenetic stage period (in days) described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 207,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 3,
+      "field": "Post-moult cuticle calcification event",
+      "gold_values": [
+        "T"
+      ],
+      "question": "Determine the Post-moult cuticle calcification event described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 208,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 26,
+      "field": "Ontogenetic stage period (in days)",
+      "gold_values": [
+        "2",
+        "2.2",
+        "2.3",
+        "3.1"
+      ],
+      "question": "Determine the Ontogenetic stage period (in days) described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 209,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 44,
+      "field": "Location of moulting suture",
+      "gold_values": [
+        "anterior cephalic margin"
+      ],
+      "question": "Determine the Location of moulting suture described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 210,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 7,
+      "field": "Location of moulting suture",
+      "gold_values": [
+        "cephalon; dorsal; ventral",
+        "cephalothoracic joint; cephalon",
+        "cephalothoracic joint; dorsal; ventral"
+      ],
+      "question": "Determine the Location of moulting suture described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 211,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 39,
+      "field": "Average body length (in mm)",
+      "gold_values": [
+        "4",
+        "6"
+      ],
+      "question": "Determine the Average body length (in mm) described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 212,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 25,
+      "field": "Post-moult cuticle calcification event",
+      "gold_values": [
+        "strong",
+        "weak"
+      ],
+      "question": "Determine the Post-moult cuticle calcification event described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 213,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 23,
+      "field": "Sex",
+      "gold_values": [
+        "Female",
+        "Male"
+      ],
+      "question": "Determine the Sex described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 214,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 6,
+      "field": "Direction of egress during moulting",
+      "gold_values": [
+        "Anterior"
+      ],
+      "question": "Determine the Direction of egress during moulting described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 215,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 8,
+      "field": "Cephalic suture location",
+      "gold_values": [
+        "cephalothorax margin suture; facial suture; rostral suture"
+      ],
+      "question": "Determine the Cephalic suture location described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 216,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 19,
+      "field": "Number of juvenile moults",
+      "gold_values": [
+        "5"
+      ],
+      "question": "Determine the Number of juvenile moults described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 217,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 2,
+      "field": "Post-moult cuticle calcification event",
+      "gold_values": [
+        "T"
+      ],
+      "question": "Determine the Post-moult cuticle calcification event described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 218,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 45,
+      "field": "Direction of egress during moulting",
+      "gold_values": [
+        "anterior"
+      ],
+      "question": "Determine the Direction of egress during moulting described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 219,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 4,
+      "field": "Pre-moult period (in days)",
+      "gold_values": [
+        "5-13"
+      ],
+      "question": "Determine the Pre-moult period (in days) described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 220,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 18,
+      "field": "Number of juvenile moults",
+      "gold_values": [
+        "6"
+      ],
+      "question": "Determine the Number of juvenile moults described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 221,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 5,
+      "field": "Resulting named moulting configurations",
+      "gold_values": [
+        "Salter's configuration",
+        "Zombie configuration"
+      ],
+      "question": "Determine the Resulting named moulting configurations described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 222,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 20,
+      "field": "Pre-moult period (in days)",
+      "gold_values": [
+        "14-90"
+      ],
+      "question": "Determine the Pre-moult period (in days) described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 223,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 22,
+      "field": "Pre-moult period (in days)",
+      "gold_values": [
+        "0.43",
+        "0.47"
+      ],
+      "question": "Determine the Pre-moult period (in days) described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 224,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 24,
+      "field": "Sex",
+      "gold_values": [
+        "Female"
+      ],
+      "question": "Determine the Sex described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 225,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 26,
+      "field": "Number of juvenile moults",
+      "gold_values": [
+        "4"
+      ],
+      "question": "Determine the Number of juvenile moults described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 226,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 7,
+      "field": "Resulting named moulting configurations",
+      "gold_values": [
+        "Henningsmoen's Configuration",
+        "Somersault Configuration"
+      ],
+      "question": "Determine the Resulting named moulting configurations described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 227,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 23,
+      "field": "Average body length (in mm)",
+      "gold_values": [
+        "1.94",
+        "2.14",
+        "4.94",
+        "5.31"
+      ],
+      "question": "Determine the Average body length (in mm) described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 228,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 6,
+      "field": "Resulting named moulting configurations",
+      "gold_values": [
+        "Open Moult Position"
+      ],
+      "question": "Determine the Resulting named moulting configurations described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 229,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 8,
+      "field": "Position exuviae found in",
+      "gold_values": [
+        "Prone"
+      ],
+      "question": "Determine the Position exuviae found in described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 230,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 19,
+      "field": "Sex",
+      "gold_values": [
+        "female",
+        "male"
+      ],
+      "question": "Determine the Sex described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 231,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 18,
+      "field": "Average body length (in mm)",
+      "gold_values": [
+        "3.5"
+      ],
+      "question": "Determine the Average body length (in mm) described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 232,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 5,
+      "field": "Position exuviae found in",
+      "gold_values": [
+        "Prone"
+      ],
+      "question": "Determine the Position exuviae found in described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 233,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 7,
+      "field": "Position exuviae found in",
+      "gold_values": [
+        "Prone"
+      ],
+      "question": "Determine the Position exuviae found in described in this paper.",
+      "phrasing_round": 2
+    },
+    {
+      "item_id": 234,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 19,
+      "field": "Observed ontogenetic stage",
+      "gold_values": [
+        "Adult",
+        "Larva 2",
+        "Larva 3",
+        "Larva 4",
+        "Larva 5"
+      ],
+      "question": "From the given evidence, what is the Observed ontogenetic stage?",
+      "phrasing_round": 3
+    },
+    {
+      "item_id": 235,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 2,
+      "field": "Observed ontogenetic stage",
+      "gold_values": [
+        "sexually mature adult stage"
+      ],
+      "question": "From the given evidence, what is the Observed ontogenetic stage?",
+      "phrasing_round": 3
+    },
+    {
+      "item_id": 236,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 46,
+      "field": "Observed # total moult stages",
+      "gold_values": [
+        "17"
+      ],
+      "question": "From the given evidence, what is the Observed number of total moult stages?",
+      "phrasing_round": 3
+    },
+    {
+      "item_id": 237,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 45,
+      "field": "Observed # total moult stages",
+      "gold_values": [
+        "11"
+      ],
+      "question": "From the given evidence, what is the Observed number of total moult stages?",
+      "phrasing_round": 3
+    },
+    {
+      "item_id": 238,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 21,
+      "field": "Observed ontogenetic stage",
+      "gold_values": [
+        "Adult",
+        "Larva 5",
+        "Larva 6",
+        "Larva 7"
+      ],
+      "question": "From the given evidence, what is the Observed ontogenetic stage?",
+      "phrasing_round": 3
+    },
+    {
+      "item_id": 239,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 4,
+      "field": "Observed # total moult stages",
+      "gold_values": [
+        "4"
+      ],
+      "question": "From the given evidence, what is the Observed number of total moult stages?",
+      "phrasing_round": 3
+    },
+    {
+      "item_id": 240,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 18,
+      "field": "Life mode",
+      "gold_values": [
+        "surficial"
+      ],
+      "question": "From the given evidence, what is the Life mode?",
+      "phrasing_round": 3
+    },
+    {
+      "item_id": 241,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 5,
+      "field": "Moulting phase",
+      "gold_values": [
+        "Monophasic"
+      ],
+      "question": "From the given evidence, what is the Moulting phase?",
+      "phrasing_round": 3
+    },
+    {
+      "item_id": 242,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 20,
+      "field": "Life history style",
+      "gold_values": [
+        "direct development"
+      ],
+      "question": "From the given evidence, what is the Life history style?",
+      "phrasing_round": 3
+    },
+    {
+      "item_id": 243,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 22,
+      "field": "Moulting phase",
+      "gold_values": [
+        "Monophasic"
+      ],
+      "question": "From the given evidence, what is the Moulting phase?",
+      "phrasing_round": 3
+    },
+    {
+      "item_id": 244,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 24,
+      "field": "Moulting phase",
+      "gold_values": [
+        "Monophasic"
+      ],
+      "question": "From the given evidence, what is the Moulting phase?",
+      "phrasing_round": 3
+    },
+    {
+      "item_id": 245,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 3,
+      "field": "Life history style",
+      "gold_values": [
+        "direct development"
+      ],
+      "question": "From the given evidence, what is the Life history style?",
+      "phrasing_round": 3
+    },
+    {
+      "item_id": 246,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 1,
+      "field": "Estimated # moult stages",
+      "gold_values": [
+        "30"
+      ],
+      "question": "From the given evidence, what is the Estimated number of moult stages?",
+      "phrasing_round": 3
+    },
+    {
+      "item_id": 247,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 26,
+      "field": "Life history style",
+      "gold_values": [
+        "holometabolism"
+      ],
+      "question": "From the given evidence, what is the Life history style?",
+      "phrasing_round": 3
+    },
+    {
+      "item_id": 248,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 44,
+      "field": "Life mode",
+      "gold_values": [
+        "benthic; swimming"
+      ],
+      "question": "From the given evidence, what is the Life mode?",
+      "phrasing_round": 3
+    },
+    {
+      "item_id": 249,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 7,
+      "field": "# body segments in adult individuals",
+      "gold_values": [
+        "8"
+      ],
+      "question": "From the given evidence, what is the number of body segments in adult individuals?",
+      "phrasing_round": 3
+    },
+    {
+      "item_id": 250,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 39,
+      "field": "Estimated # moult stages",
+      "gold_values": [
+        "4"
+      ],
+      "question": "From the given evidence, what is the Estimated number of moult stages?",
+      "phrasing_round": 3
+    },
+    {
+      "item_id": 251,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 25,
+      "field": "Estimated # moult stages",
+      "gold_values": [
+        "6"
+      ],
+      "question": "From the given evidence, what is the Estimated number of moult stages?",
+      "phrasing_round": 3
+    },
+    {
+      "item_id": 252,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 23,
+      "field": "Life mode",
+      "gold_values": [
+        "parasitic"
+      ],
+      "question": "From the given evidence, what is the Life mode?",
+      "phrasing_round": 3
+    },
+    {
+      "item_id": 253,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 6,
+      "field": "# body segments in adult individuals",
+      "gold_values": [
+        "13"
+      ],
+      "question": "From the given evidence, what is the number of body segments in adult individuals?",
+      "phrasing_round": 3
+    },
+    {
+      "item_id": 254,
+      "type": "single",
+      "is_negative": false,
+      "paper_id": 8,
+      "field": "Segment addition mode",
+      "gold_values": [
+        "Hemianamorphosis"
+      ],
+      "question": "From the given evidence, what is the Segment addition mode?",
+      "phrasing_round": 3
+    },
+    {
+      "item_id": 255,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 18,
+      "fields": [
+        "Observed ontogenetic stage",
+        "Life history style"
+      ],
+      "gold_values_by_field": {
+        "Observed ontogenetic stage": [
+          "Adult",
+          "Larva 2",
+          "Larva 3",
+          "Larva 4",
+          "Larva 5",
+          "Larva 6"
+        ],
+        "Life history style": [
+          "direct development"
+        ]
+      },
+      "question": "According to this paper, what are the values for \"Observed ontogenetic stage\" and \"Life history style\"?"
+    },
+    {
+      "item_id": 256,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 44,
+      "fields": [
+        "Life mode",
+        "Number of major morphological transitions"
+      ],
+      "gold_values_by_field": {
+        "Life mode": [
+          "benthic; swimming"
+        ],
+        "Number of major morphological transitions": [
+          "1"
+        ]
+      },
+      "question": "Based on the evidence above, what does the paper report for Life mode, and separately for Number of major morphological transitions?"
+    },
+    {
+      "item_id": 257,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 46,
+      "fields": [
+        "Estimated # moult stages",
+        "Segment addition mode"
+      ],
+      "gold_values_by_field": {
+        "Estimated # moult stages": [
+          "19"
+        ],
+        "Segment addition mode": [
+          "hemianamorphosis"
+        ]
+      },
+      "question": "According to this paper, what are the values for \"Estimated number of moult stages\" and \"Segment addition mode\"?"
+    },
+    {
+      "item_id": 258,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 23,
+      "fields": [
+        "Observed # total moult stages",
+        "Observed ontogenetic stage"
+      ],
+      "gold_values_by_field": {
+        "Observed # total moult stages": [
+          "2"
+        ],
+        "Observed ontogenetic stage": [
+          "Adult",
+          "Larva",
+          "Nymph"
+        ]
+      },
+      "question": "Based on the evidence above, what does the paper report for Observed number of total moult stages, and separately for Observed ontogenetic stage?"
+    },
+    {
+      "item_id": 259,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 3,
+      "fields": [
+        "Intraspecific variability in moulting mode",
+        "Moulting phase"
+      ],
+      "gold_values_by_field": {
+        "Intraspecific variability in moulting mode": [
+          "0"
+        ],
+        "Moulting phase": [
+          "biphasic"
+        ]
+      },
+      "question": "According to this paper, what are the values for \"Intraspecific variability in moulting mode\" and \"Moulting phase\"?"
+    },
+    {
+      "item_id": 260,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 6,
+      "fields": [
+        "Resulting named moulting configurations",
+        "Observed ontogenetic stage"
+      ],
+      "gold_values_by_field": {
+        "Resulting named moulting configurations": [
+          "Open Moult Position"
+        ],
+        "Observed ontogenetic stage": [
+          "Adult"
+        ]
+      },
+      "question": "Based on the evidence above, what does the paper report for Resulting named moulting configurations, and separately for Observed ontogenetic stage?"
+    },
+    {
+      "item_id": 261,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 1,
+      "fields": [
+        "Estimated # moult stages",
+        "Segment addition mode"
+      ],
+      "gold_values_by_field": {
+        "Estimated # moult stages": [
+          "30"
+        ],
+        "Segment addition mode": [
+          "Anamorphosis"
+        ]
+      },
+      "question": "According to this paper, what are the values for \"Estimated number of moult stages\" and \"Segment addition mode\"?"
+    },
+    {
+      "item_id": 262,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 19,
+      "fields": [
+        "Segment addition mode",
+        "Adult stage moulting"
+      ],
+      "gold_values_by_field": {
+        "Segment addition mode": [
+          "Anamorphic"
+        ],
+        "Adult stage moulting": [
+          "yes"
+        ]
+      },
+      "question": "Based on the evidence above, what does the paper report for Segment addition mode, and separately for Adult stage moulting?"
+    },
+    {
+      "item_id": 263,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 5,
+      "fields": [
+        "Intraspecific variability in moulting mode",
+        "Moulting phase"
+      ],
+      "gold_values_by_field": {
+        "Intraspecific variability in moulting mode": [
+          "yes"
+        ],
+        "Moulting phase": [
+          "Monophasic"
+        ]
+      },
+      "question": "According to this paper, what are the values for \"Intraspecific variability in moulting mode\" and \"Moulting phase\"?"
+    },
+    {
+      "item_id": 264,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 26,
+      "fields": [
+        "Number of juvenile moults",
+        "Life mode"
+      ],
+      "gold_values_by_field": {
+        "Number of juvenile moults": [
+          "4"
+        ],
+        "Life mode": [
+          "surficial"
+        ]
+      },
+      "question": "Based on the evidence above, what does the paper report for Number of juvenile moults, and separately for Life mode?"
+    },
+    {
+      "item_id": 265,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 21,
+      "fields": [
+        "Segment addition mode",
+        "Life history style"
+      ],
+      "gold_values_by_field": {
+        "Segment addition mode": [
+          "Anamorphic"
+        ],
+        "Life history style": [
+          "direct development"
+        ]
+      },
+      "question": "According to this paper, what are the values for \"Segment addition mode\" and \"Life history style\"?"
+    },
+    {
+      "item_id": 266,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 25,
+      "fields": [
+        "# body segments per moult stage",
+        "Life history style"
+      ],
+      "gold_values_by_field": {
+        "# body segments per moult stage": [
+          "7"
+        ],
+        "Life history style": [
+          "direct development"
+        ]
+      },
+      "question": "Based on the evidence above, what does the paper report for number of body segments per moult stage, and separately for Life history style?"
+    },
+    {
+      "item_id": 267,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 22,
+      "fields": [
+        "Observed # total moult stages",
+        "Number of major morphological transitions"
+      ],
+      "gold_values_by_field": {
+        "Observed # total moult stages": [
+          "3"
+        ],
+        "Number of major morphological transitions": [
+          "3"
+        ]
+      },
+      "question": "According to this paper, what are the values for \"Observed number of total moult stages\" and \"Number of major morphological transitions\"?"
+    },
+    {
+      "item_id": 268,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 24,
+      "fields": [
+        "Sex",
+        "Pre-moult period (in days)"
+      ],
+      "gold_values_by_field": {
+        "Sex": [
+          "Female"
+        ],
+        "Pre-moult period (in days)": [
+          "2024-01-09 00:00:00",
+          "2024-02-20 00:00:00"
+        ]
+      },
+      "question": "Based on the evidence above, what does the paper report for Sex, and separately for Pre-moult period (in days)?"
+    },
+    {
+      "item_id": 269,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 39,
+      "fields": [
+        "Life history style",
+        "Estimated # moult stages"
+      ],
+      "gold_values_by_field": {
+        "Life history style": [
+          "direct development"
+        ],
+        "Estimated # moult stages": [
+          "4"
+        ]
+      },
+      "question": "According to this paper, what are the values for \"Life history style\" and \"Estimated number of moult stages\"?"
+    },
+    {
+      "item_id": 270,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 20,
+      "fields": [
+        "Consumption of exuviae",
+        "Pre-moult period (in days)"
+      ],
+      "gold_values_by_field": {
+        "Consumption of exuviae": [
+          "yes"
+        ],
+        "Pre-moult period (in days)": [
+          "14-90"
+        ]
+      },
+      "question": "Based on the evidence above, what does the paper report for Consumption of exuviae, and separately for Pre-moult period (in days)?"
+    },
+    {
+      "item_id": 271,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 8,
+      "fields": [
+        "Other behaviours associated with moulting",
+        "Intraspecific variability in moulting mode"
+      ],
+      "gold_values_by_field": {
+        "Other behaviours associated with moulting": [
+          "Mass moulting"
+        ],
+        "Intraspecific variability in moulting mode": [
+          "yes"
+        ]
+      },
+      "question": "According to this paper, what are the values for \"Other behaviours associated with moulting\" and \"Intraspecific variability in moulting mode\"?"
+    },
+    {
+      "item_id": 272,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 7,
+      "fields": [
+        "Cephalic suture location",
+        "Intraspecific variability in moulting mode"
+      ],
+      "gold_values_by_field": {
+        "Cephalic suture location": [
+          "cephalothorax margin suture; facial suture; rostral suture",
+          "facial suture; rostral suture"
+        ],
+        "Intraspecific variability in moulting mode": [
+          "no",
+          "yes"
+        ]
+      },
+      "question": "Based on the evidence above, what does the paper report for Cephalic suture location, and separately for Intraspecific variability in moulting mode?"
+    },
+    {
+      "item_id": 273,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 45,
+      "fields": [
+        "Life mode",
+        "Number of juvenile moults"
+      ],
+      "gold_values_by_field": {
+        "Life mode": [
+          "benthic"
+        ],
+        "Number of juvenile moults": [
+          "14?"
+        ]
+      },
+      "question": "According to this paper, what are the values for \"Life mode\" and \"Number of juvenile moults\"?"
+    },
+    {
+      "item_id": 274,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 4,
+      "fields": [
+        "Consumption of exuviae",
+        "Adult stage moulting"
+      ],
+      "gold_values_by_field": {
+        "Consumption of exuviae": [
+          "T"
+        ],
+        "Adult stage moulting": [
+          "Yes"
+        ]
+      },
+      "question": "Based on the evidence above, what does the paper report for Consumption of exuviae, and separately for Adult stage moulting?"
+    },
+    {
+      "item_id": 275,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 2,
+      "fields": [
+        "Consumption of exuviae",
+        "Life history style"
+      ],
+      "gold_values_by_field": {
+        "Consumption of exuviae": [
+          "T"
+        ],
+        "Life history style": [
+          "direct development"
+        ]
+      },
+      "question": "According to this paper, what are the values for \"Consumption of exuviae\" and \"Life history style\"?"
+    },
+    {
+      "item_id": 276,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 18,
+      "fields": [
+        "Estimated # moult stages",
+        "Number of juvenile moults"
+      ],
+      "gold_values_by_field": {
+        "Estimated # moult stages": [
+          "6"
+        ],
+        "Number of juvenile moults": [
+          "6"
+        ]
+      },
+      "question": "Based on the evidence above, what does the paper report for Estimated number of moult stages, and separately for Number of juvenile moults?"
+    },
+    {
+      "item_id": 277,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 44,
+      "fields": [
+        "Moulting phase",
+        "Number of major morphological transitions"
+      ],
+      "gold_values_by_field": {
+        "Moulting phase": [
+          "monophasic"
+        ],
+        "Number of major morphological transitions": [
+          "1"
+        ]
+      },
+      "question": "According to this paper, what are the values for \"Moulting phase\" and \"Number of major morphological transitions\"?"
+    },
+    {
+      "item_id": 278,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 23,
+      "fields": [
+        "Average body length (in mm)",
+        "Number of major morphological transitions"
+      ],
+      "gold_values_by_field": {
+        "Average body length (in mm)": [
+          "1.94",
+          "2.14",
+          "4.94",
+          "5.31"
+        ],
+        "Number of major morphological transitions": [
+          "2"
+        ]
+      },
+      "question": "Based on the evidence above, what does the paper report for Average body length (in mm), and separately for Number of major morphological transitions?"
+    },
+    {
+      "item_id": 279,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 6,
+      "fields": [
+        "Resulting named moulting configurations",
+        "# body segments in adult individuals"
+      ],
+      "gold_values_by_field": {
+        "Resulting named moulting configurations": [
+          "Open Moult Position"
+        ],
+        "# body segments in adult individuals": [
+          "13"
+        ]
+      },
+      "question": "According to this paper, what are the values for \"Resulting named moulting configurations\" and \"number of body segments in adult individuals\"?"
+    },
+    {
+      "item_id": 280,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 1,
+      "fields": [
+        "Adult stage moulting",
+        "Observed # total moult stages"
+      ],
+      "gold_values_by_field": {
+        "Adult stage moulting": [
+          "yes"
+        ],
+        "Observed # total moult stages": [
+          "15"
+        ]
+      },
+      "question": "Based on the evidence above, what does the paper report for Adult stage moulting, and separately for Observed number of total moult stages?"
+    },
+    {
+      "item_id": 281,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 19,
+      "fields": [
+        "Life history style",
+        "Observed ontogenetic stage"
+      ],
+      "gold_values_by_field": {
+        "Life history style": [
+          "direct development"
+        ],
+        "Observed ontogenetic stage": [
+          "Adult",
+          "Larva 2",
+          "Larva 3",
+          "Larva 4",
+          "Larva 5"
+        ]
+      },
+      "question": "According to this paper, what are the values for \"Life history style\" and \"Observed ontogenetic stage\"?"
+    },
+    {
+      "item_id": 282,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 5,
+      "fields": [
+        "Observed ontogenetic stage",
+        "Direction of egress during moulting"
+      ],
+      "gold_values_by_field": {
+        "Observed ontogenetic stage": [
+          "Holaspid"
+        ],
+        "Direction of egress during moulting": [
+          "Anterior"
+        ]
+      },
+      "question": "Based on the evidence above, what does the paper report for Observed ontogenetic stage, and separately for Direction of egress during moulting?"
+    },
+    {
+      "item_id": 283,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 26,
+      "fields": [
+        "Observed # total moult stages",
+        "Consumption of exuviae"
+      ],
+      "gold_values_by_field": {
+        "Observed # total moult stages": [
+          "5"
+        ],
+        "Consumption of exuviae": [
+          "partial"
+        ]
+      },
+      "question": "According to this paper, what are the values for \"Observed number of total moult stages\" and \"Consumption of exuviae\"?"
+    },
+    {
+      "item_id": 284,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 21,
+      "fields": [
+        "# body segments in adult individuals",
+        "Life mode"
+      ],
+      "gold_values_by_field": {
+        "# body segments in adult individuals": [
+          "19"
+        ],
+        "Life mode": [
+          "surficial"
+        ]
+      },
+      "question": "Based on the evidence above, what does the paper report for number of body segments in adult individuals, and separately for Life mode?"
+    },
+    {
+      "item_id": 285,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 25,
+      "fields": [
+        "Adult stage moulting",
+        "Post-moult cuticle calcification event"
+      ],
+      "gold_values_by_field": {
+        "Adult stage moulting": [
+          "no"
+        ],
+        "Post-moult cuticle calcification event": [
+          "strong",
+          "weak"
+        ]
+      },
+      "question": "According to this paper, what are the values for \"Adult stage moulting\" and \"Post-moult cuticle calcification event\"?"
+    },
+    {
+      "item_id": 286,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 22,
+      "fields": [
+        "Reproductive state",
+        "Life history style"
+      ],
+      "gold_values_by_field": {
+        "Reproductive state": [
+          "immature"
+        ],
+        "Life history style": [
+          "direct development"
+        ]
+      },
+      "question": "Based on the evidence above, what does the paper report for Reproductive state, and separately for Life history style?"
+    },
+    {
+      "item_id": 287,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 24,
+      "fields": [
+        "Life history style",
+        "Life mode"
+      ],
+      "gold_values_by_field": {
+        "Life history style": [
+          "direct development"
+        ],
+        "Life mode": [
+          "parasitic"
+        ]
+      },
+      "question": "According to this paper, what are the values for \"Life history style\" and \"Life mode\"?"
+    },
+    {
+      "item_id": 288,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 39,
+      "fields": [
+        "Adult stage moulting",
+        "Observed ontogenetic stage"
+      ],
+      "gold_values_by_field": {
+        "Adult stage moulting": [
+          "yes"
+        ],
+        "Observed ontogenetic stage": [
+          "Adult",
+          "Juvenile"
+        ]
+      },
+      "question": "Based on the evidence above, what does the paper report for Adult stage moulting, and separately for Observed ontogenetic stage?"
+    },
+    {
+      "item_id": 289,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 20,
+      "fields": [
+        "Average body length (in mm)",
+        "Other behaviours associated with moulting"
+      ],
+      "gold_values_by_field": {
+        "Average body length (in mm)": [
+          "130",
+          "132.5",
+          "23.6",
+          "26.3",
+          "56.5",
+          "59.5"
+        ],
+        "Other behaviours associated with moulting": [
+          "Moulting nest"
+        ]
+      },
+      "question": "According to this paper, what are the values for \"Average body length (in mm)\" and \"Other behaviours associated with moulting\"?"
+    },
+    {
+      "item_id": 290,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 8,
+      "fields": [
+        "Direction of egress during moulting",
+        "Intraspecific variability in moulting mode"
+      ],
+      "gold_values_by_field": {
+        "Direction of egress during moulting": [
+          "Anterior"
+        ],
+        "Intraspecific variability in moulting mode": [
+          "yes"
+        ]
+      },
+      "question": "Based on the evidence above, what does the paper report for Direction of egress during moulting, and separately for Intraspecific variability in moulting mode?"
+    },
+    {
+      "item_id": 291,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 7,
+      "fields": [
+        "Resulting named moulting configurations",
+        "Segment addition mode"
+      ],
+      "gold_values_by_field": {
+        "Resulting named moulting configurations": [
+          "Henningsmoen's Configuration",
+          "Somersault Configuration"
+        ],
+        "Segment addition mode": [
+          "hemianamorphosis"
+        ]
+      },
+      "question": "According to this paper, what are the values for \"Resulting named moulting configurations\" and \"Segment addition mode\"?"
+    },
+    {
+      "item_id": 292,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 45,
+      "fields": [
+        "Life mode",
+        "Location of moulting suture"
+      ],
+      "gold_values_by_field": {
+        "Life mode": [
+          "benthic"
+        ],
+        "Location of moulting suture": [
+          "dorsal; cephalon",
+          "dorsal; cephalon; ventral",
+          "dorsal; cephalothoracic joint",
+          "lateral margin; cephalon"
+        ]
+      },
+      "question": "Based on the evidence above, what does the paper report for Life mode, and separately for Location of moulting suture?"
+    },
+    {
+      "item_id": 293,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 4,
+      "fields": [
+        "Life history style",
+        "Moulting phase"
+      ],
+      "gold_values_by_field": {
+        "Life history style": [
+          "direct development"
+        ],
+        "Moulting phase": [
+          "biphasic"
+        ]
+      },
+      "question": "According to this paper, what are the values for \"Life history style\" and \"Moulting phase\"?"
+    },
+    {
+      "item_id": 294,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 2,
+      "fields": [
+        "Consumption of exuviae",
+        "Moulting phase"
+      ],
+      "gold_values_by_field": {
+        "Consumption of exuviae": [
+          "T"
+        ],
+        "Moulting phase": [
+          "biphasic"
+        ]
+      },
+      "question": "Based on the evidence above, what does the paper report for Consumption of exuviae, and separately for Moulting phase?"
+    },
+    {
+      "item_id": 295,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 18,
+      "fields": [
+        "Life history style",
+        "Number of juvenile moults"
+      ],
+      "gold_values_by_field": {
+        "Life history style": [
+          "direct development"
+        ],
+        "Number of juvenile moults": [
+          "6"
+        ]
+      },
+      "question": "According to this paper, what are the values for \"Life history style\" and \"Number of juvenile moults\"?"
+    },
+    {
+      "item_id": 296,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 44,
+      "fields": [
+        "Cephalic suture location",
+        "# body segments in adult individuals"
+      ],
+      "gold_values_by_field": {
+        "Cephalic suture location": [
+          "marginal cephalic suture"
+        ],
+        "# body segments in adult individuals": [
+          "12"
+        ]
+      },
+      "question": "Based on the evidence above, what does the paper report for Cephalic suture location, and separately for number of body segments in adult individuals?"
+    },
+    {
+      "item_id": 297,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 23,
+      "fields": [
+        "Life mode",
+        "Reproductive state"
+      ],
+      "gold_values_by_field": {
+        "Life mode": [
+          "parasitic"
+        ],
+        "Reproductive state": [
+          "immature"
+        ]
+      },
+      "question": "According to this paper, what are the values for \"Life mode\" and \"Reproductive state\"?"
+    },
+    {
+      "item_id": 298,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 3,
+      "fields": [
+        "Intraspecific variability in moulting mode",
+        "Life history style"
+      ],
+      "gold_values_by_field": {
+        "Intraspecific variability in moulting mode": [
+          "0"
+        ],
+        "Life history style": [
+          "direct development"
+        ]
+      },
+      "question": "Based on the evidence above, what does the paper report for Intraspecific variability in moulting mode, and separately for Life history style?"
+    },
+    {
+      "item_id": 299,
+      "type": "combo",
+      "is_negative": false,
+      "paper_id": 6,
+      "fields": [
+        "Moulting phase",
+        "Segment addition mode"
+      ],
+      "gold_values_by_field": {
+        "Moulting phase": [
+          "Monophasic"
+        ],
+        "Segment addition mode": [
+          "hemianamorphosis"
+        ]
+      },
+      "question": "According to this paper, what are the values for \"Moulting phase\" and \"Segment addition mode\"?"
+    },
+    {
+      "item_id": 300,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 19,
+      "field": "Number of major morphological transitions",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Number of major morphological transitions\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 301,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 1,
+      "field": "Number of major morphological transitions",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Number of major morphological transitions\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 302,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 6,
+      "field": "Previous reproductive state",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Previous reproductive state\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 303,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 24,
+      "field": "Average body length (in mm)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Average body length (in mm)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 304,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 4,
+      "field": "Average body length increase from previous moult (in mm)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Average body length increase from previous moult (in mm)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 305,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 39,
+      "field": "Intermoult period (in days)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Intermoult period (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 306,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 2,
+      "field": "Number of juvenile moults",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Number of juvenile moults\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 307,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 7,
+      "field": "Post-moult cuticle calcification event",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Post-moult cuticle calcification event\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 308,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 20,
+      "field": "Post-moult period (in days)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Post-moult period (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 309,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 3,
+      "field": "Location of moulting suture",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Location of moulting suture\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 310,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 22,
+      "field": "Previous ontogenetic stage",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Previous ontogenetic stage\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 311,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 8,
+      "field": "Estimated # moult stages",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Estimated number of moult stages\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 312,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 18,
+      "field": "Variation in moulting time within cohorts (in days)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Variation in moulting time within cohorts (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 313,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 44,
+      "field": "Average body mass increase from previous moult (in g)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Average body mass increase from previous moult (in g)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 314,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 26,
+      "field": "Post-cephalic suture location",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Post-cephalic suture location\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 315,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 21,
+      "field": "Average body width (in mm)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Average body width (in mm)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 316,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 25,
+      "field": "Average body width (in mm)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Average body width (in mm)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 317,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 5,
+      "field": "Quality of fossil exuviae",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Quality of fossil exuviae\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 318,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 23,
+      "field": "Position exuviae found in",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Position exuviae found in\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 319,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 46,
+      "field": "Average body width (in mm)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Average body width (in mm)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 320,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 45,
+      "field": "Pre-moult period (in days)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Pre-moult period (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 321,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 19,
+      "field": "Resulting named moulting configurations",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Resulting named moulting configurations\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 322,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 1,
+      "field": "Resulting named moulting configurations",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Resulting named moulting configurations\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 323,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 6,
+      "field": "Estimated # moult stages",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Estimated number of moult stages\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 324,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 24,
+      "field": "Direction of egress during moulting",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Direction of egress during moulting\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 325,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 4,
+      "field": "Average body width increase from previous moult (in mm)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Average body width increase from previous moult (in mm)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 326,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 39,
+      "field": "Post-moult heavy metal reinforcement of the cuticle",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Post-moult heavy metal reinforcement of the cuticle\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 327,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 2,
+      "field": "Post-moult heavy metal reinforcement of the cuticle",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Post-moult heavy metal reinforcement of the cuticle\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 328,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 7,
+      "field": "Pre-moult period (in days)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Pre-moult period (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 329,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 20,
+      "field": "Variation in moulting time within cohorts (in days)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Variation in moulting time within cohorts (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 330,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 3,
+      "field": "Adult stage moulting",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Adult stage moulting\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 331,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 22,
+      "field": "Adult stage moulting",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Adult stage moulting\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 332,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 8,
+      "field": "Observed # total moult stages",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Observed number of total moult stages\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 333,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 18,
+      "field": "Average body width (in mm)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Average body width (in mm)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 334,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 44,
+      "field": "Number of juvenile moults",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Number of juvenile moults\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 335,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 26,
+      "field": "Segment addition mode",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Segment addition mode\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 336,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 21,
+      "field": "Sex",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Sex\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 337,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 25,
+      "field": "Previous reproductive state",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Previous reproductive state\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 338,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 5,
+      "field": "Reproductive state",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Reproductive state\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 339,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 23,
+      "field": "Previous reproductive state",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Previous reproductive state\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 340,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 46,
+      "field": "Quality of fossil exuviae",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Quality of fossil exuviae\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 341,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 45,
+      "field": "Reproductive state",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Reproductive state\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 342,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 19,
+      "field": "Average body length (in mm)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Average body length (in mm)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 343,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 1,
+      "field": "Number of juvenile moults",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Number of juvenile moults\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 344,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 6,
+      "field": "Pre-moult period (in days)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Pre-moult period (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 345,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 24,
+      "field": "Quality of fossil exuviae",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Quality of fossil exuviae\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 346,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 4,
+      "field": "Direction of egress during moulting",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Direction of egress during moulting\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 347,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 39,
+      "field": "Post-moult period (in days)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Post-moult period (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 348,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 2,
+      "field": "Other behaviours associated with moulting",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Other behaviours associated with moulting\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 349,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 7,
+      "field": "# body segments per moult stage",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"number of body segments per moult stage\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 350,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 20,
+      "field": "Segment addition mode",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Segment addition mode\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 351,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 3,
+      "field": "Other behaviours associated with moulting",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Other behaviours associated with moulting\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 352,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 22,
+      "field": "Average body length (in mm)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Average body length (in mm)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 353,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 8,
+      "field": "Average body length (in mm)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Average body length (in mm)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 354,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 18,
+      "field": "Cephalic suture location",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Cephalic suture location\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 355,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 44,
+      "field": "Post-cephalic suture location",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Post-cephalic suture location\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 356,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 26,
+      "field": "Resulting named moulting configurations",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Resulting named moulting configurations\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 357,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 21,
+      "field": "Location of moulting suture",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Location of moulting suture\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 358,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 25,
+      "field": "Segment addition mode",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Segment addition mode\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 359,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 5,
+      "field": "Number of major morphological transitions",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Number of major morphological transitions\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 360,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 23,
+      "field": "Quality of fossil exuviae",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Quality of fossil exuviae\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 361,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 46,
+      "field": "Other behaviours associated with moulting",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Other behaviours associated with moulting\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 362,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 45,
+      "field": "Post-moult period (in days)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Post-moult period (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 363,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 19,
+      "field": "Intermoult period (in days)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Intermoult period (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 364,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 1,
+      "field": "Position exuviae found in",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Position exuviae found in\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 365,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 6,
+      "field": "Other behaviours associated with moulting",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Other behaviours associated with moulting\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 366,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 24,
+      "field": "Intermoult period (in days)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Intermoult period (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 367,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 4,
+      "field": "Ontogenetic stage period (in days)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Ontogenetic stage period (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 368,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 39,
+      "field": "Cephalic suture location",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Cephalic suture location\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 369,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 2,
+      "field": "Variation in moulting time within cohorts (in days)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Variation in moulting time within cohorts (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 370,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 7,
+      "field": "Number of juvenile moults",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Number of juvenile moults\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 371,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 20,
+      "field": "Resulting named moulting configurations",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Resulting named moulting configurations\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 372,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 3,
+      "field": "Position exuviae found in",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Position exuviae found in\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 373,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 22,
+      "field": "Quality of fossil exuviae",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Quality of fossil exuviae\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 374,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 8,
+      "field": "Life mode",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Life mode\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 375,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 18,
+      "field": "Other behaviours associated with moulting",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Other behaviours associated with moulting\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 376,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 44,
+      "field": "Intraspecific variability in moulting mode",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Intraspecific variability in moulting mode\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 377,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 26,
+      "field": "Position exuviae found in",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Position exuviae found in\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 378,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 21,
+      "field": "Average body length increase from previous moult (in mm)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Average body length increase from previous moult (in mm)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 379,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 25,
+      "field": "Number of juvenile moults",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Number of juvenile moults\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 380,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 5,
+      "field": "Average body width increase from previous moult (in mm)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Average body width increase from previous moult (in mm)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 381,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 23,
+      "field": "# body segments per moult stage",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"number of body segments per moult stage\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 382,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 46,
+      "field": "Life history style",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Life history style\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 383,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 45,
+      "field": "Consumption of exuviae",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Consumption of exuviae\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 384,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 19,
+      "field": "Post-moult cuticle calcification event",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Post-moult cuticle calcification event\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 385,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 1,
+      "field": "Post-moult cuticle calcification event",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Post-moult cuticle calcification event\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 386,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 6,
+      "field": "Post-moult cuticle calcification event",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Post-moult cuticle calcification event\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 387,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 24,
+      "field": "Reabsorption during moulting",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Reabsorption during moulting\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 388,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 4,
+      "field": "Quality of fossil exuviae",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Quality of fossil exuviae\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 389,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 39,
+      "field": "Segment addition mode",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Segment addition mode\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 390,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 2,
+      "field": "Average body width increase from previous moult (in mm)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Average body width increase from previous moult (in mm)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 391,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 7,
+      "field": "Consumption of exuviae",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Consumption of exuviae\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 392,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 20,
+      "field": "Post-cephalic suture location",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Post-cephalic suture location\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 393,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 3,
+      "field": "Previous reproductive state",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Previous reproductive state\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 394,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 22,
+      "field": "Post-moult period (in days)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Post-moult period (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 395,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 8,
+      "field": "Consumption of exuviae",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Consumption of exuviae\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 396,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 18,
+      "field": "Consumption of exuviae",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Consumption of exuviae\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 397,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 44,
+      "field": "# body segments per moult stage",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"number of body segments per moult stage\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 398,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 26,
+      "field": "Cephalic suture location",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Cephalic suture location\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 399,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 21,
+      "field": "Post-moult period (in days)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Post-moult period (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 400,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 25,
+      "field": "# body segments in adult individuals",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"number of body segments in adult individuals\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 401,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 5,
+      "field": "Consumption of exuviae",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Consumption of exuviae\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 402,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 23,
+      "field": "Average body mass increase from previous moult (in g)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Average body mass increase from previous moult (in g)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 403,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 46,
+      "field": "Reproductive state",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Reproductive state\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 404,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 45,
+      "field": "Intermoult period (in days)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Intermoult period (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 405,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 19,
+      "field": "Position exuviae found in",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Position exuviae found in\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 406,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 1,
+      "field": "Reproductive state",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Reproductive state\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 407,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 6,
+      "field": "Ontogenetic stage period (in days)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Ontogenetic stage period (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 408,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 24,
+      "field": "Average body length increase from previous moult (in mm)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Average body length increase from previous moult (in mm)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 409,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 4,
+      "field": "Post-moult period (in days)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Post-moult period (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 410,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 39,
+      "field": "Position exuviae found in",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Position exuviae found in\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 411,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 2,
+      "field": "Number of major morphological transitions",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Number of major morphological transitions\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 412,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 7,
+      "field": "Variation in moulting time within cohorts (in days)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Variation in moulting time within cohorts (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 413,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 20,
+      "field": "Cephalic suture location",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Cephalic suture location\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 414,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 3,
+      "field": "Estimated # moult stages",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Estimated number of moult stages\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 415,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 22,
+      "field": "Average body width (in mm)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Average body width (in mm)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 416,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 8,
+      "field": "Pre-moult period (in days)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Pre-moult period (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 417,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 18,
+      "field": "Post-moult heavy metal reinforcement of the cuticle",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Post-moult heavy metal reinforcement of the cuticle\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 418,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 44,
+      "field": "Resulting named moulting configurations",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Resulting named moulting configurations\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 419,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 26,
+      "field": "Previous reproductive state",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Previous reproductive state\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 420,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 21,
+      "field": "Intraspecific variability in moulting mode",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Intraspecific variability in moulting mode\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 421,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 25,
+      "field": "Life mode",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Life mode\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 422,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 5,
+      "field": "Post-moult cuticle calcification event",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Post-moult cuticle calcification event\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 423,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 23,
+      "field": "Post-moult heavy metal reinforcement of the cuticle",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Post-moult heavy metal reinforcement of the cuticle\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 424,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 46,
+      "field": "Moulting phase",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Moulting phase\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 425,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 45,
+      "field": "Other behaviours associated with moulting",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Other behaviours associated with moulting\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 426,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 19,
+      "field": "Post-moult heavy metal reinforcement of the cuticle",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Post-moult heavy metal reinforcement of the cuticle\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 427,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 1,
+      "field": "Previous reproductive state",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Previous reproductive state\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 428,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 6,
+      "field": "# body segments per moult stage",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"number of body segments per moult stage\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 429,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 24,
+      "field": "# body segments in adult individuals",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"number of body segments in adult individuals\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 430,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 4,
+      "field": "Location of moulting suture",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Location of moulting suture\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 431,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 39,
+      "field": "# body segments in adult individuals",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"number of body segments in adult individuals\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 432,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 2,
+      "field": "Direction of egress during moulting",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Direction of egress during moulting\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 433,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 7,
+      "field": "Estimated # moult stages",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Estimated number of moult stages\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 434,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 20,
+      "field": "Moulting phase",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Moulting phase\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 435,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 3,
+      "field": "Observed ontogenetic stage",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Observed ontogenetic stage\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 436,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 22,
+      "field": "Post-moult cuticle calcification event",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Post-moult cuticle calcification event\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 437,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 8,
+      "field": "Previous reproductive state",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Previous reproductive state\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 438,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 18,
+      "field": "Sex",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Sex\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 439,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 44,
+      "field": "Consumption of exuviae",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Consumption of exuviae\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 440,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 26,
+      "field": "Average body length (in mm)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Average body length (in mm)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 441,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 21,
+      "field": "Moulting phase",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Moulting phase\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 442,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 25,
+      "field": "Ontogenetic stage period (in days)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Ontogenetic stage period (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 443,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 5,
+      "field": "Life history style",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Life history style\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 444,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 23,
+      "field": "Post-moult period (in days)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Post-moult period (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 445,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 46,
+      "field": "Average body width increase from previous moult (in mm)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Average body width increase from previous moult (in mm)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 446,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 45,
+      "field": "Post-moult cuticle calcification event",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Post-moult cuticle calcification event\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 447,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 19,
+      "field": "Location of moulting suture",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Location of moulting suture\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 448,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 1,
+      "field": "Average body width (in mm)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Average body width (in mm)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 449,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 6,
+      "field": "Observed # total moult stages",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Observed number of total moult stages\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 450,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 24,
+      "field": "Resulting named moulting configurations",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Resulting named moulting configurations\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 451,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 4,
+      "field": "Cephalic suture location",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Cephalic suture location\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 452,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 39,
+      "field": "Resulting named moulting configurations",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Resulting named moulting configurations\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 453,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 2,
+      "field": "Average body width (in mm)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Average body width (in mm)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 454,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 7,
+      "field": "Observed # total moult stages",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Observed number of total moult stages\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 455,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 20,
+      "field": "Location of moulting suture",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Location of moulting suture\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 456,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 3,
+      "field": "# body segments per moult stage",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"number of body segments per moult stage\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 457,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 22,
+      "field": "Variation in moulting time within cohorts (in days)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Variation in moulting time within cohorts (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 458,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 8,
+      "field": "Variation in moulting time within cohorts (in days)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Variation in moulting time within cohorts (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 459,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 18,
+      "field": "Average body length increase from previous moult (in mm)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Average body length increase from previous moult (in mm)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 460,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 44,
+      "field": "Post-moult heavy metal reinforcement of the cuticle",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Post-moult heavy metal reinforcement of the cuticle\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 461,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 26,
+      "field": "Quality of fossil exuviae",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Quality of fossil exuviae\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 462,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 21,
+      "field": "Number of major morphological transitions",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Number of major morphological transitions\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 463,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 25,
+      "field": "Variation in moulting time within cohorts (in days)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Variation in moulting time within cohorts (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 464,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 5,
+      "field": "Sex",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Sex\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 465,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 23,
+      "field": "# body segments in adult individuals",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"number of body segments in adult individuals\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 466,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 46,
+      "field": "Cephalic suture location",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Cephalic suture location\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 467,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 45,
+      "field": "Average body width (in mm)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Average body width (in mm)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 468,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 19,
+      "field": "Average body width (in mm)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Average body width (in mm)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 469,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 1,
+      "field": "Post-moult heavy metal reinforcement of the cuticle",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Post-moult heavy metal reinforcement of the cuticle\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 470,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 6,
+      "field": "Consumption of exuviae",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Consumption of exuviae\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 471,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 24,
+      "field": "# body segments per moult stage",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"number of body segments per moult stage\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 472,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 4,
+      "field": "Reproductive state",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Reproductive state\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 473,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 39,
+      "field": "Location of moulting suture",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Location of moulting suture\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 474,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 2,
+      "field": "Adult stage moulting",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Adult stage moulting\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 475,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 7,
+      "field": "Post-cephalic suture location",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Post-cephalic suture location\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 476,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 20,
+      "field": "Quality of fossil exuviae",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Quality of fossil exuviae\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 477,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 3,
+      "field": "Average body width increase from previous moult (in mm)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Average body width increase from previous moult (in mm)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 478,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 22,
+      "field": "Post-moult heavy metal reinforcement of the cuticle",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Post-moult heavy metal reinforcement of the cuticle\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 479,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 8,
+      "field": "Average body mass increase from previous moult (in g)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Average body mass increase from previous moult (in g)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 480,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 18,
+      "field": "Intermoult period (in days)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Intermoult period (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 481,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 44,
+      "field": "Average body length (in mm)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Average body length (in mm)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 482,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 26,
+      "field": "Average body mass increase from previous moult (in g)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Average body mass increase from previous moult (in g)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 483,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 21,
+      "field": "Post-cephalic suture location",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Post-cephalic suture location\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 484,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 25,
+      "field": "Pre-moult period (in days)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Pre-moult period (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 485,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 5,
+      "field": "Ontogenetic stage period (in days)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Ontogenetic stage period (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 486,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 23,
+      "field": "Reabsorption during moulting",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Reabsorption during moulting\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 487,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 46,
+      "field": "Intermoult period (in days)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Intermoult period (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 488,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 45,
+      "field": "Post-cephalic suture location",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Post-cephalic suture location\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 489,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 19,
+      "field": "Ontogenetic stage period (in days)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Ontogenetic stage period (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 490,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 1,
+      "field": "Variation in moulting time within cohorts (in days)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Variation in moulting time within cohorts (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 491,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 6,
+      "field": "Post-moult period (in days)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Post-moult period (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 492,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 24,
+      "field": "Average body width increase from previous moult (in mm)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Average body width increase from previous moult (in mm)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 493,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 4,
+      "field": "Other behaviours associated with moulting",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Other behaviours associated with moulting\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 494,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 39,
+      "field": "Post-moult cuticle calcification event",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Post-moult cuticle calcification event\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 495,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 2,
+      "field": "Pre-moult period (in days)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Pre-moult period (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 496,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 7,
+      "field": "Adult stage moulting",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Adult stage moulting\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 497,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 20,
+      "field": "Reproductive state",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Reproductive state\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 498,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 3,
+      "field": "Post-moult period (in days)",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Post-moult period (in days)\"?",
+      "phrasing_round": 0
+    },
+    {
+      "item_id": 499,
+      "type": "negative",
+      "is_negative": true,
+      "paper_id": 22,
+      "field": "Other behaviours associated with moulting",
+      "gold_values": [],
+      "question": "According to this paper, what is the value for \"Other behaviours associated with moulting\"?",
+      "phrasing_round": 0
+    }
+  ]
+}

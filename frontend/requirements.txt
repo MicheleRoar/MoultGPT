@@ -1,0 +1,9 @@
+# MoultGPT — frontend/ (unified demo gateway) requirements
+#
+# Deliberately tiny: this process only serves index.html and reverse-proxies
+# to the real backends (see app.py's module docstring for why it's a
+# separate lightweight process rather than importing llm/ and vision/
+# directly). No torch, no ML deps of any kind here.
+
+flask>=3.0.0
+requests>=2.31.0

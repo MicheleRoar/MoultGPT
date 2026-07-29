@@ -1,0 +1,71 @@
+# MoultGPT — local/server orchestration
+#
+# Brings up all four services the demo needs:
+#   - grobid          : official image, only needed for DOI/PDF -> text
+#   - llm-backend      : Flask API, port 5002 (calls remote LLM providers)
+#   - vision-backend   : Flask API, port 5001 (YOLO + XGBoost, CPU)
+#   - gateway          : the unified demo (frontend/), port 8080 — serves
+#                        frontend/index.html and reverse-proxies to the two
+#                        backends above over the internal compose network,
+#                        so http://localhost:8080 is the one URL/one command
+#                        entrypoint. llm-backend and vision-backend also stay
+#                        reachable on their own ports directly (5002/ui,
+#                        5001/healthz) for the standalone per-backend testers.
+#
+# Data and model weights are mounted as volumes rather than baked into the
+# images, so they can be updated without rebuilding, and so the images
+# built in CI stay small and don't need your local data to build.
+#
+# Usage:
+#   cp llm/.env.example llm/.env   # fill in at least one provider key
+#   docker compose up --build
+#   open http://localhost:8080     # unified demo (gateway)
+#   open http://localhost:5002/ui  # LLM-only tester, if you want it directly
+#   open http://localhost:5001/healthz  # vision backend health check
+
+services:
+  grobid:
+    image: lfoppiano/grobid:0.8.0
+    restart: unless-stopped
+    ports:
+      - "8070:8070"
+    # GROBID is memory-hungry; uncomment/adjust if your server is small.
+    # deploy:
+    #   resources:
+    #     limits:
+    #       memory: 4g
+
+  llm-backend:
+    build: ./llm
+    restart: unless-stopped
+    ports:
+      - "5002:5002"
+    env_file:
+      - ./llm/.env
+    environment:
+      GROBID_URL: http://grobid:8070/api/processFulltextDocument
+    volumes:
+      - ./llm/data:/app/data
+      - ./llm/backend/feedback:/app/backend/feedback
+    depends_on:
+      - grobid
+
+  vision-backend:
+    build: ./vision
+    restart: unless-stopped
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./vision/models:/app/models
+
+  gateway:
+    build: ./frontend
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      LLM_BACKEND_URL: http://llm-backend:5002
+      VISION_BACKEND_URL: http://vision-backend:5001
+    depends_on:
+      - llm-backend
+      - vision-backend

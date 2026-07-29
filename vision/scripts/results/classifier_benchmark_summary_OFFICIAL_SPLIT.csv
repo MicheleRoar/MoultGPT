@@ -1,0 +1,5 @@
+model,cv_best_macro_f1,val_accuracy,val_balanced_accuracy,val_macro_f1,best_params
+XGBoost,0.7334551392171402,0.8818897637795275,0.8601002109704641,0.8702757916241062,"{'clf__colsample_bytree': 1.0, 'clf__learning_rate': 0.05, 'clf__max_depth': 3, 'clf__n_estimators': 150, 'clf__subsample': 0.8}"
+RandomForest,0.73745949021107,0.8740157480314961,0.8537710970464135,0.8623306233062331,"{'clf__class_weight': 'balanced', 'clf__max_depth': 6, 'clf__min_samples_split': 2, 'clf__n_estimators': 400}"
+LogisticRegression,0.7176013877637809,0.84251968503937,0.8121044303797469,0.8241971207087486,"{'clf__C': 1.0, 'clf__class_weight': None}"
+SVM_RBF,0.6796553431618086,0.8267716535433071,0.7912710970464135,0.8043417366946779,"{'clf__C': 5.0, 'clf__class_weight': None, 'clf__gamma': 0.01}"

@@ -1,0 +1,17 @@
+# Not needed inside the image / mounted as volumes instead
+models/
+data/
+frontend/
+scripts/
+utility/
+image_test/
+.venv/
+venv/
+vision_env/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.env
+*.log
+.DS_Store
+.git/
