@@ -50,8 +50,8 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Install pytest
-        run: pip install pytest
+      - name: Install test dependencies (pytest + llm/requirements.txt, e.g. pyyaml — scoring.py degrades silently without it)
+        run: pip install pytest -r llm/requirements.txt
 
       - name: Run llm/tests (pure-Python domain gate, prompting, model registry — no GPU/network/data files needed)
         run: cd llm && python -m pytest tests -q
