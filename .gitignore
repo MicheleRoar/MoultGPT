@@ -24,6 +24,9 @@ Thumbs.db
 *.swo
 *.tmp
 *.bak
+.ipynb_checkpoints/
+Untitled*.ipynb
+debug_*.py
 
 # Local AI-assistant tooling config, not part of the project
 .claude/
