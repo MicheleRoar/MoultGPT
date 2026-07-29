@@ -32,8 +32,7 @@ jobs:
           python-version: "3.10"
 
       - name: Byte-compile check (catches syntax errors fast)
-        run: python -m py_compile $(find ${{ matrix.module }} -name "*.py" \
-          -not -path "*/.venv/*" -not -path "*/finetuning/*" -not -path "*/tools/*")
+        run: python -m py_compile $(find ${{ matrix.module }} -name "*.py" -not -path "*/.venv/*" -not -path "*/finetuning/*" -not -path "*/tools/*")
 
       - name: Install ruff
         run: pip install ruff
