@@ -1,0 +1,7 @@
+path: /sessions/festive-funny-carson/mnt/MoultGPT/vision/data/yolo_grouped
+train: images/train
+val: images/val
+
+names:
+  0: organism
+  1: exuviae

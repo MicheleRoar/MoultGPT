@@ -123,6 +123,16 @@ vision/data/yolo/*.cache
 !vision/data/yolo/data.yaml
 
 #######################################
+# Vision — YOLO dataset, grouped split (regenerated via
+# scripts/pipeline/build_yolo_dataset_grouped.py, not vendored)
+#######################################
+vision/data/yolo_grouped/images/*
+vision/data/yolo_grouped/labels/*
+vision/data/yolo_grouped/*.cache
+
+!vision/data/yolo_grouped/data.yaml
+
+#######################################
 # Vision — Auto-generated CSVs & arrays
 #######################################
 vision/data/*.csv
