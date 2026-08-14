@@ -23,10 +23,18 @@ train time even though real detector output is full of them).
 no_detection is left as-is (no signal to route through a classifier without
 building genuinely new global-image features -- out of scope for today).
 
+--rescue (sahi backend only): if the first SAHI pass finds nothing at all
+on an image, retries once with a lower confidence threshold, higher tile
+overlap, and bigger tiles. Only fires on images that would otherwise be a
+guaranteed-wrong no_detection, so it cannot make anything worse than the
+current baseline -- and the weak rescue detections still go through the
+unified classifier rather than short-circuiting to a hardcoded label.
+
 Usage:
     cd vision
     python scripts/pipeline/unified_classifier_eval.py --model ../models/yolo_detect_GROUPED_SPLIT.pt --backend standard
     python scripts/pipeline/unified_classifier_eval.py --model ../models/yolo_detect_GROUPED_SPLIT.pt --backend sahi
+    python scripts/pipeline/unified_classifier_eval.py --model ../models/yolo_detect_GROUPED_SPLIT.pt --backend sahi --rescue
 """
 
 import argparse
@@ -56,6 +64,15 @@ _cli.add_argument("--slice", type=int, default=640, help="Slice height/width (sa
 _cli.add_argument("--overlap", type=float, default=0.2, help="Slice overlap (sahi backend).")
 _cli.add_argument("--sahi_conf", type=float, default=0.25, help="Conf threshold (sahi backend).")
 _cli.add_argument("--device", default="cpu", help="Device for sahi backend.")
+_cli.add_argument("--rescue", action="store_true",
+                   help="SAHI backend only: if the first pass finds nothing at all, retry once with a "
+                        "lower confidence threshold, higher tile overlap, and bigger tiles. Only fires on "
+                        "images that are otherwise guaranteed no_detection, so it cannot make an already-"
+                        "scored image worse -- weak rescue detections still go through the unified "
+                        "classifier, they never short-circuit to a hardcoded label.")
+_cli.add_argument("--rescue_conf", type=float, default=0.10, help="Confidence threshold for the rescue pass.")
+_cli.add_argument("--rescue_overlap", type=float, default=0.35, help="Tile overlap ratio for the rescue pass.")
+_cli.add_argument("--rescue_slice", type=int, default=900, help="Slice height/width for the rescue pass.")
 _cli.add_argument("--mask_frac", type=float, default=1.0,
                    help="Fraction of train rows to also add as masked (organism-only / exuviae-only) variants.")
 _cli.add_argument("--scale_pos_weight", type=float, default=None,
@@ -222,12 +239,14 @@ def detect_standard(yolo, names, pil):
     return best["organism"], best["exuviae"]
 
 
-def detect_sahi(detection_model, img_path):
+def detect_sahi(detection_model, img_path, slice_size=None, overlap=None):
     from sahi.predict import get_sliced_prediction
+    slice_size = _args.slice if slice_size is None else slice_size
+    overlap = _args.overlap if overlap is None else overlap
     r = get_sliced_prediction(
         str(img_path), detection_model,
-        slice_height=_args.slice, slice_width=_args.slice,
-        overlap_height_ratio=_args.overlap, overlap_width_ratio=_args.overlap,
+        slice_height=slice_size, slice_width=slice_size,
+        overlap_height_ratio=overlap, overlap_width_ratio=overlap,
         verbose=0,
     )
     dets = {"organism": [], "exuviae": []}
@@ -301,15 +320,42 @@ def main():
             model_type="ultralytics", model_path=str(YOLO_MODEL_PATH),
             confidence_threshold=_args.sahi_conf, device=_args.device,
         )
+        rescue_model = None
+        if _args.rescue:
+            rescue_model = AutoDetectionModel.from_pretrained(
+                model_type="ultralytics", model_path=str(YOLO_MODEL_PATH),
+                confidence_threshold=_args.rescue_conf, device=_args.device,
+            )
+            print(f"rescue pass enabled: conf={_args.rescue_conf} overlap={_args.rescue_overlap} slice={_args.rescue_slice}")
+
+        n_rescued_attempted, n_rescued_found = 0, 0
         for _, row in val_rows.iterrows():
             img_path = IMAGE_ROOT / row["stage"] / row["filename"]
             if not img_path.exists():
                 continue
             pil = Image.open(img_path).convert("RGB")
             best_org, best_exu = detect_sahi(detection_model, img_path)
+
+            rescued = False
+            if rescue_model is not None and best_org is None and best_exu is None:
+                n_rescued_attempted += 1
+                best_org, best_exu = detect_sahi(
+                    rescue_model, img_path,
+                    slice_size=_args.rescue_slice, overlap=_args.rescue_overlap,
+                )
+                if best_org is not None or best_exu is not None:
+                    n_rescued_found += 1
+                    rescued = True
+
             pred_det, branch_det = decide(best_org, best_exu, clf, pil, row["taxon_group"])
+            if rescued:
+                branch_det = branch_det + "_rescued"
             results.append({"filename": row["filename"], "true_stage": row["stage"],
                              "pred_detector": pred_det, "branch_detector": branch_det})
+
+        if rescue_model is not None:
+            print(f"rescue pass: attempted on {n_rescued_attempted} empty images, "
+                  f"found something in {n_rescued_found}")
 
     out = pd.DataFrame(results)
     OUT_CSV.parent.mkdir(parents=True, exist_ok=True)
