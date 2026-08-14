@@ -58,6 +58,10 @@ _cli.add_argument("--sahi_conf", type=float, default=0.25, help="Conf threshold 
 _cli.add_argument("--device", default="cpu", help="Device for sahi backend.")
 _cli.add_argument("--mask_frac", type=float, default=1.0,
                    help="Fraction of train rows to also add as masked (organism-only / exuviae-only) variants.")
+_cli.add_argument("--scale_pos_weight", type=float, default=None,
+                   help="XGBoost scale_pos_weight (post-moult=1 is the positive class). "
+                        "Default: auto = count(moulting)/count(post-moult) in the augmented train set, "
+                        "to counter the recall collapse on the minority class in partial-detection branches.")
 _cli.add_argument("--seed", type=int, default=42)
 _args = _cli.parse_args()
 
@@ -269,7 +273,12 @@ def main():
     X_train, y_train = build_augmented_training_set(train_rows, rng)
     print(f"classifier train_n={len(train_rows)} (base) -> {len(X_train)} (augmented)  val_n={len(val_rows)}")
 
-    clf = XGBClassifier(**BEST_PARAMS)
+    n_moulting = int((y_train == 0).sum())
+    n_postmoult = int((y_train == 1).sum())
+    spw = _args.scale_pos_weight if _args.scale_pos_weight is not None else (n_moulting / max(n_postmoult, 1))
+    print(f"train class balance: moulting={n_moulting} post-moult={n_postmoult}  scale_pos_weight={spw:.3f}")
+
+    clf = XGBClassifier(**{**BEST_PARAMS, "scale_pos_weight": spw})
     clf.fit(X_train, y_train)
 
     results = []
