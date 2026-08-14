@@ -106,6 +106,12 @@ vision/models/*
 !vision/models/xgboost_stage_OFFICIAL_SPLIT_13feat.pkl
 !vision/models/label_encoder_OFFICIAL_SPLIT_13feat.pkl
 
+# Stray auto-downloaded checkpoints that land in vision/ root when a script
+# is run from the wrong cwd (e.g. yoloe-11s-seg.pt, mobileclip_blt.ts) --
+# legitimate weights live under vision/models/, never at the vision/ root.
+/vision/*.pt
+/vision/*.ts
+
 #######################################
 # Vision — Raw iNat data
 #######################################
@@ -131,6 +137,12 @@ vision/data/yolo_grouped/labels/*
 vision/data/yolo_grouped/*.cache
 
 !vision/data/yolo_grouped/data.yaml
+
+vision/data/yolo_grouped_singleclass/images/*
+vision/data/yolo_grouped_singleclass/labels/*
+vision/data/yolo_grouped_singleclass/*.cache
+
+!vision/data/yolo_grouped_singleclass/data.yaml
 
 #######################################
 # Vision — Auto-generated CSVs & arrays

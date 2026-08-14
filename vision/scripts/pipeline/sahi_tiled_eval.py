@@ -1,21 +1,24 @@
-"""Definitive oracle vs. detector-in-the-loop eval, on the grouped master split.
+"""Same oracle/detector eval as final_end_to_end_eval.py, but the detector
+branch runs SAHI sliced inference instead of a single full-image forward
+pass. No retraining -- reuses whatever YOLO checkpoint you already have.
+Tests the "small/close objects get lost at one shot" hypothesis directly.
 
-Both the classifier and YOLO are trained/evaluated on the same
-observation_id partition (data/master_split.csv), so there is no
-cross-contamination in either direction. Supersedes clean_end_to_end_eval.py
-and yolo_unseen_eval.py once models/yolo_detect_GROUPED_SPLIT.pt exists
-(run retrain_yolo_grouped.sh first).
+pip install -U sahi
+
+Usage:
+    cd vision
+    python scripts/pipeline/sahi_tiled_eval.py --model ../models/yolo_detect_GROUPED_SPLIT.pt
 """
 
 import argparse
 import math
-import os
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 from PIL import Image, ImageStat
-from ultralytics import YOLO
+from sahi import AutoDetectionModel
+from sahi.predict import get_sliced_prediction
 from xgboost import XGBClassifier
 
 BASE_DIR = Path(__file__).resolve().parents[2]
@@ -24,18 +27,17 @@ SPLIT_CSV = BASE_DIR / "data" / "master_split.csv"
 IMAGE_ROOT = BASE_DIR / "data" / "inat_raw"
 
 _cli = argparse.ArgumentParser()
-_cli.add_argument("--model", default=str(BASE_DIR / "models" / "yolo_detect_GROUPED_SPLIT.pt"),
-                   help="Path to a YOLO detector checkpoint (e.g. yolo26_detect_GROUPED_SPLIT.pt).")
-_cli.add_argument("--out", default=None, help="Output CSV name (default: derived from --model).")
+_cli.add_argument("--model", default=str(BASE_DIR / "models" / "yolo_detect_GROUPED_SPLIT.pt"))
+_cli.add_argument("--slice", type=int, default=640, help="Slice height/width.")
+_cli.add_argument("--overlap", type=float, default=0.2)
+_cli.add_argument("--conf", type=float, default=0.25)
+_cli.add_argument("--device", default="cpu")
 _args = _cli.parse_args()
 
 YOLO_MODEL_PATH = Path(_args.model)
-OUT_CSV = Path(_args.out) if _args.out else BASE_DIR / "scripts" / "results" / f"final_end_to_end_eval_{YOLO_MODEL_PATH.stem}.csv"
+OUT_CSV = BASE_DIR / "scripts" / "results" / f"sahi_tiled_eval_{YOLO_MODEL_PATH.stem}.csv"
 
 SEED = 42
-CONF_THRESHOLD = 0.35
-IOU_THRESHOLD = 0.45
-IMG_SIZE = 1024
 IOU_CROSS_NMS = 0.50
 IOU_OK = 0.5
 
@@ -77,20 +79,11 @@ def _filter_cross_overlap(dets, thr=0.5):
     dets["organism"], dets["exuviae"] = keep_orgs, keep_exus
 
 
-def bucket(cls_id, names):
-    label = names.get(int(cls_id), str(cls_id)) if isinstance(names, dict) else str(names[int(cls_id)])
-    return "exuviae" if "exuv" in label.lower() else "organism"
-
-
 def gt_box(row, prefix):
     x, y, w, h = row.get(f"x_{prefix}"), row.get(f"y_{prefix}"), row.get(f"w_{prefix}"), row.get(f"h_{prefix}")
     if pd.isna(x) or pd.isna(y) or pd.isna(w) or pd.isna(h):
         return None
     return [float(x), float(y), float(x + w), float(y + h)]
-
-
-def build_image_path(stage, filename):
-    return IMAGE_ROOT / stage / filename
 
 
 def build_training_scale_features(box_o, box_e, pil_img, taxon_group):
@@ -135,6 +128,27 @@ def decide(best_org, best_exu, clf, pil_img, taxon_group):
     return None, "no_detection"
 
 
+def sahi_predict(detection_model, img_path):
+    r = get_sliced_prediction(
+        str(img_path), detection_model,
+        slice_height=_args.slice, slice_width=_args.slice,
+        overlap_height_ratio=_args.overlap, overlap_width_ratio=_args.overlap,
+        verbose=0,
+    )
+    dets = {"organism": [], "exuviae": []}
+    for p in r.object_prediction_list:
+        name = "exuviae" if "exuv" in p.category.name.lower() else "organism"
+        x1, y1, x2, y2 = p.bbox.to_xyxy()
+        dets[name].append({"box": [float(x1), float(y1), float(x2), float(y2)], "conf": float(p.score.value)})
+    _filter_cross_overlap(dets, IOU_CROSS_NMS)
+    best, best_conf = {"organism": None, "exuviae": None}, {"organism": -1.0, "exuviae": -1.0}
+    for k in best:
+        for d in dets[k]:
+            if d["conf"] > best_conf[k]:
+                best_conf[k], best[k] = d["conf"], d["box"]
+    return best["organism"], best["exuviae"]
+
+
 def score(df, pred_col):
     d = df.copy()
     acc = (d["true_stage"] == d[pred_col]).mean()
@@ -151,7 +165,7 @@ def score(df, pred_col):
 
 
 def main():
-    print(f"detector: {YOLO_MODEL_PATH.name}")
+    print(f"detector: {YOLO_MODEL_PATH.name}  slice={_args.slice}  overlap={_args.overlap}  conf={_args.conf}")
     df = pd.read_csv(FEATURES_CSV)
     split = pd.read_csv(SPLIT_CSV)
     both = df[(df["has_organism_box"] == 1) & (df["has_exuviae_box"] == 1) & (df["stage"] != "pre-moult")].copy()
@@ -167,66 +181,33 @@ def main():
     clf = XGBClassifier(**BEST_PARAMS)
     clf.fit(X_train, y_train)
 
-    yolo = YOLO(str(YOLO_MODEL_PATH))
-    names = yolo.names if hasattr(yolo, "names") else yolo.model.names
+    detection_model = AutoDetectionModel.from_pretrained(
+        model_type="ultralytics", model_path=str(YOLO_MODEL_PATH),
+        confidence_threshold=_args.conf, device=_args.device,
+    )
 
     results = []
     for _, row in val_rows.iterrows():
-        img_path = build_image_path(row["stage"], row["filename"])
+        img_path = IMAGE_ROOT / row["stage"] / row["filename"]
         if not img_path.exists():
             continue
         pil = Image.open(img_path).convert("RGB")
-
-        oracle_org, oracle_exu = gt_box(row, "organism"), gt_box(row, "exuviae")
-        pred_oracle, branch_oracle = decide(oracle_org, oracle_exu, clf, pil, row["taxon_group"])
-
-        r = yolo.predict(pil, imgsz=IMG_SIZE, conf=CONF_THRESHOLD, iou=IOU_THRESHOLD, verbose=False)[0]
-        dets = {"organism": [], "exuviae": []}
-        if r.boxes is not None:
-            for (x1, y1, x2, y2), c, p in zip(r.boxes.xyxy.cpu().numpy(), r.boxes.cls.cpu().numpy().astype(int), r.boxes.conf.cpu().numpy()):
-                dets[bucket(c, names)].append({"box": [float(x1), float(y1), float(x2), float(y2)], "conf": float(p)})
-        _filter_cross_overlap(dets, IOU_CROSS_NMS)
-        best, best_conf = {"organism": None, "exuviae": None}, {"organism": -1.0, "exuviae": -1.0}
-        for k in best:
-            for d in dets[k]:
-                if d["conf"] > best_conf[k]:
-                    best_conf[k], best[k] = d["conf"], d["box"]
-        pred_det, branch_det = decide(best["organism"], best["exuviae"], clf, pil, row["taxon_group"])
-
-        iou_org = _iou_boxes(best["organism"], oracle_org) if (best["organism"] and oracle_org) else (0.0 if oracle_org else None)
-        iou_exu = _iou_boxes(best["exuviae"], oracle_exu) if (best["exuviae"] and oracle_exu) else (0.0 if oracle_exu else None)
-
-        results.append({
-            "filename": row["filename"], "observation_id": row["observation_id"], "true_stage": row["stage"],
-            "pred_oracle": pred_oracle, "branch_oracle": branch_oracle,
-            "pred_detector": pred_det, "branch_detector": branch_det,
-            "iou_organism_vs_gt": iou_org, "iou_exuviae_vs_gt": iou_exu,
-        })
+        best_org, best_exu = sahi_predict(detection_model, img_path)
+        pred_det, branch_det = decide(best_org, best_exu, clf, pil, row["taxon_group"])
+        results.append({"filename": row["filename"], "true_stage": row["stage"],
+                         "pred_detector": pred_det, "branch_detector": branch_det})
 
     out = pd.DataFrame(results)
     OUT_CSV.parent.mkdir(parents=True, exist_ok=True)
     out.to_csv(OUT_CSV, index=False)
     print(f"saved -> {OUT_CSV}")
 
-    for label, col in [("ORACLE", "pred_oracle"), ("DETECTOR", "pred_detector")]:
-        acc, macro_f1, rows = score(out, col)
-        print(f"\n=== {label} — n={len(out)} ===  accuracy={acc:.3f}  macro_f1={macro_f1:.3f}")
-        for c, p, r_, f1 in rows:
-            print(f"  {c}: precision={p:.3f} recall={r_:.3f} f1={f1:.3f}")
-
-    errors = out[out["true_stage"] != out["pred_detector"]].copy()
-
-    def attribute(r):
-        if r["branch_detector"] != "classifier":
-            return "detection (wrong branch)"
-        ok_org = r["iou_organism_vs_gt"] is not None and r["iou_organism_vs_gt"] >= IOU_OK
-        ok_exu = r["iou_exuviae_vs_gt"] is not None and r["iou_exuviae_vs_gt"] >= IOU_OK
-        return "classification (boxes accurate, wrong stage)" if (ok_org and ok_exu) else "detection (box inaccurate, IoU<0.5)"
-
-    if len(errors):
-        errors["error_cause"] = errors.apply(attribute, axis=1)
-        print(f"\n=== ERROR ATTRIBUTION ({len(errors)}/{len(out)}) ===")
-        print(errors["error_cause"].value_counts())
+    acc, macro_f1, rows = score(out, "pred_detector")
+    print(f"\n=== SAHI DETECTOR — n={len(out)} ===  accuracy={acc:.3f}  macro_f1={macro_f1:.3f}")
+    for c, p, r, f1 in rows:
+        print(f"  {c}: precision={p:.3f} recall={r:.3f} f1={f1:.3f}")
+    print(out["branch_detector"].value_counts())
+    print("\nCompare directly against final_end_to_end_eval.py's DETECTOR result for the same --model.")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,6 @@
+path: /sessions/festive-funny-carson/mnt/MoultGPT/vision/data/yolo_grouped_singleclass
+train: images/train
+val: images/val
+
+names:
+  0: arthropod_object
