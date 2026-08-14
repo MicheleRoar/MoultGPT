@@ -300,7 +300,36 @@ def main():
     clf = XGBClassifier(**{**BEST_PARAMS, "scale_pos_weight": spw})
     clf.fit(X_train, y_train)
 
+    # Rescue pass: a SAHI fallback used ONLY when the primary backend (standard
+    # single-shot YOLO, or a first SAHI pass) finds nothing at all on an image.
+    # Cannot make an already-scored image worse -- those images are a
+    # guaranteed-wrong no_detection otherwise. Lower conf / higher tile
+    # overlap / bigger tiles than the primary SAHI pass to maximize recall on
+    # the hardest images specifically.
+    rescue_model = None
+    if _args.rescue:
+        from sahi import AutoDetectionModel
+        rescue_model = AutoDetectionModel.from_pretrained(
+            model_type="ultralytics", model_path=str(YOLO_MODEL_PATH),
+            confidence_threshold=_args.rescue_conf, device=_args.device,
+        )
+        print(f"rescue pass enabled: conf={_args.rescue_conf} overlap={_args.rescue_overlap} slice={_args.rescue_slice}")
+
+    def maybe_rescue(best_org, best_exu, img_path, counters):
+        if rescue_model is None or best_org is not None or best_exu is not None:
+            return best_org, best_exu, False
+        counters["attempted"] += 1
+        best_org, best_exu = detect_sahi(
+            rescue_model, img_path,
+            slice_size=_args.rescue_slice, overlap=_args.rescue_overlap,
+        )
+        rescued = best_org is not None or best_exu is not None
+        if rescued:
+            counters["found"] += 1
+        return best_org, best_exu, rescued
+
     results = []
+    counters = {"attempted": 0, "found": 0}
     if _args.backend == "standard":
         from ultralytics import YOLO
         yolo = YOLO(str(YOLO_MODEL_PATH))
@@ -311,7 +340,10 @@ def main():
                 continue
             pil = Image.open(img_path).convert("RGB")
             best_org, best_exu = detect_standard(yolo, names, pil)
+            best_org, best_exu, rescued = maybe_rescue(best_org, best_exu, img_path, counters)
             pred_det, branch_det = decide(best_org, best_exu, clf, pil, row["taxon_group"])
+            if rescued:
+                branch_det = branch_det + "_rescued"
             results.append({"filename": row["filename"], "true_stage": row["stage"],
                              "pred_detector": pred_det, "branch_detector": branch_det})
     else:
@@ -320,42 +352,22 @@ def main():
             model_type="ultralytics", model_path=str(YOLO_MODEL_PATH),
             confidence_threshold=_args.sahi_conf, device=_args.device,
         )
-        rescue_model = None
-        if _args.rescue:
-            rescue_model = AutoDetectionModel.from_pretrained(
-                model_type="ultralytics", model_path=str(YOLO_MODEL_PATH),
-                confidence_threshold=_args.rescue_conf, device=_args.device,
-            )
-            print(f"rescue pass enabled: conf={_args.rescue_conf} overlap={_args.rescue_overlap} slice={_args.rescue_slice}")
-
-        n_rescued_attempted, n_rescued_found = 0, 0
         for _, row in val_rows.iterrows():
             img_path = IMAGE_ROOT / row["stage"] / row["filename"]
             if not img_path.exists():
                 continue
             pil = Image.open(img_path).convert("RGB")
             best_org, best_exu = detect_sahi(detection_model, img_path)
-
-            rescued = False
-            if rescue_model is not None and best_org is None and best_exu is None:
-                n_rescued_attempted += 1
-                best_org, best_exu = detect_sahi(
-                    rescue_model, img_path,
-                    slice_size=_args.rescue_slice, overlap=_args.rescue_overlap,
-                )
-                if best_org is not None or best_exu is not None:
-                    n_rescued_found += 1
-                    rescued = True
-
+            best_org, best_exu, rescued = maybe_rescue(best_org, best_exu, img_path, counters)
             pred_det, branch_det = decide(best_org, best_exu, clf, pil, row["taxon_group"])
             if rescued:
                 branch_det = branch_det + "_rescued"
             results.append({"filename": row["filename"], "true_stage": row["stage"],
                              "pred_detector": pred_det, "branch_detector": branch_det})
 
-        if rescue_model is not None:
-            print(f"rescue pass: attempted on {n_rescued_attempted} empty images, "
-                  f"found something in {n_rescued_found}")
+    if rescue_model is not None:
+        print(f"rescue pass: attempted on {counters['attempted']} empty images, "
+              f"found something in {counters['found']}")
 
     out = pd.DataFrame(results)
     OUT_CSV.parent.mkdir(parents=True, exist_ok=True)
