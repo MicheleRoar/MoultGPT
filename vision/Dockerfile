@@ -19,10 +19,16 @@ WORKDIR /app
 
 COPY requirements.txt .
 
-# Install the CPU-only torch wheel explicitly first (the default PyPI wheel
-# pulls in ~2GB of CUDA/nvidia-* deps that are useless without a GPU); pip
+# Install the CPU-only torch wheel explicitly first (the default PyPI wheel on
+# x86 pulls in ~2GB of CUDA/nvidia-* deps that are useless without a GPU); pip
 # then sees torch==2.3.0 already satisfied when installing the rest.
-RUN pip install --no-cache-dir torch==2.3.0 --index-url https://download.pytorch.org/whl/cpu \
+#
+# --extra-index-url (NOT --index-url): PyPI stays the primary index for torch's
+# small dependencies (typing-extensions, jinja2, ...). With --index-url the
+# PyTorch mirror is the only index, which lacks some of them and made pip fall
+# back to building typing-extensions from source and fail on arm64 (Apple Silicon).
+# On x86 the "+cpu" build on the PyTorch index is preferred over the PyPI one.
+RUN pip install --no-cache-dir torch==2.3.0 --extra-index-url https://download.pytorch.org/whl/cpu \
     && pip install --no-cache-dir -r requirements.txt
 
 COPY backend/ backend/
