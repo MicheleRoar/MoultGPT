@@ -55,6 +55,43 @@ PROXY_TIMEOUT_SEC = float(os.getenv("PROXY_TIMEOUT_SEC", 120))
 
 app = Flask(__name__)
 
+# --- Production hardening (all opt-out via env, safe defaults for local dev) ---
+# Upload cap: PDFs / photos. Requests above this get a 413 before they are
+# proxied anywhere.
+app.config["MAX_CONTENT_LENGTH"] = int(os.getenv("MAX_UPLOAD_MB", 20)) * 1024 * 1024
+
+# Behind a reverse proxy (Caddy / Cloudflare Tunnel) the real client IP is in
+# X-Forwarded-For. Only trust it when explicitly told we are behind one,
+# otherwise anyone could spoof their IP and dodge the rate limiter.
+if os.getenv("TRUST_PROXY", "0") == "1":
+    from werkzeug.middleware.proxy_fix import ProxyFix
+    app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1)
+
+# Per-IP rate limiting. The expensive endpoints (remote LLM call = money,
+# YOLO inference = CPU) get tight limits. In-memory storage is fine because
+# the gateway runs as a single gunicorn worker (see docker-compose.prod.yml).
+RATE_LIMIT_ENABLED = os.getenv("RATE_LIMIT_ENABLED", "0") == "1"
+LIMIT_LLM_QUERY = os.getenv("LIMIT_LLM_QUERY", "5 per minute;40 per day")
+LIMIT_VISION = os.getenv("LIMIT_VISION", "10 per minute;100 per day")
+LIMIT_DEFAULT = os.getenv("LIMIT_DEFAULT", "120 per minute")
+
+if RATE_LIMIT_ENABLED:
+    from flask_limiter import Limiter
+    from flask_limiter.util import get_remote_address
+    limiter = Limiter(get_remote_address, app=app, default_limits=[LIMIT_DEFAULT],
+                      storage_uri="memory://")
+else:
+    class _NoLimiter:
+        def limit(self, *_a, **_k):
+            return lambda f: f
+    limiter = _NoLimiter()
+
+# Only these backend paths are reachable through the public gateway. Anything
+# else (e.g. the LLM tester /ui, debug routes) stays internal-only.
+ALLOWED_LLM_PATHS = {"", "models", "preprocess", "query", "feedback"}
+ALLOWED_VISION_PATHS = {"healthz", "predict_image"}
+ENFORCE_ALLOWLIST = os.getenv("ENFORCE_ALLOWLIST", "0") == "1"
+
 # Hop-by-hop headers that must not be forwarded verbatim between proxy hops
 # (RFC 7230 §6.1) — forwarding these breaks chunked responses / connection
 # handling on either side of the proxy.
@@ -122,15 +159,31 @@ def _proxy(target_base: str, path: str) -> Response:
     return Response(upstream.content, status=upstream.status_code, headers=response_headers)
 
 
+def _not_allowed():
+    return Response('{"error":"not_found"}', status=404, mimetype="application/json")
+
+
+# Only /query and /preprocess are expensive on the LLM side (remote model call
+# / full pipeline); everything else falls under the default limit.
+_EXPENSIVE_LLM_PATHS = ("query", "preprocess")
+
+
 @app.route("/api/llm/", defaults={"path": ""}, methods=["GET", "POST"])
 @app.route("/api/llm/<path:path>", methods=["GET", "POST"])
+@limiter.limit(LIMIT_LLM_QUERY, methods=["POST"],
+               exempt_when=lambda: (request.view_args or {}).get("path") not in _EXPENSIVE_LLM_PATHS)
 def proxy_llm(path):
+    if ENFORCE_ALLOWLIST and path not in ALLOWED_LLM_PATHS:
+        return _not_allowed()
     return _proxy(LLM_BACKEND_URL, path)
 
 
 @app.route("/api/vision/", defaults={"path": ""}, methods=["GET", "POST"])
 @app.route("/api/vision/<path:path>", methods=["GET", "POST"])
+@limiter.limit(LIMIT_VISION, methods=["POST"])
 def proxy_vision(path):
+    if ENFORCE_ALLOWLIST and path not in ALLOWED_VISION_PATHS:
+        return _not_allowed()
     return _proxy(VISION_BACKEND_URL, path)
 
 

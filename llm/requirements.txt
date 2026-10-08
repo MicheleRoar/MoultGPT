@@ -29,3 +29,5 @@ pyyaml>=6.0
 # Reading llm/finetuning/MoultDB character annotations.xlsx in
 # llm/eval/trait_extraction/gold_questions.py
 openpyxl>=3.1.0
+# Production WSGI server (docker-compose.prod.yml)
+gunicorn>=22.0.0

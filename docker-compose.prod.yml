@@ -1,0 +1,126 @@
+# MoultGPT — production compose (public demo behind HTTPS)
+#
+# Differences from docker-compose.yml (the local/dev one):
+#   - NO service publishes a port to the host except the entry point
+#     (Caddy 80/443, or nothing at all when using the Cloudflare tunnel).
+#     GROBID, the LLM backend and the vision backend are reachable only on
+#     the internal compose network.
+#   - gunicorn instead of the Flask dev server.
+#   - rate limiting, upload cap, endpoint allowlist and trusted-proxy IP
+#     handling enabled in the gateway.
+#   - memory limits so one runaway service cannot starve the machine.
+#
+# Entry point — pick ONE (see DEPLOY.md):
+#   A) Cloudflare Tunnel (recommended for a server behind a home/office
+#      router: no port forwarding, no public IP needed):
+#        docker compose -f docker-compose.prod.yml --profile tunnel up -d --build
+#   B) Caddy with automatic HTTPS (needs ports 80/443 forwarded to this
+#      machine and DNS pointing at your public IP):
+#        docker compose -f docker-compose.prod.yml --profile caddy up -d --build
+#
+# Required files (NOT in git, copy them to the server first — see DEPLOY.md):
+#   llm/.env                       provider API keys
+#   llm/data/arthropod_taxonomy.csv, llm/data/taxonomy_lookup.pkl,
+#   llm/data/moultdb_moulting_ontology_v3_8.owl
+#   vision/models/*.pt, *.pkl
+#   .env                           DOMAIN=..., TUNNEL_TOKEN=... (see .env.prod.example)
+
+x-restart: &restart
+  restart: unless-stopped
+
+services:
+  grobid:
+    <<: *restart
+    image: lfoppiano/grobid:0.8.0
+    # No "ports:" on purpose — only llm-backend talks to it.
+    mem_limit: 6g
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fs http://localhost:8070/api/isalive || exit 1"]
+      interval: 30s
+      timeout: 5s
+      start_period: 90s
+      retries: 5
+
+  llm-backend:
+    <<: *restart
+    build: ./llm
+    env_file:
+      - ./llm/.env
+    environment:
+      GROBID_URL: http://grobid:8070/api/processFulltextDocument
+    volumes:
+      - ./llm/data:/app/data:ro
+      - llm-feedback:/app/backend/feedback
+    # One worker: the taxonomy lookup (~400 MB) is loaded per worker, and the
+    # gateway already serializes abuse via rate limits. Threads handle the
+    # I/O-bound remote LLM calls.
+    command: ["gunicorn", "-w", "1", "--threads", "4", "-t", "180",
+              "-b", "0.0.0.0:5002", "app:app"]
+    mem_limit: 4g
+    depends_on:
+      grobid:
+        condition: service_started
+
+  vision-backend:
+    <<: *restart
+    build: ./vision
+    volumes:
+      - ./vision/models:/app/models:ro
+    command: ["gunicorn", "-w", "1", "--threads", "2", "-t", "180",
+              "-b", "0.0.0.0:5001", "app:app"]
+    mem_limit: 3g
+
+  gateway:
+    <<: *restart
+    build: ./frontend
+    environment:
+      LLM_BACKEND_URL: http://llm-backend:5002
+      VISION_BACKEND_URL: http://vision-backend:5001
+      TRUST_PROXY: "1"
+      RATE_LIMIT_ENABLED: "1"
+      ENFORCE_ALLOWLIST: "1"
+      MAX_UPLOAD_MB: "20"
+      LIMIT_LLM_QUERY: "5 per minute;40 per day"
+      LIMIT_VISION: "10 per minute;100 per day"
+    # Single worker so the in-memory rate-limit counters are shared.
+    command: ["gunicorn", "-w", "1", "--threads", "8", "-t", "180",
+              "-b", "0.0.0.0:8080", "app:app"]
+    mem_limit: 512m
+    depends_on:
+      - llm-backend
+      - vision-backend
+
+  # --- Entry point A: Cloudflare Tunnel ---------------------------------
+  cloudflared:
+    <<: *restart
+    profiles: ["tunnel"]
+    image: cloudflare/cloudflared:latest
+    command: tunnel --no-autoupdate run
+    environment:
+      TUNNEL_TOKEN: ${TUNNEL_TOKEN:?set TUNNEL_TOKEN in .env}
+    depends_on:
+      - gateway
+    # In the Cloudflare dashboard, point the public hostname at:
+    #   http://gateway:8080
+
+  # --- Entry point B: Caddy with automatic HTTPS -------------------------
+  caddy:
+    <<: *restart
+    profiles: ["caddy"]
+    image: caddy:2
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      DOMAIN: ${DOMAIN:?set DOMAIN in .env}
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      - gateway
+
+volumes:
+  llm-feedback:
+  caddy-data:
+  caddy-config:

@@ -1,0 +1,25 @@
+# Caddy reverse proxy with automatic HTTPS (Let's Encrypt).
+# DOMAIN is injected from .env, e.g. DOMAIN=moultgpt.michele-leone.com
+{$DOMAIN} {
+	encode zstd gzip
+
+	# Hard cap on request bodies at the edge (the gateway enforces its own cap too).
+	request_body {
+		max_size 20MB
+	}
+
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		-Server
+	}
+
+	reverse_proxy gateway:8080 {
+		# Slow remote-LLM / YOLO calls: don't cut them off early.
+		transport http {
+			response_header_timeout 180s
+		}
+	}
+}
