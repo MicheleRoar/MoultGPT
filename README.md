@@ -13,10 +13,25 @@ Extract moulting information about arthropods from **scientific papers** and fro
 | | Papers (`llm/`) | Photographs (`vision/`) |
 |---|---|---|
 | **Input** | DOI, PDF or text, plus a question | An arthropod photo |
-| **How** | Taxonomy and moulting-ontology gates reject out-of-scope papers and questions; the most relevant sentences go to a remote LLM | YOLO11n finds the organism and the shed skin (exuvia); XGBoost estimates the stage from their geometry |
 | **Output** | `Field: value` traits with the evidence sentence | Boxes and the moulting stage with a confidence |
 
 It only answers about moulting in arthropods, and prefers saying nothing to guessing.
+
+## Under the hood
+
+**Papers**
+- DOI → open-access PDF (Unpaywall) → TEI text (GROBID).
+- Scope gates: a taxonomy lookup (regex index over GBIF/NCBI/iNaturalist names) and the MoultDB moulting ontology (OWL) must find arthropods and moulting content, and the question must not target non-arthropods. A failed gate means no LLM call.
+- Sentence selection: ontology-scored sentences, diversified with TF-IDF + K-Means (about 20 sentences).
+- Inference: remote models through a provider-agnostic layer (Mistral, OpenRouter, Gemini), temperature 0, no GPU. Default output is one `Field: value` line per supported trait, unsupported fields skipped.
+- Also in the repo: a model-comparison harness, a trait-extraction benchmark against MoultDB annotations, a query-aware retrieval module (`llm/retrieval/`), and a LoRA/QLoRA + DPO fine-tuning track served with vLLM, kept separate from the live path.
+
+**Photographs**
+- Detector: YOLO11n fine-tuned on two classes, `organism` and `exuviae`. If a whole-image pass finds nothing, one SAHI tiled pass runs (confidence 0.10, overlap 0.35, 900 px slices).
+- Features: box IoU, centroid distance, box positions, exuvia height, mean colour of the organism region, clade one-hot, and indicators for which of the two objects was detected.
+- Stage classifier: XGBoost, `moulting` vs. `post-moult`. Training rows are expanded into full / organism-masked / exuvia-masked variants so one model handles partial detections; `scale_pos_weight` is computed from the data.
+- Evaluation uses an observation-grouped split (`StratifiedGroupKFold` on the iNaturalist observation id), so photos of one observation never fall on both sides.
+- Data are iNaturalist images (CC0, CC-BY, CC-BY-NC), turned into YOLO labels and feature tables by the scripts in `vision/utility/` and `vision/scripts/pipeline/`.
 
 ## Quick start
 
@@ -28,28 +43,15 @@ cp llm/.env.example llm/.env      # add e.g. MISTRAL_API_KEY=...
 docker compose up --build         # then open http://localhost:8080
 ```
 
-To run on a server (HTTPS, rate limits, upload cap) see [DEPLOY.md](DEPLOY.md).
+Four services start: GROBID, the LLM backend (:5002), the vision backend (:5001) and a small gateway (:8080) that serves the page and proxies both. To run on a server (HTTPS, rate limits, upload cap) see [DEPLOY.md](DEPLOY.md). Tests: `cd llm && python -m pytest tests -q`.
 
 ## Status
 
 Research code with a manuscript in preparation.
 
-- The served vision backend uses an older three-class model (`post-moult`, `moulting`, `exuviae`). The unified binary classifier is evaluated in `vision/scripts/pipeline/unified_classifier_eval.py` but not yet served.
+- The served vision backend uses an older three-class model (`post-moult`, `moulting`, `exuviae`). The unified binary classifier above is evaluated in `vision/scripts/pipeline/unified_classifier_eval.py` but not yet served.
 - Vision accuracy is not quoted: the train/evaluation split is being re-audited for overlap.
-- Text results come from a small gold set (21 papers) and an LLM judge from the same model family.
-
-## Text results
-
-Trait extraction against expert annotations (`llm/eval/trait_extraction/results/report.md`). *Correct* is out of 261 questions; *hallucinated* is out of 152 questions whose true answer is "nothing recorded".
-
-| Model | Correct | Abstained | Hallucinated |
-|---|---:|---:|---:|
-| mistral-small | 3 | 246 | 1 (0.7%) |
-| mistral-medium | 10 | 214 | 2 (1.3%) |
-| mistral-large | 30 | 178 | 14 (9.2%) |
-| keyword baseline | 29 | 178 | 21 |
-
-The larger model answers more and also invents more when evidence is missing, which is why the pipeline gates its input and favours abstaining.
+- Text results are in `llm/eval/trait_extraction/results/report.md`, with their limitations (small gold set, LLM judge).
 
 ## Repository
 
