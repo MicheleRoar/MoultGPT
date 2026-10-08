@@ -206,3 +206,6 @@ llm/backend/data/papers_pdf/
 #######################################
 llm/tools/grobid/
 
+
+# Runtime feedback collected by the demo (may contain user text)
+llm/backend/feedback/feedback.jsonl
